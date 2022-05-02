@@ -1,0 +1,16 @@
+{
+  "folders": [
+	{
+		"path": "..\\.."
+	},
+	{
+		"path": "..\\..\\..\\REST API"
+	}
+],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#e73c27"
+    },
+    "liveServer.settings.multiRootWorkspaceName": "NodeJSKHTN"
+  }
+}
