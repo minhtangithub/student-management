@@ -2,11 +2,11 @@ const { Student, Subject } = require("../models/model");
 
 const subjectController = {
   //ADD SUBJECT
-  addStudent: async (req, res) => {
+  addSubject: async (req, res) => {
     try {
       const newSubject = new Subject(req.body);
       const savedSubject = await newSubject.save();
-      res.status(200).json(savedStudent);
+      res.status(200).json(savedSubject);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -26,8 +26,7 @@ const subjectController = {
   getSubject: async (req, res) => {
     try {
       const subject = await Subject.findById(req.params.id).populate(
-        "subjects",
-        "_class"
+        "students"
       );
 
       res.status(200).json(subject);
@@ -48,7 +47,7 @@ const subjectController = {
   },
 
   //DELETE A STUDENT
-  deleteStudent: async (req, res) => {
+  deleteSubject: async (req, res) => {
     try {
       await Student.updateMany({ subjects: req.params.id }, { subjects: null });
       await Subject.findByIdAndDelete(req.params.id);

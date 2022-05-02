@@ -58,7 +58,7 @@ const subjectSchema = new mongoose.Schema({
     unique: true,
   },
   nameSubject: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },

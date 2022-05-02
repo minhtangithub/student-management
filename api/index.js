@@ -7,6 +7,7 @@ const morgan = require("morgan");
 var bodyParser = require("body-parser");
 const studentRoute = require("./routes/student");
 const _classRoute = require("./routes/_class");
+const subjectRoute = require("./routes/subject");
 
 dotenv.config();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.json());
 //ROUTES
 app.use("/api/students", studentRoute);
 app.use("/api/classes", _classRoute);
+app.use("/api/subjects", subjectRoute);
 
 mongoose
   .connect(process.env.MONGO_URL, {
