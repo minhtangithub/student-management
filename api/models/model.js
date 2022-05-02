@@ -52,7 +52,7 @@ const _classSchema = new mongoose.Schema({
 
 //subjectSchema
 const subjectSchema = new mongoose.Schema({
-  codeSubject: {
+  IDSubject: {
     type: String,
     required: true,
     unique: true,

@@ -1,4 +1,4 @@
-const { Student, _Class, Subject } = require("../models/model");
+const { Student, _Class } = require("../models/model");
 
 const _classController = {
   //ADD CLASS
@@ -46,8 +46,8 @@ const _classController = {
   //DELETE A CLASS
   deleteClass: async (req, res) => {
     try {
-      await Book.updateMany({ author: req.params.id }, { author: null });
-      await Author.findByIdAndDelete(req.params.id);
+      await Student.updateMany({ _class: req.params.id }, { _class: null });
+      await _Class.findByIdAndDelete(req.params.id);
       res.status(200).json("Deleted successfully!");
     } catch (err) {
       res.status(500).json(err);

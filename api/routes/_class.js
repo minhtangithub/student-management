@@ -13,4 +13,7 @@ router.get("/:id", _classController.getClass);
 //UPDATE A CLASS
 router.put("/:id", _classController.updateClass);
 
+//DELETE A CLASS
+router.delete("/:id", _classController.deleteClass);
+
 module.exports = router;
