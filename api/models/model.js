@@ -68,13 +68,40 @@ const subjectSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
-  ffMinutesScore: Number, // 15 minutes score
+  fifMinutesScore: Number, // 15 minutes score
   aLessonScore: Number, // a lesson score
   finalScore: Number, // final score
+});
+
+//settings
+const settingSchema = new mongoose.Schema({
+  maxNum: {
+    type: Number,
+    required: true,
+  },
+  minAge: {
+    type: Number,
+    required: true,
+  },
+  maxAge: {
+    type: Number,
+    required: true,
+  },
+  //max Standard Score
+  maxStSc: {
+    type: Number,
+    require: true,
+  },
+  //max Semester:
+  maxSem: {
+    type: Number,
+    required: true,
+  },
 });
 
 let Student = mongoose.model("Student", studentSchema);
 let _Class = mongoose.model("_Class", _classSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
+let Setting = mongoose.model("Setting", settingSchema);
 
-module.exports = { Student, _Class, Subject };
+module.exports = { Student, _Class, Subject, Setting };
