@@ -47,11 +47,11 @@ const subjectSchema = new mongoose.Schema({
 
 //studentSchema
 const studentSchema = new mongoose.Schema({
-  ID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  // ID: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
   fullName: {
     type: String,
     required: true,
@@ -76,9 +76,17 @@ const studentSchema = new mongoose.Schema({
   ],
 });
 
+const gradeSchema = new mongoose.Schema({
+  gradeName: {
+    type: Number,
+    required: true,
+  },
+});
+
 let Student = mongoose.model("Student", studentSchema);
 let _Class = mongoose.model("_Class", _classSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
 let Setting = mongoose.model("Setting", settingSchema);
+let Grade = mongoose.model("Grade", gradeSchema);
 
-module.exports = { Student, _Class, Subject, Setting };
+module.exports = { Student, _Class, Subject, Setting, Grade };
