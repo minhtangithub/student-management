@@ -1,5 +1,50 @@
 const mongoose = require("mongoose");
 
+//settings
+const settingSchema = new mongoose.Schema({
+  Name: {
+    type: String,
+    required: true,
+  },
+  Value: {
+    type: Number,
+    required: true,
+  },
+});
+
+//classSchema
+const _classSchema = new mongoose.Schema({
+  nameClass: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+    },
+  ],
+});
+
+//subjectSchema
+const subjectSchema = new mongoose.Schema({
+  nameSubject: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+    },
+  ],
+  // fifMinutesScore: Number, // 15 minutes score
+  // aLessonScore: Number, // a lesson score
+  // finalScore: Number, // final score
+});
+
 //studentSchema
 const studentSchema = new mongoose.Schema({
   ID: {
@@ -29,74 +74,6 @@ const studentSchema = new mongoose.Schema({
       ref: "Subject",
     },
   ],
-});
-
-//classSchema
-const _classSchema = new mongoose.Schema({
-  nameClass: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  grade: {
-    type: Number,
-    required: true,
-  },
-  students: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
-  ],
-});
-
-//subjectSchema
-const subjectSchema = new mongoose.Schema({
-  idSubject: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  nameSubject: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  students: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
-  ],
-  fifMinutesScore: Number, // 15 minutes score
-  aLessonScore: Number, // a lesson score
-  finalScore: Number, // final score
-});
-
-//settings
-const settingSchema = new mongoose.Schema({
-  maxNum: {
-    type: Number,
-    required: true,
-  },
-  minAge: {
-    type: Number,
-    required: true,
-  },
-  maxAge: {
-    type: Number,
-    required: true,
-  },
-  //max Standard Score
-  maxStSc: {
-    type: Number,
-    require: true,
-  },
-  //max Semester:
-  maxSem: {
-    type: Number,
-    required: true,
-  },
 });
 
 let Student = mongoose.model("Student", studentSchema);
