@@ -83,10 +83,18 @@ const gradeSchema = new mongoose.Schema({
   },
 });
 
+const termSchema = new mongoose.Schema({
+  nameTerm: {
+    type: String,
+    required: true,
+  },
+});
+
 let Student = mongoose.model("Student", studentSchema);
 let _Class = mongoose.model("_Class", _classSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
 let Setting = mongoose.model("Setting", settingSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
+let Term = mongoose.model("Term", termSchema);
 
-module.exports = { Student, _Class, Subject, Setting, Grade };
+module.exports = { Student, _Class, Subject, Setting, Grade, Term };
