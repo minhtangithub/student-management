@@ -9,6 +9,7 @@ const studentRoute = require("./routes/student");
 const _classRoute = require("./routes/_class");
 const subjectRoute = require("./routes/subject");
 const settingRoute = require("./routes/setting");
+const gradeRoute = require("./routes/grade");
 
 dotenv.config();
 app.use(express.json());
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use("/api/students", studentRoute);
 app.use("/api/classes", _classRoute);
 app.use("/api/subjects", subjectRoute);
-app.use("/api/setting", settingRoute);
+app.use("/api/settings", settingRoute);
+app.use("/api/grades", gradeRoute);
 
 mongoose
   .connect(process.env.MONGO_URL, {

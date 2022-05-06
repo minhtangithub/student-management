@@ -54,4 +54,4 @@ const gradeController = {
   },
 };
 
-module.exports = _classController;
+module.exports = gradeController;
