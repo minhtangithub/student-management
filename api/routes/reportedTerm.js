@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const reportedTerm = require("../controller/reportedTermController");
 
-// ADD A SCHOOL_YEAR
+// ADD A  reportedTerm
 router.post("/", reportedTerm.addReportedTerm);
 
-//GET ALL SCHOOL_YEAR
+//GET ALL  reportedTerm
 router.get("/", reportedTerm.getReportedTerms);
 
-//GET A SCHOOL_YEAR
+//GET A  reportedTerm
 router.get("/:id", reportedTerm.getReportedTerm);
 
 module.exports = router;
