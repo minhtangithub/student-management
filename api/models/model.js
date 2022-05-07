@@ -115,11 +115,61 @@ const termSchema = new mongoose.Schema({
   ],
 });
 
+const schoolYearSchema = new mongoose.Schema({
+  nameSchYear: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+});
+
+const reportedSubjectSchema = new mongoose.Schema({
+  _classes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "_Class",
+    },
+  ],
+  totalStudents: {
+    type: Number,
+  },
+  passed: {
+    type: Number,
+  },
+  rate: {
+    type: Number,
+  },
+});
+
+const reportedTermSchema = new mongoose.Schema({
+  terms: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Term",
+  },
+  schoolYears: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "schoolYear",
+  },
+});
+
 let Student = mongoose.model("Student", studentSchema);
 let _Class = mongoose.model("_Class", _classSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
 let Setting = mongoose.model("Setting", settingSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
 let Term = mongoose.model("Term", termSchema);
+let SchoolYear = mongoose.model("schoolYear", schoolYearSchema);
+let ReportedSubject = mongoose.model("reportedSubject", reportedSubjectSchema);
+let ReportedTerm = mongoose.model("reportedTerm", reportedTermSchema);
 
-module.exports = { Student, _Class, Subject, Setting, Grade, Term };
+module.exports = {
+  Student,
+  _Class,
+  Subject,
+  Setting,
+  Grade,
+  Term,
+  SchoolYear,
+  ReportedSubject,
+  ReportedTerm,
+};
