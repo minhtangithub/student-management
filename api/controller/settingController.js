@@ -1,15 +1,15 @@
 const { Setting } = require("../models/model");
 
 const settingController = {
-  //   addSetting: async (req, res) => {
-  //     try {
-  //       const newSetting = new Setting(req.body);
-  //       const savedSetting = await newSetting.save();
-  //       res.status(200).json(savedSetting);
-  //     } catch (err) {
-  //       res.status(500).json(err);
-  //     }
-  //   },
+  addSetting: async (req, res) => {
+    try {
+      const newSetting = new Setting(req.body);
+      const savedSetting = await newSetting.save();
+      res.status(200).json(savedSetting);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 
   //GET SETTING
   getSetting: async (req, res) => {

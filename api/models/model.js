@@ -2,11 +2,17 @@ const mongoose = require("mongoose");
 
 //settings
 const settingSchema = new mongoose.Schema({
-  Name: {
+  idSet: {
     type: String,
     required: true,
+    unique: true,
   },
-  Value: {
+  nameSet: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  valueSet: {
     type: Number,
     required: true,
   },
@@ -29,6 +35,11 @@ const _classSchema = new mongoose.Schema({
 
 //subjectSchema
 const subjectSchema = new mongoose.Schema({
+  idSubject: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   nameSubject: {
     type: String,
     required: true,
@@ -47,11 +58,11 @@ const subjectSchema = new mongoose.Schema({
 
 //studentSchema
 const studentSchema = new mongoose.Schema({
-  // ID: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  // },
+  ID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   fullName: {
     type: String,
     required: true,
@@ -80,14 +91,28 @@ const gradeSchema = new mongoose.Schema({
   gradeName: {
     type: Number,
     required: true,
+    unique: true,
   },
+  _classes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "_Class",
+    },
+  ],
 });
 
 const termSchema = new mongoose.Schema({
   nameTerm: {
     type: String,
     required: true,
+    unique: true,
   },
+  _classes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "_Class",
+    },
+  ],
 });
 
 let Student = mongoose.model("Student", studentSchema);

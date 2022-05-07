@@ -32,7 +32,7 @@ const termController = {
     }
   },
 
-  //UPDATE A CLASS
+  //UPDATE A TERM
   updateTerm: async (req, res) => {
     try {
       const term = await Term.findById(req.params.id);
@@ -43,7 +43,7 @@ const termController = {
     }
   },
 
-  //DELETE A CLASS
+  //DELETE A TERM
   deleteTerm: async (req, res) => {
     try {
       await Term.findByIdAndDelete(req.params.id);
