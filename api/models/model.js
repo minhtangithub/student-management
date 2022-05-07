@@ -51,9 +51,48 @@ const subjectSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
-  // fifMinutesScore: Number, // 15 minutes score
-  // aLessonScore: Number, // a lesson score
-  // finalScore: Number, // final score
+});
+
+//Bảng điểm môn
+const scoreSubjectSchema = new mongoose.Schema({
+  _classes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "_Class",
+    },
+  ],
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    },
+  ],
+  terms: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Term",
+    },
+  ],
+  schoolYears: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SchoolYear",
+    },
+  ],
+});
+
+//Bảng điểm
+const scoreSheetSchema = new mongoose.Schema({
+  scoreSubjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ScoreSubject",
+    },
+  ],
+  fifMinutesScore: Number, // 15 minutes score
+  aLessonScore: Number, // a lesson score
+  finalScore: Number, // final score
+  mediumScore: Number, // medium score
 });
 
 //studentSchema
@@ -124,6 +163,12 @@ const schoolYearSchema = new mongoose.Schema({
 });
 
 const reportedSubjectSchema = new mongoose.Schema({
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    },
+  ],
   _classes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -142,13 +187,30 @@ const reportedSubjectSchema = new mongoose.Schema({
 });
 
 const reportedTermSchema = new mongoose.Schema({
-  terms: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Term",
-  },
+  terms: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Term",
+    },
+  ],
   schoolYears: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "schoolYear",
+  },
+  _classes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "_Class",
+    },
+  ],
+  totalStudents: {
+    type: Number,
+  },
+  passed: {
+    type: Number,
+  },
+  rate: {
+    type: Number,
   },
 });
 
@@ -158,9 +220,11 @@ let Subject = mongoose.model("Subject", subjectSchema);
 let Setting = mongoose.model("Setting", settingSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
 let Term = mongoose.model("Term", termSchema);
-let SchoolYear = mongoose.model("schoolYear", schoolYearSchema);
-let ReportedSubject = mongoose.model("reportedSubject", reportedSubjectSchema);
-let ReportedTerm = mongoose.model("reportedTerm", reportedTermSchema);
+let SchoolYear = mongoose.model("SchoolYear", schoolYearSchema);
+let ReportedSubject = mongoose.model("ReportedSubject", reportedSubjectSchema);
+let ReportedTerm = mongoose.model("ReportedTerm", reportedTermSchema);
+let ScoreSubject = mongoose.model("ScoreSubjectSchema", scoreSubjectSchema);
+let ScoreSheet = mongoose.model("ScoreSheetSchema", scoreSheetSchema);
 
 module.exports = {
   Student,
@@ -172,4 +236,6 @@ module.exports = {
   SchoolYear,
   ReportedSubject,
   ReportedTerm,
+  ScoreSubject,
+  ScoreSheet,
 };

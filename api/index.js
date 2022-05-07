@@ -12,6 +12,8 @@ const settingRoute = require("./routes/setting");
 const gradeRoute = require("./routes/grade");
 const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
+const reportedSubject = require("./routes/reportedSubject");
+const reportedTerm = require("./routes/reportedTerm");
 
 dotenv.config();
 app.use(express.json());
@@ -24,6 +26,8 @@ app.use("/api/settings", settingRoute);
 app.use("/api/grades", gradeRoute);
 app.use("/api/termRoute", termRoute);
 app.use("/api/schoolYears", schoolYearRoute);
+app.use("/api/reportedSubjects", reportedSubject);
+app.use("/app/reportedTerms", reportedTerm);
 
 mongoose
   .connect(process.env.MONGO_URL, {
