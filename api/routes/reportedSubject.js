@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const reportedSubject = require("../controller/reportedSubjectController");
 
-// ADD A SCHOOL_YEAR
+// ADD A REPORTED_SUBJECT
 router.post("/", reportedSubject.addReportedSubject);
 
-//GET ALL SCHOOL_YEAR
+//GET ALL REPORTED_SUBJECT
 router.get("/", reportedSubject.getReportedSubjects);
 
-//GET A SCHOOL_YEAR
+//GET A REPORTED_SUBJECT
 router.get("/:id", reportedSubject.getReportedSubject);
 
 module.exports = router;
