@@ -32,7 +32,7 @@ const scoreSubjectController = {
     }
   },
 
-  //UPDATE SCORE_SHEET
+  //UPDATE score_Sheet
   updateScoreSheet: async (req, res) => {
     try {
       const scoreSheet = await ScoreSheet.findById(req.params.id);
