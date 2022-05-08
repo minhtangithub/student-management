@@ -1,7 +1,7 @@
 const { SchoolYear } = require("../models/model");
 
 const schoolYearController = {
-  //ADD schoolYear
+  //ADD SCHOOL_YEAR
   addSchoolYear: async (req, res) => {
     try {
       const newSchoolYear = new SchoolYear(req.body);

@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const reportedTerm = require("../controller/reportedTermController");
 
-// ADD A  reportedTerm
+// ADD A  REPORTED_TERM
 router.post("/", reportedTerm.addReportedTerm);
 
-//GET ALL  reportedTerm
+//GET ALL  REPORTED_TERM
 router.get("/", reportedTerm.getReportedTerms);
 
-//GET A  reportedTerm
+//GET A  REPORTED_TERM
 router.get("/:id", reportedTerm.getReportedTerm);
 
 module.exports = router;
