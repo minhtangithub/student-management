@@ -1,5 +1,8 @@
 @use "../scss/" as *;
 
+svg {
+  color: #fff;
+}
 .content {
   .general {
     background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
