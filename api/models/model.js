@@ -243,6 +243,7 @@ let ReportedSubject = mongoose.model("ReportedSubject", reportedSubjectSchema);
 let ReportedTerm = mongoose.model("ReportedTerm", reportedTermSchema);
 // let ScoreSubject = mongoose.model("ScoreSubjectSchema", scoreSubjectSchema);
 let ScoreSheet = mongoose.model("ScoreSheetSchema", scoreSheetSchema);
+let CoEffect = mongoose.model("CoEffectSchema", coEffectSchema);
 
 module.exports = {
   Student,
@@ -255,4 +256,5 @@ module.exports = {
   ReportedSubject,
   ReportedTerm,
   ScoreSheet,
+  CoEffect,
 };
