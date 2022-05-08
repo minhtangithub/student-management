@@ -230,7 +230,6 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Navigation } from "react-minimal-side-navigation";
-import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import Logo from "../assets/Logo.png";
 import Home from "../assets/Home.png";
 import Add from "../assets/Add.png";
@@ -242,7 +241,9 @@ import Report from "../assets/Report.png";
 import Setting from "../assets/Setting.png";
 // import { Routes } from "../config/Routes";
 import { useHistory, useLocation } from "react-router-dom";
+import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import "./Sidebar.scss";
+import "./Sidebar_Lib.scss";
 
 const Sidebar = () => {
   const history = useHistory();
