@@ -1,8 +1,14 @@
 @use "../scss/" as *;
-// .homepage {
-// }
 
 .content {
+  .general {
+    background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    margin-top: 70px;
+    margin-bottom: -20px;
+  }
   font-size: 20px;
   color: $text-color;
   display: flex;
@@ -11,8 +17,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px 0px;
-
+    gap: 35px 0px;
+    margin-top: -50px;
     & > h4 {
       text-align: center;
     }
