@@ -1,0 +1,37 @@
+@use "../scss/" as *;
+
+.notification {
+  @include flex(center, center);
+  flex-direction: column;
+  @include overlay();
+  &__container {
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 50px;
+    @include flex(center, center);
+    flex-direction: column;
+    position: relative;
+    button {
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      i {
+        font-size: 50px;
+        background-color: #fff;
+      }
+    }
+
+    img {
+      width: 300px;
+    }
+
+    p {
+      font-size: 25px;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@use "../scss/" as *;
+.setting {
+  & > a {
+    // @include flex(center, center);
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    i {
+      position: relative;
+      top: 2px;
+      left: 2px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.setting,
+.manage-class,
+.manage-subject {
+  @include manage();
+  h4,
+  a {
+    margin-top: 30px;
+    margin-left: 44px;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+.setting .row {
+  @include list-row();
+}
+
+.manage-class .row {
+  @include list-row();
+}
+.manage-subject .row {
+  @include list-row();
+}
+
+.setting,
+.manage-class,
+.manage-subject {
+  input[type="checkbox"] {
+    @include checkbox();
+  }
+
+  // input[type="text"] {
+  //   border: 1px solid #000;
+  // }
+  .item {
+    text-align: center;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    background: none;
+  }
+  .save-btn__container {
+    @include flex(center, center);
+  }
+}
+
+.manage-class ~ .btns {
+  margin-top: 30px;
+}
+
+.manage-subject ~ .btns {
+  margin-top: 30px;
+}

@@ -1,0 +1,103 @@
+@use "../scss/" as *;
+.add-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #7a5cfa;
+  color: #fff;
+
+  a {
+    color: #fff;
+  }
+}
+.save-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #7a5cfa;
+  color: #fff;
+}
+.cancel-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #7a5cfa;
+}
+
+.delete-selected-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #7a5cfa;
+}
+.clear-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #7a5cfa;
+}
+.update-btn {
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #7a5cfa;
+  color: #fff;
+}
+.export-btn {
+  height: 40px;
+  width: 104px;
+  // margin-right: 50px;
+  // @include flex(center, center);
+  background: #f4733a;
+  background: #f4733a;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #ff6928,
+    0px 2px 5px rgba(251, 145, 99, 0.12), inset 0px 1px 0px #f09269;
+  border-radius: 6px;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.btns {
+  button:first-child {
+    margin-right: 69px;
+  }
+}
+
+.save-btn--small {
+  width: 80px;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  border: 1px solid #7a5cfa;
+  border-radius: 8px;
+  background-color: #7a5cfa;
+  color: #fff;
+}

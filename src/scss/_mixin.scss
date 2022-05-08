@@ -1,0 +1,104 @@
+@mixin flex($align-items, $justify-content) {
+  display: flex;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+
+@mixin grid-1() {
+  width: 100%;
+  margin-left: 43px;
+}
+
+@mixin grid-2() {
+  width: 100%;
+  padding-left: 43px;
+  padding-right: 43px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin manage-container {
+  flex: 1;
+  margin-left: 25px;
+  margin-right: 10px;
+  box-shadow: 0px 0px 0px 1px rgba(152, 161, 178, 0.1),
+    0px 1px 4px rgba(69, 75, 87, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+@mixin checkbox {
+  background: #ffffff;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  width: 16px;
+  height: 16px;
+  margin-left: 12px;
+  margin-right: auto;
+}
+
+@mixin heading {
+  padding-top: 25px;
+  padding-bottom: 10px;
+  background: rgba(244, 247, 252, 0.75);
+}
+
+@mixin heading-item {
+  justify-content: center;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@mixin manage {
+  display: flex;
+  flex-direction: column;
+  // h3 {
+  //   margin-left: 40px;
+  //   margin-bottom: 15px;
+  // }
+
+  .container {
+    @include manage-container();
+  }
+}
+
+@mixin overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+// @mixin overlay()
+@mixin list-row {
+  display: flex;
+  color: #000;
+  font-size: 14px;
+  &.heading {
+    @include heading();
+
+    & > .item {
+      @include heading-item();
+    }
+  }
+
+  &.content {
+    padding-top: 14px;
+    padding-bottom: 10px;
+
+    & > .item {
+      justify-content: center;
+    }
+  }
+
+  &.content button:first-child img,
+  &.content button:nth-child(2) img {
+    margin-right: 10px;
+  }
+
+  img {
+    cursor: pointer;
+  }
+}

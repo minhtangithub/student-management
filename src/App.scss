@@ -1,0 +1,137 @@
+@use "./scss/" as *;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+// * {
+//   font-family: "Roboto", sans-serif;
+// }
+
+//******************* reset css*********************
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+// *************** end reset **********
+
+.app {
+  display: flex;
+  // max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.container {
+  flex: 1;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.col-4-percent {
+  width: 4%;
+}
+
+.col-5-percent {
+  width: 5%;
+}
+
+.col-7-percent {
+  width: 7%;
+}
+
+.col-10-percent {
+  width: 10%;
+}
+
+.col-15-percent {
+  width: 15%;
+}
+.col-20-percent {
+  width: 20%;
+}
+.col-25-percent {
+  width: 25%;
+}
+
+.col-27-percent {
+  width: 27%;
+}
+
+.col-30-percent {
+  width: 30%;
+}
+
+.col-33-percent {
+  width: 33.33%;
+}
+
+.col-45-percent {
+  width: 45%;
+}
+
+.col-50-percent {
+  width: 33.33%;
+}
+
+.item.center {
+  justify-content: center;
+}
+
+.item.right {
+  justify-content: flex-end;
+}
+
+.al-center {
+  text-align: center;
+}
+
+.al-left {
+  text-align: left;
+}
+
+.item.break-line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-size: 30px;
+  margin: 50px 0 50px 44px;
+  color: #ff1d1d;
+}
+
+.pl-10 {
+  padding-left: 10px;
+}
+
+.pl-20 {
+  padding-left: 20px;
+}
+
+.pl-50 {
+  padding-left: 50px;
+}
