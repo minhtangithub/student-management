@@ -12,8 +12,6 @@
 // import TopArrow from "../assets/Top-arrow-sidebar.png";
 // import BottomArrow from "../assets/Bottom-arrow.png";
 
-// import { BsSearch } from "react-icons/bs";
-
 // import { Link } from "react-router-dom";
 
 // import { handlerInterfaces } from "../handle-event/HandleEvent.jsx";
@@ -230,12 +228,14 @@
 //=============
 
 import React, { useState } from "react";
+import { BsSearch } from "react-icons/bs";
 import { Navigation } from "react-minimal-side-navigation";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import Logo from "../assets/Logo.png";
 import Home from "../assets/Home.png";
 import Add from "../assets/Add.png";
-import Search from "../assets/Search-icon.png";
+import Search from "../assets/loupe.png";
+
 // import List from "../assets/List.png";
 import StudentSidebar from "../assets/Student-sidebar.png";
 import Report from "../assets/Report.png";
@@ -256,11 +256,11 @@ const Sidebar = () => {
           <h2>Edu School</h2>
         </div>
         <div
-          className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-sky-400 border-r-2 lg:translate-x-0 lg:static lg:inset-0 ${
-            isSidebarOpen
-              ? "ease-out translate-x-0"
-              : "ease-in -translate-x-full"
-          }`}
+        // className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 ease-out transform translate-x-0 bg-sky-400 border-r-2 lg:translate-x-0 lg:static lg:inset-0 ${
+        //   isSidebarOpen
+        //     ? "ease-out translate-x-0"
+        //     : "ease-in -translate-x-full"
+        // }`}
         >
           <Navigation
             // you can use your own router's api to get pathnam
@@ -299,7 +299,9 @@ const Sidebar = () => {
               {
                 title: "Tra cứu",
                 itemId: "/search",
-                elemBefore: () => <img src={Search} alt="" />,
+                elemBefore: () => (
+                  <img src={Search} alt="" width="24px" height="24px" />
+                ),
               },
               {
                 title: "Tạo bảng điểm môn",
