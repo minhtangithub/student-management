@@ -1,7 +1,9 @@
 @use "../scss/" as *;
 
 .sidebar {
-  // width: $sidebar-width;
+  span {
+    font-size: 16px;
+  }
   width: 310px;
   min-height: 100vh;
   background-color: $sidebar-color;
@@ -16,7 +18,7 @@
     }
 
     h2 {
-      color: #ffe76c;
+      color: #f5ee33;
       font-size: 25px;
       font-weight: 700;
     }
@@ -141,27 +143,4 @@
   li:nth-child(3n + 3) {
     animation: rotateX 0.5s ease-in-out forwards;
   }
-}
-
-//library
-// .side-navigation-panel
-//   .side-navigation-panel-select
-//   .side-navigation-panel-select-wrap {
-//   background-color: rgba(25, 25, 143, 0.4);
-//   :hover {
-//     background-color: transparent;
-//   }
-// }
-// .side-navigation-panel *,
-// .side-navigation-panel:after,
-// .side-navigation-panel:before {
-//   background-color: transparent;
-// }
-
-.side-navigation-panel
-  .side-navigation-panel-select
-  .side-navigation-panel-select-inner
-  .side-navigation-panel-select-inner-wrap
-  .side-navigation-panel-select-inner-option-selected {
-  background-color: rgba(25, 25, 143, 0.4);
 }

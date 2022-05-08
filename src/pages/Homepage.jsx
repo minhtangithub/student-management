@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import NumClass from "../assets/Num-of-class.png";
 import NumStudent from "../assets/Num-of-student.png";
 import NumSubject from "../assets/Num-of-subject.png";
@@ -8,11 +8,10 @@ import "./Homepage.scss";
 
 export const Homepage = () => {
   return (
-    <div className='homepage'>
-
+    <div className="homepage">
       <div className="content">
         <div className="content__left">
-          <h4>Tổng quan</h4>
+          <h4 className="general">Tổng quan</h4>
           <div className="num-of-class">
             <h4>Tổng số lớp học</h4>
             <div className="num-and-icon">
@@ -39,7 +38,7 @@ export const Homepage = () => {
           <img className="hero-img" src={HeroImg} alt="" />
           <img className="hero-bg" src={HeroBg} alt="" />
         </div>
-      </div>      
+      </div>
     </div>
-  )
-}
+  );
+};
