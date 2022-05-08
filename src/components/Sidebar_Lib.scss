@@ -37,17 +37,53 @@
   span {
     color: #30bf4a;
   }
-}
+} //120
 
 .side-navigation-panel
   .side-navigation-panel-select
   .side-navigation-panel-select-inner
   .side-navigation-panel-select-inner-wrap
   .side-navigation-panel-select-inner-option-selected {
-  // background-color: white;
   span {
     font-weight: bold;
     color: #fff;
   }
   background: rgba(25, 25, 143, 0.4);
+  margin: -5px 0;
+} //158
+
+.side-navigation-panel *,
+.side-navigation-panel:after,
+.side-navigation-panel:before {
+  content: "";
+  border-color: #e2e8f0;
+  border-style: solid;
+  border-width: 0;
+  box-sizing: border-box;
+  margin: 5px 0px;
+}
+
+.side-navigation-panel ul {
+  list-style-type: none;
+  margin: -5px 0px;
+}
+
+.side-navigation-panel-select-inner *,
+.side-navigation-panel-select-inner:after,
+.side-navigation-panel-select-inner:before {
+  content: "";
+  margin: 5px 0;
+}
+
+.side-navigation-panel
+  .side-navigation-panel-select
+  .side-navigation-panel-select-inner
+  .side-navigation-panel-select-inner-wrap
+  .side-navigation-panel-select-inner-option
+  .side-navigation-panel-select-inner-option-wrap
+  .side-navigation-panel-select-inner-option-text {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
