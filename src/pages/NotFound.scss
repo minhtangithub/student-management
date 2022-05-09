@@ -1,0 +1,23 @@
+@use "../scss/" as *;
+
+.not-found {
+  // background: url(../assets/404_NOT_FOUND.png);
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.not-found-text {
+  width: 400px;
+  color: #f899f9;
+  font-size: 40px;
+  text-align: center;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: drop-shadow(10px 10px 10px #291050);
+}

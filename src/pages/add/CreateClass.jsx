@@ -10,8 +10,20 @@ import { useState } from "react";
 import "./CreateClass.scss";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
+//================
+import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
+import { Input } from "../../components/Input";
 
 export const CreateClass = () => {
+  const classNameArr = classArr.map((item) => {
+    return { value: item.ID, text: item.Name };
+  });
+  const gradeNameArr = gradeArr.map((item) => {
+    return { value: item.ID, text: item.Name };
+  });
+  const schoolYearNameArr = schoolYearArr.map((item) => {
+    return { value: item.ID, text: item.Name };
+  });
   //   const [studentArrState, setStudentArrState] = useState(studentInfoArr);
   const [studentArrTempState, setStudentArrTempState] =
     useState(studentInfoArr);
@@ -112,6 +124,51 @@ export const CreateClass = () => {
         /> */}
           {/* <Detail /> */}
           <h3>Lập danh sách lớp</h3>
+          <h4>Chọn từ danh sách lớp đã có</h4>
+          <div className="grid">
+            <div className="row">
+              {/* <label htmlFor="">Học Sinh</label> */}
+              {/* chọn lớp đã có */}
+              <div className="grid__item option__input">
+                <Input
+                  type="select"
+                  labelText="Tên lớp"
+                  selectName="ClassName"
+                  options={classNameArr}
+                />
+              </div>
+              <div className="grid__item option__input">
+                <Input
+                  type="select"
+                  labelText="Tên khối"
+                  selectName="GradeName"
+                  options={gradeNameArr}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="grid__item option__input">
+                <Input
+                  type="select"
+                  labelText="Năm học"
+                  selectName="SchoolYear"
+                  options={schoolYearNameArr}
+                />
+              </div>
+              <div className="grid__item option__input">
+                <div className="search__btns">
+                  <button
+                    className="search__button"
+                    onClick={handleEvent.handleClickSearchBtn}
+                  >
+                    Chọn
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr></hr>
+          <h4>Tìm tên học sinh</h4>
           <div className="grid">
             <div className="row">
               <div className="grid__item">
@@ -123,16 +180,19 @@ export const CreateClass = () => {
                   className="search__input"
                 />
               </div>
+              <div className="grid__item">
+                <div className="search__btns">
+                  <button
+                    className="search__button"
+                    onClick={handleEvent.handleClickSearchBtn}
+                  >
+                    Tìm kiếm
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="search__btns">
-            <button
-              className="search__button"
-              onClick={handleEvent.handleClickSearchBtn}
-            >
-              Tìm kiếm
-            </button>
-          </div>
+          <hr></hr>
           <h4>Kết quả tìm kiếm</h4>
           <div className="container">
             <div className="row heading">
@@ -185,6 +245,7 @@ export const CreateClass = () => {
             })}
           </div>
         </div>
+        <hr></hr>
         <div className="new-class">
           <h4>Danh sách lớp đang lập</h4>
           <div className="class-info">

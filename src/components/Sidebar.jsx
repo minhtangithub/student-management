@@ -232,8 +232,11 @@ import { BsSearch } from "react-icons/bs";
 import { Navigation } from "react-minimal-side-navigation";
 import Logo from "../assets/Logo.png";
 import Home from "../assets/Home.png";
+import File from "../assets/File.png";
+import Search from "../assets/Search.png";
+import People from "../assets/People.png";
 import Add from "../assets/Add.png";
-import Search from "../assets/loupe.png";
+// import Search from "../assets/loupe.png";
 
 // import List from "../assets/List.png";
 import StudentSidebar from "../assets/Student-sidebar.png";
@@ -247,7 +250,7 @@ import "./Sidebar_Lib.scss";
 
 const Sidebar = () => {
   const history = useHistory();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   // const location = useLocation();
   return (
     <React.Fragment>
@@ -277,12 +280,17 @@ const Sidebar = () => {
                 itemId: "/",
                 // you can use your own custom Icon component as well
                 // icon is optional
-                elemBefore: () => <img src={Home} alt="" />,
+                elemBefore: () => (
+                  <img src={Home} alt="" />
+                  //<i class="fa-solid fa-house"></i>
+                ),
               },
               {
                 title: "Thêm",
                 itemId: "/:id",
-                elemBefore: () => <img src={Add} alt="" />,
+                elemBefore: () => (
+                  <img src={Add} alt="" /> //<i class="fa-solid fa-tv"></i>
+                ),
                 subNav: [
                   {
                     title: "Tiếp nhận học sinh",
@@ -301,18 +309,22 @@ const Sidebar = () => {
                 title: "Tra cứu",
                 itemId: "/search",
                 elemBefore: () => (
-                  <img src={Search} alt="" width="24px" height="24px" />
+                  <img src={Search} alt="" /> //<i class="fa-solid fa-magnifying-glass"></i>
                 ),
               },
               {
                 title: "Tạo bảng điểm môn",
                 itemId: "/score",
-                elemBefore: () => <img src={StudentSidebar} alt="" />,
+                elemBefore: () => (
+                  <img src={People} alt="" /> //<i class="fa-solid fa-user-graduate"></i>
+                ),
               },
               {
                 title: "Báo cáo",
                 itemId: "*",
-                elemBefore: () => <img src={Report} alt="" />,
+                elemBefore: () => (
+                  <img src={File} alt="" /> //<i class="fa-solid fa-file-lines"></i>
+                ),
                 subNav: [
                   {
                     title: "Báo cáo môn học",
@@ -328,7 +340,10 @@ const Sidebar = () => {
               {
                 title: "Thay đổi quy định",
                 itemId: "/setting",
-                elemBefore: () => <img src={Setting} alt="" />,
+                elemBefore: () => (
+                  <img src={Setting} alt="" />
+                  //<i class="fa-solid fa-gears"></i>
+                ),
                 subNav: [
                   {
                     title: "Danh sách tham số",

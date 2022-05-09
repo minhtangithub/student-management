@@ -1,13 +1,15 @@
 @use "../scss/" as *;
 .add-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #7a5cfa;
+  background-color: #307ef4;
+
   color: #fff;
 
   a {
@@ -15,62 +17,68 @@
   }
 }
 .save-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #7a5cfa;
+  background-color: #307ef4;
   color: #fff;
 }
 .cancel-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
   background-color: #fff;
-  color: #7a5cfa;
+  color: #307ef4;
 }
 
 .delete-selected-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
   background-color: #fff;
-  color: #7a5cfa;
+  color: #307ef4;
 }
 .clear-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
   background-color: #fff;
-  color: #7a5cfa;
+  color: #307ef4;
 }
 .update-btn {
+  @include btn;
   width: 140px;
   padding: 16px;
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #7a5cfa;
+  background-color: #307ef4;
   color: #fff;
 }
 .export-btn {
+  @include btn;
   height: 40px;
   width: 104px;
   // margin-right: 50px;
@@ -96,8 +104,8 @@
   text-align: center;
   font-size: 14px;
   line-height: 24px;
-  border: 1px solid #7a5cfa;
+  border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #7a5cfa;
+  background-color: #307ef4;
   color: #fff;
 }

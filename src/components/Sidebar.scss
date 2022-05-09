@@ -1,6 +1,9 @@
 @use "../scss/" as *;
 
 .sidebar {
+  position: sticky;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: #050505;
   span {
     font-size: 18px;
   }
@@ -10,15 +13,17 @@
   display: flex;
   flex-direction: column;
   .logo {
-    margin: 50px auto 70px 20px;
+    margin: 30px auto 50px 20px;
     @include flex(center, center);
 
     img {
       margin-right: 15px;
+      width: 100px;
+      height: 100px;
     }
 
     h2 {
-      color: #f5ee33;
+      color: #603af8;
       font-size: 25px;
       font-weight: 700;
     }
@@ -47,7 +52,8 @@
       color: #fff;
     }
     li {
-      color: $text-color;
+      // color: $text-color;
+      color: #050505;
       font-size: $sidebar-fontsize;
       font-weight: 400;
       flex: 1;
