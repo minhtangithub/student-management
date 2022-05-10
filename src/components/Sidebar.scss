@@ -1,4 +1,5 @@
 @use "../scss/" as *;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
 
 .sidebar {
   position: sticky;
@@ -21,13 +22,17 @@
       width: 100px;
       height: 100px;
     }
-
     h2 {
       background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-size: 25px;
       font-weight: 700;
+      font-family: "Poppins";
+      background: linear-gradient(90deg, #316dfc 0%, #31c8fc 45%, #6dffd1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
 }

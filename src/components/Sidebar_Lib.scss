@@ -4,6 +4,8 @@ svg {
 
 .sidebar {
   img {
+    width: 48px;
+    height: 48px;
     width: 40px;
     height: 40px;
   }
@@ -16,7 +18,13 @@ svg {
   color: #050505;
 
   // background: rgba(25, 25, 143, 0.4);
-  background-color: #fffbf9;
+  background-color: #f9f9f9;
+  transform: scale(1);
+  // border-radius: 6px;
+  img,
+  span {
+    transform: scale(1.04);
+  }
 } //43
 
 .side-navigation-panel
@@ -67,7 +75,7 @@ svg {
     color: #050505;
   }
   background-color: #e4e6e8;
-  margin: -5px 0;
+  // margin: -5px 0;
 } //158
 
 .side-navigation-panel *,
@@ -78,19 +86,19 @@ svg {
   border-style: solid;
   border-width: 0;
   box-sizing: border-box;
-  margin: 5px 0px;
+  // margin: 5px 0px;
 }
 
 .side-navigation-panel ul {
   list-style-type: none;
-  margin: -5px 0px;
+  // margin: -5px 0px;
 }
 
 .side-navigation-panel-select-inner *,
 .side-navigation-panel-select-inner:after,
 .side-navigation-panel-select-inner:before {
   content: "";
-  margin: 5px 0;
+  // margin: 5px 0;
 }
 
 .side-navigation-panel
@@ -104,4 +112,17 @@ svg {
   line-height: 1.25rem;
   margin-left: 0.75rem;
   margin-right: 0.75rem;
+}
+
+svg {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    z-index: 1;
+    color: white;
+  }
 }
