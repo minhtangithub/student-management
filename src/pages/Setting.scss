@@ -47,6 +47,7 @@
 .manage-subject {
   input[type="checkbox"] {
     @include checkbox();
+    margin-left: auto;
   }
 
   // input[type="text"] {
@@ -71,4 +72,11 @@
 
 .manage-subject ~ .btns {
   margin-top: 30px;
+}
+
+.manage-class {
+  .container {
+    width: 70%;
+    margin: 0 auto;
+  }
 }
