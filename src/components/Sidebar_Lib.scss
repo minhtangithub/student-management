@@ -4,8 +4,13 @@ svg {
 
 .sidebar {
   img {
+<<<<<<< HEAD
     width: 48px;
     height: 48px;
+=======
+    width: 40px;
+    height: 40px;
+>>>>>>> 2f74539c4c98b7a5ff0f2127d6ce2c9185fa37e6
   }
 }
 
@@ -34,6 +39,9 @@ svg {
 
   // background: rgba(25, 25, 143, 0.4);
   background-color: #e4e6e8;
+  span {
+    font-weight: bold !important;
+  }
 } //92
 
 .side-navigation-panel
