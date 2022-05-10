@@ -49,6 +49,7 @@ input {
   flex: 1;
   display: inline-flex;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 
 .col-4-percent {
@@ -143,6 +144,10 @@ h3 {
 
 .pl-50 {
   padding-left: 50px;
+}
+
+.pl-80 {
+  padding-left: 80px;
 }
 
 .ml-20 {

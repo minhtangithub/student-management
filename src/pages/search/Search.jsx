@@ -192,21 +192,26 @@ export const Search = () => {
               className="search__input"
             />
           </div>
+          <div className="grid__item">
+            <div className="search__btns">
+              <button
+                className="search__button"
+                onClick={handleEvent.handleClickSearchBtn}
+              >
+                Tìm kiếm
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="search__btns">
-        <button
-          className="search__button"
-          onClick={handleEvent.handleClickSearchBtn}
-        >
-          Tìm kiếm
-        </button>
-      </div>
+
       <h4>Kết quả tìm kiếm</h4>
 
       <div className="container">
         <div className="row heading">
-          <div className="item col-30-percent center al-center">Họ Tên</div>
+          <div className="item col-30-percent center al-left pl-50 ml-20">
+            Họ Tên
+          </div>
           <div className="item col-10-percent center al-center">Lớp</div>
           <div className="item col-20-percent center al-center">TBHKI</div>
           <div className="item col-20-percent center al-center">TBHKII</div>
@@ -217,7 +222,7 @@ export const Search = () => {
           return (
             <>
               <div className="row content">
-                <div className="item col-30-percent center pl-50">
+                <div className="item col-30-percent center al-left pl-50">
                   {item.Name}
                 </div>
                 <div className="item col-10-percent center al-center">
