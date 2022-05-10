@@ -81,6 +81,7 @@
       position: absolute;
       top: 35px;
       left: 50px;
+      z-index: 1;
     }
 
     .hero-bg {
@@ -88,7 +89,7 @@
       height: 66%;
       object-fit: cover;
       object-position: top center;
-      z-index: -1;
+      z-index: 0;
       position: absolute;
       transform: translate(12%, 45%);
     }

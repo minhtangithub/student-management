@@ -23,7 +23,9 @@
     }
 
     h2 {
-      color: #603af8;
+      background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-size: 25px;
       font-weight: 700;
     }

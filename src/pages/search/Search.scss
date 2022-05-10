@@ -9,6 +9,7 @@
   .search__btns {
     text-align: left;
     .search__button {
+      @include btn;
       margin-left: 25px;
       margin-bottom: 30px;
       width: 140px;
@@ -16,9 +17,9 @@
       text-align: center;
       font-size: 16px;
       line-height: 24px;
-      border: 1px solid #7a5cfa;
+      border: 1px solid #307ef4;
       border-radius: 8px;
-      background-color: #7a5cfa;
+      background-color: #307ef4;
       color: #fff;
     }
   }
@@ -37,7 +38,7 @@
     border-radius: 8px;
 
     &:focus {
-      outline: 2px solid #7a5cfa;
+      outline: 2px solid #307ef4;
     }
   }
 
@@ -49,9 +50,9 @@
     //   text-align: center;
     //   font-size: 14px;
     //   line-height: 24px;
-    //   border: 1px solid #7a5cfa;
+    //   border: 1px solid #307ef4;
     //   border-radius: 8px;
-    //   background-color: #7a5cfa;
+    //   background-color: #307ef4;
     //   color: #fff;
     // }
   }
