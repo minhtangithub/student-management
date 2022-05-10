@@ -24,6 +24,7 @@
     }
 
     .num-of-class {
+      cursor: pointer;
       width: 330px;
       // margin-left: 35px;
       // margin-right: 45px;
@@ -33,12 +34,14 @@
     }
 
     .num-of-subject {
+      cursor: pointer;
       width: 330px;
       background: linear-gradient(75deg, #fafc6e 0%, #ffce30 100%);
       border-radius: 30px;
     }
 
     .num-of-student {
+      cursor: pointer;
       width: 330px;
       background: linear-gradient(75deg, #fc728f 0%, #ec3e63 100%);
       border-radius: 30px;
@@ -75,27 +78,27 @@
     position: relative;
 
     .hero-img {
-      width: 90%;
+      width: 88%;
       object-fit: cover;
       object-position: center;
       position: absolute;
-      top: 35px;
+      top: 40px;
       left: 50px;
       z-index: 1;
-<<<<<<< HEAD
       animation: shake 1.5s linear infinite alternate;
-=======
->>>>>>> 2f74539c4c98b7a5ff0f2127d6ce2c9185fa37e6
     }
 
     .hero-bg {
-      width: 78%;
-      height: 66%;
+      position: absolute;
+      width: 75%;
+      height: 65%;
       object-fit: cover;
       object-position: top center;
       z-index: 0;
-      position: absolute;
-      transform: translate(12%, 45%);
+      transform: translate(13%, 50%);
+      box-shadow: rgba(#54ffeb, 0.4) 5px 5px, rgba(#53fff6, 0.3) 10px 10px,
+        rgba(#52fcff, 0.2) 15px 15px, rgba(#51f0ff, 0.1) 20px 20px,
+        rgba(#51e4ff, 0.05) 25px 25px;
     }
   }
 }
