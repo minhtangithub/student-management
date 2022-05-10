@@ -60,17 +60,20 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #a770ef;
+  // border: 1px solid #16c784;
   border-radius: 8px;
   background-image: linear-gradient(to right, #fff 0%, #fff 100%) !important;
-  color: #a770ef;
+  color: #050505;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   &:hover {
-    color: #cf8bf3;
     background-image: linear-gradient(
       to right,
-      #fff 0%,
-      rgba(248, 205, 255, 0.645) 100%
+      #eaeaec 0%,
+      #eaeaec 100%
     ) !important;
+    color: #050505;
+    box-shadow: none;
   }
 }
 .update-btn {
