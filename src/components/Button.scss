@@ -6,9 +6,9 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #307ef4;
+  // background-color: #307ef4;
 
   color: #fff;
 
@@ -23,9 +23,9 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #307ef4;
+  // background-color: #307ef4;
   color: #fff;
 }
 .cancel-btn {
@@ -35,10 +35,10 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
   background-color: #fff;
-  color: #307ef4;
+  // color: #307ef4;
 }
 
 .delete-selected-btn {
@@ -48,10 +48,10 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
   background-color: #fff;
-  color: #307ef4;
+  // color: #307ef4;
 }
 .clear-btn {
   @include btn;
@@ -60,10 +60,18 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  border: 1px solid #a770ef;
   border-radius: 8px;
-  background-color: #fff;
-  color: #307ef4;
+  background-image: linear-gradient(to right, #fff 0%, #fff 100%) !important;
+  color: #a770ef;
+  &:hover {
+    color: #cf8bf3;
+    background-image: linear-gradient(
+      to right,
+      #fff 0%,
+      rgba(248, 205, 255, 0.645) 100%
+    ) !important;
+  }
 }
 .update-btn {
   @include btn;
@@ -72,9 +80,9 @@
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #307ef4;
+  // background-color: #307ef4;
   color: #fff;
 }
 .export-btn {
@@ -83,16 +91,39 @@
   width: 104px;
   // margin-right: 50px;
   // @include flex(center, center);
-  background: #f4733a;
-  background: #f4733a;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #ff6928,
-    0px 2px 5px rgba(251, 145, 99, 0.12), inset 0px 1px 0px #f09269;
+  // background: #f4733a;
+  // box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #ff6928,
+  //   0px 2px 5px rgba(251, 145, 99, 0.12), inset 0px 1px 0px #f09269;
+
   border-radius: 6px;
   color: #fff;
   letter-spacing: 0.02em;
+  margin-bottom: 50px;
+
+  background-image: linear-gradient(
+    to right,
+    #ff7e5f 0%,
+    #feb47b 51%,
+    #ff7e5f 100%
+  );
+
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .btns {
+  @include flex(center, right);
+  margin-right: 50px;
   button:first-child {
     margin-right: 69px;
   }
@@ -104,8 +135,8 @@
   text-align: center;
   font-size: 14px;
   line-height: 24px;
-  border: 1px solid #307ef4;
+  // border: 1px solid #307ef4;
   border-radius: 8px;
-  background-color: #307ef4;
+  // background-color: #307ef4;
   color: #fff;
 }

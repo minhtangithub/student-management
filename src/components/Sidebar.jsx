@@ -347,16 +347,16 @@ const Sidebar = () => {
                 subNav: [
                   {
                     title: "Danh sách tham số",
-                    itemId: "/setting-list",
+                    itemId: "/setting/setting-list",
                     // Requires v1.9.1+ (https://github.com/abhijithvijayan/react-minimal-side-navigation/issues/13)
                   },
                   {
                     title: "Danh sách lớp",
-                    itemId: "/class-list",
+                    itemId: "/setting/class-list",
                   },
                   {
                     title: "Danh sách môn học",
-                    itemId: "/subject-list",
+                    itemId: "/setting/subject-list",
                   },
                 ],
               },

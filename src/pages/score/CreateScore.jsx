@@ -64,7 +64,9 @@ export const CreateScore = () => {
           <div className="container">
             <div className="row heading">
               <div className="item col-10-percent center al-center">STT</div>
-              <div className="item col-30-percent center al-center">Họ Tên</div>
+              <div className="item col-30-percent center al-left pl-50">
+                Họ Tên
+              </div>
               <div className="item col-20-percent center al-center">
                 Điểm 15'
               </div>
@@ -80,7 +82,7 @@ export const CreateScore = () => {
                 <div className="item col-10-percent center al-center">
                   {i + 1}
                 </div>
-                <div className="item col-30-percent center al-center">
+                <div className="item col-30-percent center al-left pl-50">
                   {item.Name}
                 </div>
                 <div className="item col-20-percent center al-center min-15">
@@ -110,7 +112,9 @@ export const CreateScore = () => {
           <div className="container">
             <div className="row heading">
               <div className="item col-10-percent center al-center">STT</div>
-              <div className="item col-30-percent center al-center">Họ Tên</div>
+              <div className="item col-30-percent center al-left pl-50">
+                Họ Tên
+              </div>
               <div className="item col-20-percent center al-center">
                 Điểm 15'
               </div>
@@ -126,7 +130,7 @@ export const CreateScore = () => {
                 <div className="item col-10-percent center al-center">
                   {i + 1}
                 </div>
-                <div className="item col-30-percent center al-center">
+                <div className="item col-30-percent center al-left pl-50">
                   {item.Name}
                 </div>
                 <div className="item col-20-percent center al-center min-15">

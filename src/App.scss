@@ -97,6 +97,11 @@ input {
   width: 33.33%;
 }
 
+.center {
+  display: flex;
+  align-items: center;
+}
+
 .item.center {
   justify-content: center;
 }
@@ -111,6 +116,7 @@ input {
 
 .al-left {
   text-align: left;
+  justify-content: flex-start !important;
 }
 
 .item.break-line {
