@@ -28,19 +28,19 @@
       // margin-left: 35px;
       // margin-right: 45px;
       // margin-bottom: 85px;
-      background-color: #1ccaef;
+      background: linear-gradient(75deg, #a5e7ff 0%, #1ccaef 100%);
       border-radius: 30px;
     }
 
     .num-of-subject {
       width: 330px;
-      background-color: #ffd135;
+      background: linear-gradient(75deg, #fafc6e 0%, #ffce30 100%);
       border-radius: 30px;
     }
 
     .num-of-student {
       width: 330px;
-      background-color: #ec3e63;
+      background: linear-gradient(75deg, #fc728f 0%, #ec3e63 100%);
       border-radius: 30px;
     }
 
@@ -81,6 +81,8 @@
       position: absolute;
       top: 35px;
       left: 50px;
+      z-index: 1;
+      animation: shake 1.5s linear infinite alternate;
     }
 
     .hero-bg {
@@ -88,9 +90,21 @@
       height: 66%;
       object-fit: cover;
       object-position: top center;
-      z-index: -1;
+      z-index: 0;
       position: absolute;
       transform: translate(12%, 45%);
     }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateY(10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-15px) rotate(-1deg);
   }
 }
