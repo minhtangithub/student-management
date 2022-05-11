@@ -4,6 +4,7 @@
   width: 100%;
   @include flex(center, center);
   flex-direction: column;
+  overflow: hidden;
   &-top {
     width: 100%;
     height: 30%;
@@ -23,9 +24,9 @@
       background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-size: 30px;
+      font-size: 20px;
       // margin-left: 100px;
-      // margin-top: 70px;
+      margin-top: 20px;
       // margin-bottom: -20px;
       text-align: left;
     }
@@ -45,8 +46,8 @@
       @include flex(center, center);
       flex-direction: column;
       cursor: pointer;
-      width: 250px;
-      height: 150px;
+      width: 245px;
+      height: 140px;
       // margin-left: 35px;
       // margin-right: 45px;
       // margin-bottom: 85px;
@@ -59,8 +60,8 @@
       @include flex(center, center);
       flex-direction: column;
       cursor: pointer;
-      width: 250px;
-      height: 150px;
+      width: 245px;
+      height: 140px;
       background: linear-gradient(75deg, #fafc6e 0%, #ffce30 100%);
       border-radius: 30px;
       overflow: hidden;
@@ -70,8 +71,8 @@
       @include flex(center, center);
       flex-direction: column;
       cursor: pointer;
-      width: 250px;
-      height: 150px;
+      width: 245px;
+      height: 140px;
       background: linear-gradient(75deg, #fc728f 0%, #ec3e63 100%);
       border-radius: 30px;
       overflow: hidden;
@@ -86,8 +87,8 @@
       @include flex(center, center);
       flex-direction: column;
       cursor: pointer;
-      width: 250px;
-      height: 150px;
+      width: 245px;
+      height: 140px;
       background: linear-gradient(75deg, #6cfa99 0%, #42ed77 100%);
       border-radius: 30px;
       overflow: hidden;
@@ -100,6 +101,7 @@
 
     h4 {
       display: inline-block;
+      font-size: 16px;
       margin-top: 30px;
       margin-left: 33px;
       text-transform: uppercase;
@@ -128,22 +130,25 @@
 
   &-bottom {
     width: 100%;
-    height: 70%;
+    height: 60%;
     padding-top: 50px;
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
     @include flex(center, center);
     margin-top: -50px;
   }
 
   &__left {
-    width: 40%;
+    width: 50%;
     @include flex(flex-start, left);
     flex-direction: column;
     padding-left: 70px;
     position: relative;
-
+    margin-top: -110px;
     .content-heading {
+      font-size: 40px;
+      font-weight: 700;
       width: 100%;
+      line-height: 1.3;
       padding-bottom: 20px;
       font-family: "Poppins";
       color: #273d58;
@@ -151,10 +156,10 @@
     }
 
     .content-desc {
+      font-size: 20px;
       padding-bottom: 50px;
       color: #6f7686;
       z-index: 1;
-
       font-family: "Poppins";
     }
 
@@ -192,31 +197,32 @@
   }
 
   &__right {
-    width: 60%;
+    width: 50%;
+    // min-height: 400px;
     position: relative;
     // overflow: hidden;
     // background: red;
 
     .hero-img {
-      width: 70%;
+      width: 90%;
       object-fit: cover;
       object-position: center;
       position: absolute;
-      top: 0px;
-      left: 145px;
+      top: -10px;
+      left: -30px;
       z-index: 2;
       animation: shake 1.5s linear infinite alternate;
     }
 
     .hero-bg {
       // position: absolute;
-      width: 75%;
+      width: 100%;
       height: 65%;
       margin-right: 20px;
       object-fit: cover;
       object-position: top center;
       z-index: 1;
-      transform: translateX(85px);
+      transform: translate(-90px, 0px);
       // transform: translate(13%, 50%);
       // box-shadow: rgba(#54ffeb, 0.4) 5px 5px, rgba(#53fff6, 0.3) 10px 10px,
       //   rgba(#52fcff, 0.2) 15px 15px, rgba(#51f0ff, 0.1) 20px 20px,

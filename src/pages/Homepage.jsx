@@ -51,7 +51,8 @@ export const Homepage = () => {
               Smart And<br></br>Intelligence Tool For<br></br> School Management
             </h1>
             <div className="content-desc">
-              Education is smart enough to change the human mind positively!
+              Education is smart enough to change the <br></br> human mind
+              positively!
             </div>
             <button className="btn-start">
               Get Started <img src={ArrowRight} alt="" className="img-start" />

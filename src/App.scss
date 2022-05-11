@@ -52,12 +52,13 @@ input {
 
 .container {
   width: calc(100% - 310px);
+  // height: 100vh;
   // background-color: #f0f2f5;
   background-color: #f0f2f5;
   flex: 1;
   display: inline-flex;
   flex-direction: column;
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
 }
 
 .col-4-percent {
