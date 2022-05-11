@@ -3,16 +3,17 @@
 
 .sidebar {
   position: fixed;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  color: #050505;
-  span {
-    font-size: 18px;
-  }
   width: 310px;
   min-height: 100vh;
   background-color: $sidebar-color;
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: #050505;
+  span {
+    font-size: 18px;
+  }
+
   .logo {
     margin: 30px auto 50px 20px;
     @include flex(center, center);

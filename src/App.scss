@@ -1,6 +1,7 @@
 @use "./scss/" as *;
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
 
 // * {
 //   font-family: "Roboto", sans-serif;
@@ -36,6 +37,7 @@ input {
 // *************** end reset **********
 
 .app {
+  width: 100%;
   display: flex;
   // max-width: 1440px;
   margin-left: auto;
@@ -49,6 +51,7 @@ input {
 }
 
 .container {
+  width: calc(100% - 310px);
   // background-color: #f0f2f5;
   background-color: #f0f2f5;
   flex: 1;

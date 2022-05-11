@@ -1,63 +1,112 @@
 @use "../scss/" as *;
 
 .content {
-  .general {
-    background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 30px;
-    margin-top: 70px;
-    margin-bottom: -20px;
-  }
-  font-size: 20px;
-  color: $text-color;
-  display: flex;
-  &__left {
-    width: 40%;
-    display: flex;
+  width: 100%;
+  @include flex(center, center);
+  flex-direction: column;
+  &-top {
+    width: 100%;
+    height: 30%;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: $text-color;
+    @include flex(center, space-between);
     flex-direction: column;
-    align-items: center;
-    gap: 35px 0px;
-    margin-top: -50px;
+
     & > h4 {
       text-align: center;
     }
 
+    .general {
+      // width: 100%;
+      transform: translateX(-480px);
+      background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 30px;
+      // margin-left: 100px;
+      // margin-top: 70px;
+      // margin-bottom: -20px;
+      text-align: left;
+    }
+    .content-num {
+      width: 100%;
+      @include flex(center, center);
+      gap: 0 40px;
+      padding: 15px 0 20px;
+
+      & h4 {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
     .num-of-class {
+      @include flex(center, center);
+      flex-direction: column;
       cursor: pointer;
-      width: 330px;
-      height: 197px;
+      width: 250px;
+      height: 150px;
       // margin-left: 35px;
       // margin-right: 45px;
       // margin-bottom: 85px;
       background: linear-gradient(75deg, #a5e7ff 0%, #1ccaef 100%);
       border-radius: 30px;
+      overflow: hidden;
     }
 
     .num-of-subject {
+      @include flex(center, center);
+      flex-direction: column;
       cursor: pointer;
-      width: 330px;
-      height: 197px;
+      width: 250px;
+      height: 150px;
       background: linear-gradient(75deg, #fafc6e 0%, #ffce30 100%);
       border-radius: 30px;
+      overflow: hidden;
     }
 
     .num-of-student {
+      @include flex(center, center);
+      flex-direction: column;
       cursor: pointer;
-      width: 330px;
-      height: 197px;
+      width: 250px;
+      height: 150px;
       background: linear-gradient(75deg, #fc728f 0%, #ec3e63 100%);
       border-radius: 30px;
+      overflow: hidden;
+
+      .num-and-icon img {
+        width: 60px;
+        height: 40px;
+      }
+    }
+
+    .num-of-grade {
+      @include flex(center, center);
+      flex-direction: column;
+      cursor: pointer;
+      width: 250px;
+      height: 150px;
+      background: linear-gradient(75deg, #6cfa99 0%, #3cec76 100%);
+      border-radius: 30px;
+      overflow: hidden;
+
+      .num-and-icon img {
+        width: 60px;
+        height: 40px;
+      }
     }
 
     h4 {
       display: inline-block;
-      margin-top: 44px;
+      margin-top: 30px;
       margin-left: 33px;
       text-transform: uppercase;
     }
 
     .num-and-icon {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       h1 {
@@ -69,39 +118,109 @@
       }
 
       img {
-        margin-right: 45px;
-        margin-bottom: 45px;
+        width: 50px;
+        height: 50px;
+        margin-top: 10px;
+        margin-right: 20px;
       }
+    }
+  }
+
+  &-bottom {
+    width: 100%;
+    height: 70%;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    @include flex(center, center);
+    margin-top: -50px;
+  }
+
+  &__left {
+    width: 40%;
+    @include flex(flex-start, left);
+    flex-direction: column;
+    padding-left: 70px;
+    position: relative;
+
+    .content-heading {
+      width: 100%;
+      padding-bottom: 20px;
+      font-family: "Poppins";
+      color: #273d58;
+      z-index: 1;
+    }
+
+    .content-desc {
+      padding-bottom: 50px;
+      color: #6f7686;
+      z-index: 1;
+
+      // font-family: "Poppins";
+    }
+
+    .btn-start {
+      // font-family: "Poppins";
+      padding: 10px 15px;
+      background-color: #6564ed;
+      color: #fff;
+      border-radius: 20rem;
+      border: none;
+      outline: none;
+      font-size: 20px;
+      @include flex(center, center);
+      align-self: flex-start;
+      margin-left: 50px;
+      z-index: 1;
+    }
+
+    .img-start {
+      width: 32px;
+      height: 32px;
+      margin-left: 15px;
+      z-index: 1;
+    }
+
+    .text-bg {
+      position: absolute;
+      top: 90px;
+      left: 20px;
+      z-index: 0;
+      width: 180px;
+      object-fit: cover;
+      object-position: center;
     }
   }
 
   &__right {
     width: 60%;
-
     position: relative;
+    // overflow: hidden;
+    // background: red;
 
     .hero-img {
-      width: 88%;
+      width: 70%;
       object-fit: cover;
       object-position: center;
       position: absolute;
-      top: 40px;
-      left: 50px;
-      z-index: 1;
+      top: 0px;
+      left: 145px;
+      z-index: 2;
       animation: shake 1.5s linear infinite alternate;
     }
 
     .hero-bg {
-      position: absolute;
+      // position: absolute;
       width: 75%;
       height: 65%;
+      margin-right: 20px;
       object-fit: cover;
       object-position: top center;
-      z-index: 0;
-      transform: translate(13%, 50%);
-      box-shadow: rgba(#54ffeb, 0.4) 5px 5px, rgba(#53fff6, 0.3) 10px 10px,
-        rgba(#52fcff, 0.2) 15px 15px, rgba(#51f0ff, 0.1) 20px 20px,
-        rgba(#51e4ff, 0.05) 25px 25px;
+      z-index: 1;
+      transform: translateX(85px);
+      // transform: translate(13%, 50%);
+      // box-shadow: rgba(#54ffeb, 0.4) 5px 5px, rgba(#53fff6, 0.3) 10px 10px,
+      //   rgba(#52fcff, 0.2) 15px 15px, rgba(#51f0ff, 0.1) 20px 20px,
+      //   rgba(#51e4ff, 0.05) 25px 25px;
     }
   }
 }
