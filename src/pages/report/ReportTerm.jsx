@@ -1,5 +1,5 @@
 import React from "react";
-import "./ReportSubject.scss";
+import "./ReportTerm.scss";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -13,7 +13,7 @@ export const ReportTerm = () => {
     return { value: item.ID, text: item.Name };
   });
   return (
-    <div className="report-subject">
+    <div className="report-term">
       <h3>Tạo báo cáo tổng kết học kì</h3>
       <div className="grid">
         <div className="row">

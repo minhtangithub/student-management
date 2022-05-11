@@ -12,6 +12,7 @@ function App() {
           render={(props) => (
             <>
               <Sidebar></Sidebar>
+              <div className="emp-sidebar"></div>
               <div className="container">
                 {/* <Searchbar></Searchbar> */}
                 <Routes></Routes>
