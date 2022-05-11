@@ -155,18 +155,18 @@
       color: #6f7686;
       z-index: 1;
 
-      // font-family: "Poppins";
+      font-family: "Poppins";
     }
 
     .btn-start {
-      // font-family: "Poppins";
+      font-family: "Poppins";
       padding: 10px 15px;
       background-color: #6564ed;
       color: #fff;
       border-radius: 20rem;
       border: none;
       outline: none;
-      font-size: 20px;
+      font-size: 18px;
       @include flex(center, center);
       align-self: flex-start;
       margin-left: 50px;
