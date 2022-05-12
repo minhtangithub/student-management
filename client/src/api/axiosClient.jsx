@@ -5,7 +5,7 @@ import apiConfig from "./apiConfig";
 
 const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
-  //url gốc --- thử xung đột
+  //url gốc ---- test conflict
   headers: {
     "Content-Type": "application/json",
   },
