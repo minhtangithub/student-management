@@ -1,0 +1,160 @@
+@use "../scss/" as *;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+
+.sidebar {
+  position: fixed;
+  width: 310px;
+  min-height: 100vh;
+  background-color: $sidebar-color;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  color: #050505;
+  span {
+    font-size: 18px;
+  }
+
+  .logo {
+    margin: 30px auto 50px 20px;
+    @include flex(center, center);
+
+    img {
+      margin-right: 15px;
+      width: 100px;
+      height: 100px;
+    }
+    h2 {
+      background: linear-gradient(90deg, #b224ef 0%, #7579ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 25px;
+      font-weight: 700;
+      font-family: "Poppins";
+      background: linear-gradient(90deg, #316dfc 0%, #31c8fc 45%, #6dffd1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+}
+
+.sidebar__menu {
+  .home,
+  .add,
+  .list,
+  .manage-score,
+  .report,
+  .sidebar__setting,
+  .logout {
+    @include flex(center, center);
+    flex-wrap: wrap;
+    position: relative;
+    cursor: pointer;
+    & > img {
+      margin: 20px 18px 20px 35px;
+    }
+
+    & > i {
+      margin: 20px 22px 20px 35px;
+      font-size: 20px;
+      color: #fff;
+    }
+    li {
+      // color: $text-color;
+      color: #050505;
+      font-size: $sidebar-fontsize;
+      font-weight: 400;
+      flex: 1;
+    }
+
+    div > img {
+      padding-right: 20px;
+    }
+  }
+
+  li ul {
+    margin-bottom: 10px;
+  }
+}
+
+//=============
+// .sidebar__menu > li {
+//   // background-color: $sidebar-hover-color;
+
+//   a.active {
+//     font-weight: 700;
+//   }
+// }
+
+.sidebar__menu > a.active {
+  font-weight: 700;
+}
+
+//=====================
+
+// .sidebar__menu > li:hover {
+//   background-color: $sidebar-hover-color;
+
+//   a {
+//     // font-weight: 700;
+//   }
+// }
+
+.sidebar__menu > a:hover {
+  background-color: $sidebar-hover-color;
+}
+
+@keyframes rotateX {
+  0% {
+    opacity: 0;
+    transform: rotateX(-90deg);
+  }
+
+  50% {
+    transform: rotateX(-20deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
+
+.dropdown {
+  display: none;
+  width: 100%;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+
+  & > li:hover {
+    // background-color: $sidebar-hover-color;
+    background-color: rgba(#f2f2f2, 0.25);
+    // font-weight: 700;
+  }
+
+  & > li.active {
+    // background-color: $sidebar-hover-color;
+    font-weight: 700;
+  }
+
+  li {
+    padding-left: 100px;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transform-origin: top center;
+  }
+
+  li:nth-child(3n + 1) {
+    animation: rotateX 0.3s ease-in-out forwards;
+  }
+
+  li:nth-child(3n + 2) {
+    animation: rotateX 0.4s ease-in-out forwards;
+  }
+
+  li:nth-child(3n + 3) {
+    animation: rotateX 0.5s ease-in-out forwards;
+  }
+}

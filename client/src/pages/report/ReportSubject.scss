@@ -1,0 +1,19 @@
+@use "../../scss/" as *;
+.report-subject {
+  font-size: $content-fontsize;
+  font-weight: 700;
+  line-height: 23px;
+
+  .grid {
+    .row {
+      @include grid-2();
+      margin-bottom: 35px;
+    }
+  }
+
+  .btns {
+    margin-left: 43px;
+    margin-top: 30px;
+    justify-content: left;
+  }
+}

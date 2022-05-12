@@ -1,0 +1,55 @@
+@use "../../../scss/" as *;
+
+.create-report-subject {
+  @include manage();
+  @include main-container;
+
+  .score-info {
+    @include flex(center, center);
+    margin-bottom: 10px;
+    h4 {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
+  }
+  .row {
+    display: flex;
+    color: #000;
+    font-size: 14px;
+
+    &.heading {
+      @include heading();
+
+      & > .item {
+        @include heading-item();
+      }
+    }
+
+    &.content {
+      padding-top: 14px;
+      padding-bottom: 10px;
+
+      & > .item {
+        justify-content: center;
+      }
+    }
+
+    &.content button:first-child img,
+    &.content button:nth-child(2) img {
+      margin-right: 10px;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .btns {
+    margin-left: 25px;
+    margin-top: 30px;
+
+    button {
+      margin-right: 30px;
+    }
+  }
+}

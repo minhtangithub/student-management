@@ -1,0 +1,46 @@
+@use "../../scss/" as *;
+.score {
+  font-size: $content-fontsize;
+  font-weight: 700;
+  line-height: 23px;
+  .grid {
+    .row {
+      @include grid-2();
+      margin-bottom: 65px;
+    }
+  }
+  .btns {
+    margin-left: 43px;
+  }
+}
+
+.grid__item {
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-left: 15px;
+    margin-bottom: 12px;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 20px;
+    width: 450px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 2px solid #2490f9;
+    }
+
+    option {
+      width: 45px;
+      height: 40px;
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+}

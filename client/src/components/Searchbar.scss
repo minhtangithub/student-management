@@ -1,0 +1,36 @@
+.searchbar {
+  .wrapper {
+    border-bottom: 1px solid #5987b8;
+    width: 100%;
+  }
+  &__container {
+    width: 300px;
+    margin: 20px auto 20px 35px;
+    position: relative;
+    img {
+      position: absolute;
+      left: 12px;
+      top: 11px;
+    }
+
+    input {
+      width: 100%;
+      border-radius: 50px;
+      border: 1px solid #445a78;
+      padding-left: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-image: url("../assets/Search-icon.png") no-repeat left 30px;
+    }
+
+    input:focus {
+      outline: none;
+    }
+  }
+
+  .schoolname {
+    font-size: 30px;
+    color: #ff1d1d;
+    margin: 20px auto 50px 35px;
+  }
+}

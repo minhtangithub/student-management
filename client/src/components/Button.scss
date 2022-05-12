@@ -1,0 +1,211 @@
+@use "../scss/" as *;
+.add-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  // background-color: #307ef4;
+
+  color: #fff;
+
+  a {
+    color: #fff;
+  }
+}
+.save-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  // background-color: #307ef4;
+  color: #fff;
+
+  background-image: linear-gradient(
+    to right,
+    #00c9ff 0%,
+    #38ff7a 51%,
+    #00c9ff 100%
+  );
+
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.cancel-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  // color: #307ef4;
+  background-image: linear-gradient(to right, #f0f2f5 0%, #f0f2f5 100%);
+  box-shadow: none;
+  color: #050505;
+  &:hover {
+    background-image: linear-gradient(
+      to right,
+      #eaeaec 0%,
+      #eaeaec 100%
+    ) !important;
+    color: #050505;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+}
+
+.delete-selected-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  // color: #307ef4;
+  background-image: linear-gradient(
+    to right,
+    #cb2d3e 0%,
+    #ef473a 51%,
+    #cb2d3e 100%
+  );
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.clear-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #16c784;
+  background-image: linear-gradient(to right, #f0f2f5 0%, #f0f2f5 100%);
+  box-shadow: none;
+  color: #050505;
+  &:hover {
+    background-image: linear-gradient(
+      to right,
+      #eaeaec 0%,
+      #eaeaec 100%
+    ) !important;
+    color: #050505;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+}
+
+.update-btn {
+  @include btn;
+  width: 140px;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  border-radius: 8px;
+  // background-color: #307ef4;
+  color: #fff;
+}
+
+.export-btn {
+  @include btn;
+  height: 40px;
+  width: 104px;
+  // margin-right: 50px;
+  // @include flex(center, center);
+  // background: #f4733a;
+  // box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 0px 1px #ff6928,
+  //   0px 2px 5px rgba(251, 145, 99, 0.12), inset 0px 1px 0px #f09269;
+
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin-bottom: 50px;
+
+  background-image: linear-gradient(
+    to right,
+    #ff7e5f 0%,
+    #feb47b 51%,
+    #ff7e5f 100%
+  );
+
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.btns {
+  @include flex(center, right);
+  margin-right: 50px;
+  button:first-child {
+    margin-right: 45px;
+  }
+  padding-bottom: 20px;
+}
+
+.save-btn--small {
+  @include btn;
+  width: 80px;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  // border: 1px solid #307ef4;
+  // background-color: #307ef4;
+  background-image: linear-gradient(
+    to right,
+    #00bfff 0%,
+    #34ff77 51%,
+    #00c9ff 100%
+  );
+
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 7px;
+  display: block;
+
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}

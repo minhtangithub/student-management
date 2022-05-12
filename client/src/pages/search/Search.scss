@@ -1,0 +1,115 @@
+@use "../../scss/" as *;
+.search-page {
+  @include manage();
+  @include main-container;
+
+  .search__input {
+    margin-left: 25px;
+    margin-bottom: 30px;
+  }
+
+  .search__btns {
+    text-align: left;
+    .search__button {
+      @include btn;
+      margin-left: 25px;
+      margin-bottom: 30px;
+      width: 140px;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 24px;
+      // border: 1px solid #307ef4;
+      border-radius: 8px;
+      // background-color: #307ef4;
+      color: #fff;
+    }
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 30px;
+    margin-bottom: 10px;
+  }
+
+  .input--tiny {
+    padding: 15px;
+    width: 100px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 2px solid #307ef4;
+    }
+  }
+
+  .save-btn__container {
+    @include flex(center, center);
+    // .save-btn--small {
+    //   width: 80px;
+    //   padding: 8px;
+    //   text-align: center;
+    //   font-size: 14px;
+    //   line-height: 24px;
+    //   border: 1px solid #307ef4;
+    //   border-radius: 8px;
+    //   background-color: #307ef4;
+    //   color: #fff;
+    // }
+  }
+
+  .row {
+    display: flex;
+    color: #000;
+    font-size: 14px;
+
+    &.heading {
+      @include heading();
+
+      & > .item {
+        @include heading-item();
+      }
+    }
+
+    &.content {
+      padding-top: 14px;
+      padding-bottom: 10px;
+      flex-direction: row;
+
+      & > .item {
+        justify-content: center;
+      }
+    }
+
+    &.content button:first-child img,
+    &.content button:nth-child(2) img {
+      margin-right: 10px;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .edit-btn,
+  .delete-btn,
+  .info-btn {
+    background: none;
+  }
+
+  .btns {
+    margin-left: 25px;
+    margin-top: 30px;
+
+    button {
+      margin-right: 30px;
+    }
+  }
+}
+
+.select {
+  option {
+    padding: 10px;
+  }
+}

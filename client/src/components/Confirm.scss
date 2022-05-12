@@ -1,0 +1,45 @@
+@use "../scss/" as *;
+
+.confirm {
+  @include overlay();
+  @include flex(center, center);
+  &__container {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 20px;
+    position: relative;
+    h2 {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 700;
+      color: #ff1d1d;
+      padding-top: 25px;
+      padding-bottom: 25px;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 4px;
+    }
+
+    &__content {
+      padding-top: 20px;
+      padding-left: 50px;
+
+      & p {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .btns {
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      margin-right: 0;
+    }
+  }
+  .seperate {
+    border-top: 1px solid #ccc;
+    height: 5px;
+    margin-top: 5px;
+    margin-right: 40px;
+    // margin-left: 10px;
+  }
+}

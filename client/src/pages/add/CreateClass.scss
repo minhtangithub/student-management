@@ -1,0 +1,173 @@
+@use "../../scss/" as *;
+
+hr {
+  margin: 20px 0;
+  display: block;
+  // position: relative;
+  // width: 100vw;
+  height: 2px;
+  // left: 50%;
+  border: none;
+  border-bottom: 2px dashed rgba(#ccc, 0.25);
+  // float: left;
+  // ~ * {
+  //   clear: both;
+  // }
+}
+
+.create-class {
+  @include main-container;
+  .search__add-btn {
+    background: none;
+    i {
+      cursor: pointer;
+      font-size: 20px;
+    }
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 30px;
+    margin-bottom: 10px;
+  }
+
+  .option__input {
+    margin: 10px 25px;
+    .search__btns {
+      .search__button {
+        margin: 0;
+        transform: translateY(30px);
+      }
+    }
+  }
+
+  .search__btns {
+    .search__button {
+      transform: translateX(25px);
+    }
+  }
+}
+
+.new-class {
+  margin-top: 50px;
+  @include manage();
+  @include main-container;
+  .search__input {
+    margin-left: 25px;
+    margin-bottom: 30px;
+  }
+
+  .class-info {
+    @include flex(center, center);
+    margin-bottom: 10px;
+    h5 {
+      margin-left: 12px;
+      margin-right: 12px;
+      font-size: 16px;
+    }
+  }
+
+  .search__btns {
+    text-align: left;
+    .search__button {
+      margin-left: 25px;
+      margin-bottom: 30px;
+      width: 140px;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 24px;
+      border: 1px solid #7a5cfa;
+      border-radius: 8px;
+      background-color: #7a5cfa;
+      color: #fff;
+    }
+  }
+
+  // input[type="text"] {
+  //   border: 1px solid #000;
+  // }
+
+  .input--small {
+    padding: 15px;
+    width: 200px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 2px solid #7a5cfa;
+    }
+  }
+
+  .input--tiny {
+    padding: 15px;
+    width: 100px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 2px solid #7a5cfa;
+    }
+  }
+
+  .save-btn__container {
+    @include flex(center, center);
+    .save-btn--small {
+      width: 80px;
+      padding: 8px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 24px;
+      border: 1px solid #7a5cfa;
+      border-radius: 8px;
+      background-color: #7a5cfa;
+      color: #fff;
+    }
+  }
+
+  .row {
+    display: flex;
+    color: #000;
+    font-size: 14px;
+
+    &.heading {
+      @include heading();
+
+      & > .item {
+        @include heading-item();
+      }
+    }
+
+    &.content {
+      padding-top: 14px;
+      padding-bottom: 10px;
+
+      & > .item {
+        justify-content: center;
+      }
+    }
+
+    &.content button:first-child img,
+    &.content button:nth-child(2) img {
+      margin-right: 10px;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .new-class__delete-btn {
+    background: none;
+  }
+  .btns {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 25px;
+    // text-align: right;
+    // button {
+    //   margin-right: 40px;
+    // }
+  }
+}
