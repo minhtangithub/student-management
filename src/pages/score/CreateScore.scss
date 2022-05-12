@@ -2,6 +2,7 @@
 
 .create-score {
   @include manage();
+  @include main-container;
 
   .score-info {
     @include flex(center, center);

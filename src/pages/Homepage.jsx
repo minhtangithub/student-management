@@ -2,11 +2,13 @@ import React from "react";
 import NumClass from "../assets/Num-of-class.png";
 import NumStudent from "../assets/Num-of-student.png";
 import NumSubject from "../assets/Num-of-subject.png";
+import NumGrade from "../assets/Num-of-grade.png";
 import HeroImg from "../assets/Hero-img.png";
 import HeroBg from "../assets/Hero-bg.png";
 import ArrowRight from "../assets/arrow-right.png";
 import TextBg from "../assets/heading-bg.png";
 import "./Homepage.scss";
+import { Link } from "react-router-dom";
 
 export const Homepage = () => {
   return (
@@ -29,6 +31,13 @@ export const Homepage = () => {
                 <img src={NumSubject} alt="" />
               </div>
             </div>
+            <div className="num-of-grade">
+              <h4>Tổng số khối lớp</h4>
+              <div className="num-and-icon">
+                <h1>3</h1>
+                <img src={NumGrade} alt="" />
+              </div>
+            </div>
             <div className="num-of-student">
               <h4>Tổng số học sinh</h4>
               <div className="num-and-icon">
@@ -36,13 +45,6 @@ export const Homepage = () => {
                 <img src={NumStudent} alt="" />
               </div>
             </div>
-            <div className="num-of-grade">
-              <h4>Tổng số khối lớp</h4>
-              <div className="num-and-icon">
-                <h1>3</h1>
-                <img src={NumStudent} alt="" />
-              </div>
-            </div>{" "}
           </div>
         </div>
         <div className="content-bottom">
@@ -54,9 +56,12 @@ export const Homepage = () => {
               Education is smart enough to change the <br></br> human mind
               positively!
             </div>
-            <button className="btn-start">
-              Get Started <img src={ArrowRight} alt="" className="img-start" />
-            </button>
+            <Link to="/search">
+              <button className="btn-start">
+                Get Started{" "}
+                <img src={ArrowRight} alt="" className="img-start" />
+              </button>
+            </Link>
             <img className="text-bg" src={TextBg} alt="" />
           </div>
           <div className="content__right">

@@ -24,6 +24,17 @@
       height: 40px;
     }
   }
+
+  select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    // background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")
+    //   white no-repeat 96% !important;
+    background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")
+      white no-repeat calc(100% - 15px) !important;
+    background-size: 10px 10px;
+  }
 }
 
 .input--small {

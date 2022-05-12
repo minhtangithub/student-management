@@ -196,7 +196,9 @@ export const CreateClass = () => {
           <h4>Kết quả tìm kiếm</h4>
           <div className="container">
             <div className="row heading">
-              <div className="item col-30-percent center al-center">Họ Tên</div>
+              <div className="item col-30-percent center al-left pl-70">
+                Họ Tên
+              </div>
               <div className="item col-10-percent center al-center">
                 Giới Tính
               </div>
@@ -215,7 +217,7 @@ export const CreateClass = () => {
               return (
                 <>
                   <div className="row content">
-                    <div className="item col-30-percent center pl-50">
+                    <div className="item col-30-percent center pl-50 al-left">
                       {item.Name}
                     </div>
                     <div className="item col-10-percent center al-center">

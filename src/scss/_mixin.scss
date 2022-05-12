@@ -153,3 +153,9 @@
   //   text-decoration: none;
   // }
 }
+
+@mixin main-container {
+  .container {
+    padding-bottom: 20px;
+  }
+}

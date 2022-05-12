@@ -31,12 +31,16 @@
     border-radius: 8px;
 
     &:focus {
-      outline: 2px solid #7a5cfa;
+      outline: 2px solid #2490f9;
     }
 
     option {
       width: 45px;
       height: 40px;
     }
+  }
+
+  textarea {
+    resize: none;
   }
 }

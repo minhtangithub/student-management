@@ -18,6 +18,8 @@
 .manage-class,
 .manage-subject {
   @include manage();
+  @include main-container;
+
   h4,
   a {
     margin-top: 30px;
@@ -28,6 +30,11 @@
     color: #000;
     font-weight: 700;
     text-decoration: none;
+  }
+
+  .container {
+    margin: 0 auto;
+    width: 80%;
   }
 }
 

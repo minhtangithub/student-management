@@ -209,9 +209,7 @@ export const Search = () => {
 
       <div className="container">
         <div className="row heading">
-          <div className="item col-30-percent center al-left pl-50 ml-20">
-            Họ Tên
-          </div>
+          <div className="item col-30-percent center al-left pl-70">Họ Tên</div>
           <div className="item col-10-percent center al-center">Lớp</div>
           <div className="item col-20-percent center al-center">TBHKI</div>
           <div className="item col-20-percent center al-center">TBHKII</div>

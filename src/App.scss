@@ -1,7 +1,7 @@
 @use "./scss/" as *;
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 // * {
 //   font-family: "Roboto", sans-serif;
@@ -51,13 +51,14 @@ input {
 }
 
 .container {
-  width: calc(100% - 310px);
+  // width: calc(100% - 310px);
   // height: 100vh;
   // background-color: #f0f2f5;
   background-color: #f0f2f5;
   flex: 1;
   display: inline-flex;
   flex-direction: column;
+  // để list hiện ra không bị cụt
   // padding-bottom: 20px;
 }
 
@@ -155,10 +156,18 @@ h3 {
   padding-left: 50px;
 }
 
+.pl-70 {
+  padding-left: 70px;
+}
+
 .pl-80 {
   padding-left: 80px;
 }
 
 .ml-20 {
   margin-left: 20px;
+}
+
+.row.content {
+  flex-direction: row;
 }

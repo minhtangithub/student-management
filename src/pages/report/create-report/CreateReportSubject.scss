@@ -2,6 +2,7 @@
 
 .create-report-subject {
   @include manage();
+  @include main-container;
 
   .score-info {
     @include flex(center, center);

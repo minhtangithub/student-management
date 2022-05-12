@@ -72,7 +72,9 @@ export const SettingList = () => {
             {settingArrState.map((item, i) => (
               <>
                 <div className="row content" key={i}>
-                  <div className="item col-33-percent center ">{item.Name}</div>
+                  <div className="item col-33-percent center al-left pl-80">
+                    {item.Name}
+                  </div>
                   <div className="item col-33-percent center">{item.Value}</div>
                   <div className="item col-33-percent center">
                     <button

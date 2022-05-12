@@ -1,6 +1,8 @@
 @use "../../scss/" as *;
 .search-page {
   @include manage();
+  @include main-container;
+
   .search__input {
     margin-left: 25px;
     margin-bottom: 30px;
@@ -73,6 +75,7 @@
     &.content {
       padding-top: 14px;
       padding-bottom: 10px;
+      flex-direction: row;
 
       & > .item {
         justify-content: center;
@@ -102,5 +105,11 @@
     button {
       margin-right: 30px;
     }
+  }
+}
+
+.select {
+  option {
+    padding: 10px;
   }
 }

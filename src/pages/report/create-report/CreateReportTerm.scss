@@ -2,6 +2,7 @@
 
 .create-report-term {
   @include manage();
+  @include main-container;
 
   .score-info {
     @include flex(center, center);

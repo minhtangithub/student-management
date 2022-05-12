@@ -16,6 +16,7 @@ hr {
 }
 
 .create-class {
+  @include main-container;
   .search__add-btn {
     background: none;
     i {
@@ -51,7 +52,7 @@ hr {
 .new-class {
   margin-top: 50px;
   @include manage();
-
+  @include main-container;
   .search__input {
     margin-left: 25px;
     margin-bottom: 30px;
