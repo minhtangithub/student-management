@@ -1,5 +1,5 @@
 {
-  "homepage": "https://minhtangithub.github.io/student-management",
+  "homepage": "https://absya23.github.io/CopySM",
   "name": "student-management",
   "version": "0.1.0",
   "private": false,
@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "react-scripts build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "gh-pages -b main -d build"
   },
   "eslintConfig": {
     "extends": [
