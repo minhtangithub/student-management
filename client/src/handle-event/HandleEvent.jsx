@@ -115,6 +115,34 @@ export const helper = {
       }
     }
   },
+
+  convertAPItoUI: {
+    setting: (apiArr) => {
+      const UIArr = apiArr.map((item) => {
+        return {
+          ...item,
+          ID: item.idSet,
+          Name: item.nameSet,
+          Value: item.valueSet,
+        };
+      });
+      return UIArr;
+    },
+  },
+
+  convertUItoAPI: {
+    setting: (UIArr) => {
+      const apiArr = UIArr.map((item) => {
+        return {
+          ...item,
+          idSet: item.ID,
+          nameSet: item.Name,
+          valueSet: item.Value,
+        };
+      });
+      return apiArr;
+    },
+  },
 };
 
 // chỉnh sửa ux/ui

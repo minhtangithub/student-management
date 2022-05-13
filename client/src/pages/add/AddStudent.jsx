@@ -2,14 +2,27 @@ import React from "react";
 import "./AddStudent.scss";
 import { Input } from "../../components/Input";
 import { Confirm } from "../../components/Confirm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
 import { studentInfoArr } from "../../config/getAPI";
+import { api } from "../../api/api";
+import axios from "axios";
 
 export const AddStudent = () => {
   const [result, setResult] = useState([]);
+  const [data, setData] = useState([]);
   const [studentArrState, setStudentArrState] = useState(studentInfoArr);
   const keys = ["ID", "Name", "Email", "Birthdate", "Address", "gender"];
+
+  useEffect(() => {
+    const getStudentArr = async () => {
+      // dataTemp = API.get("students").then(res => )
+      const dataTemp = await api.getStudentInfoArr();
+      setData(dataTemp);
+      console.log(dataTemp);
+    };
+    getStudentArr();
+  }, []);
 
   //Xử lý nút lưu của màn hình xác nhận
   const handleConfirmAcceptBtn = () => {

@@ -50,6 +50,7 @@ export const api = {
   //   },
   postSettingList: (payload) => {
     const url = "settings";
+    console.log("posted");
     return axiosClient.post(url, payload);
   },
   //   postClassArr: (payload) => {

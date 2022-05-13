@@ -1,15 +1,47 @@
 import React from "react";
 // import "./Setting.scss";
 import EditIcon from "../../assets/edit-icon.png";
-import { useState } from "react";
-import { settingArr } from "../../config/getAPI";
+import { useState, useEffect } from "react";
+// import { settingArr } from "../../config/getAPI";
 import { Confirm } from "../../components/Confirm";
 import { handler, helper } from "../../handle-event/HandleEvent";
-
+import { api } from "../../api/api";
+import axios from "axios";
 export const SettingList = () => {
-  const [settingArrState, setSettingArrState] = useState(settingArr);
+  const [settingArrState, setSettingArrState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const apiArr = await api.getSettingList();
+      // const UIArr = helper.convertAPItoUI.setting(apiArr);
+      setSettingArrState(apiArr);
+      // console.log(arr);
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    const postData = async () => {
+      const settingArrStateCopy = settingArrState.map((item) => {
+        return {
+          ...item,
+          Checked: undefined,
+          Edit: undefined,
+        };
+      });
+      // api.postSettingList(settingArrStateCopy);
+      axios.post("http://localhost:5000/api/settings", settingArrStateCopy);
+    };
+    postData();
+  }, [settingArrState]);
+
+  // const saveTODB = (UIArr) => {
+  //   const apiArr = helper.convertUItoAPI.setting(settingArrState);
+  //   console.log(apiArr);
+  //   api.postSettingList(apiArr);
+  // };
 
   const handleEvent = {
     handleConfirmAcceptBtn: {
@@ -19,7 +51,7 @@ export const SettingList = () => {
 
         //cập nhật mảng
         let index = settingArrStateCopy.findIndex(
-          (item) => item.ID == result[0].ID
+          (item) => item.idSet == result[0].idSet
         );
         settingArrStateCopy[index] = result[0];
         settingArrStateCopy[index].Edit = false;
@@ -29,6 +61,7 @@ export const SettingList = () => {
         helper.turnOnNotification("edit");
 
         //cập nhật xuống CSDL
+        // saveTODB();
         //...
       },
     },
@@ -38,13 +71,13 @@ export const SettingList = () => {
         let settingArrStateCopy = JSON.parse(JSON.stringify(settingArrState));
         let index = +e.target.getAttribute("data-set");
         let inputs = e.target.closest(".row").querySelectorAll("input");
-        settingArrStateCopy[index].Value = inputs[0].value;
+        settingArrStateCopy[index].valueSet = inputs[0].value;
 
         let newResult = settingArrStateCopy[index];
         setResult([newResult]);
         let newResultUI = {
-          "Tên tham số": newResult.Name,
-          "Giá trị": newResult.Value,
+          "Tên tham số": newResult.nameSet,
+          "Giá trị": newResult.valueSet,
         };
         setResultUI([newResultUI]);
         helper.turnOnConfirm("edit");
@@ -73,9 +106,11 @@ export const SettingList = () => {
               <>
                 <div className="row content" key={i}>
                   <div className="item col-33-percent center al-left pl-80">
-                    {item.Name}
+                    {item.nameSet}
                   </div>
-                  <div className="item col-33-percent center">{item.Value}</div>
+                  <div className="item col-33-percent center">
+                    {item.valueSet}
+                  </div>
                   <div className="item col-33-percent center">
                     <button
                       className="edit-btn"

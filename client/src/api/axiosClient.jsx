@@ -5,18 +5,25 @@ import apiConfig from "./apiConfig";
 
 const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
-  //url gốc ---- test conflict
+  //url gốc
   headers: {
     "Content-Type": "application/json",
   },
-  //không cần quan tâm này lắm
-  paramsSerializer: (params) =>
-    queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
+  // //không cần quan tâm này lắm
+  // paramsSerializer: (params) =>
+  //   queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
   //dùng axios với mảng
 });
 
 //can thiệp trước khi gửi hoặc nhận các request/response
-axiosClient.interceptors.request.use(async (config) => config);
+axiosClient.interceptors.request.use(
+  async (config) => {
+    return config;
+  },
+  (error) => {
+    throw error;
+  }
+);
 
 axiosClient.interceptors.response.use(
   (response) => {
@@ -30,6 +37,7 @@ axiosClient.interceptors.response.use(
       });
 
       return dataProcessed;
+      // return response.data;
     }
 
     return response;
