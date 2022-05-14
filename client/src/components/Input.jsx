@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Input.scss";
+import Selected from "./Selected";
 
 export const Input = ({
   type = "text",
@@ -10,6 +11,7 @@ export const Input = ({
   options = [],
   //options có dạng [{value, text}, {}, {}]
 }) => {
+  const [arr, setArr] = useState([]);
   // console.log(
   //   ">>> options:",
   //   options,
@@ -43,11 +45,7 @@ export const Input = ({
     return (
       <div className="grid__item select">
         <label htmlFor="">{labelText}</label>
-        <select name={selectName}>
-          {options.map((item) => {
-            return <option value={item.value}>{item.text}</option>;
-          })}
-        </select>
+        <Selected props={options.map((item) => item.text)}></Selected>
       </div>
     );
   else if (type == "small")
