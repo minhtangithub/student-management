@@ -16,19 +16,20 @@ export const handler = {
 };
 
 export const helper = {
-  generateID: (dataArr) => {
-    const IDArr = dataArr.map((item) => item.ID);
-    let newIDNum = Number(IDArr[IDArr.length - 1]) + 1;
-    let newIDString;
+  generateID: (dataArr, idName, prefix = "") => {
+    const lastID = dataArr[dataArr.length - 1][idName];
+    const lastIDNumber = lastID.replace(prefix, "");
+    let newIDNum = Number(lastIDNumber) + 1;
+    let newID;
     if (newIDNum < 10) {
-      newIDString = `00${newIDNum}`;
+      newID = `${prefix}00${newIDNum}`;
     } else if (newIDNum < 100) {
-      newIDString = `0${newIDNum}`;
+      newID = `${prefix}0${newIDNum}`;
     } else {
-      newIDString = `${newIDNum}`;
+      newID = `${prefix}${newIDNum}`;
     }
 
-    return newIDString;
+    return newID;
   },
   generateArrCopy: (dataArr) => {
     return JSON.parse(JSON.stringify(dataArr));
@@ -116,33 +117,33 @@ export const helper = {
     }
   },
 
-  convertAPItoUI: {
-    setting: (apiArr) => {
-      const UIArr = apiArr.map((item) => {
-        return {
-          ...item,
-          ID: item.idSet,
-          Name: item.nameSet,
-          Value: item.valueSet,
-        };
-      });
-      return UIArr;
-    },
-  },
+  //   convertAPItoUI: {
+  //     setting: (apiArr) => {
+  //       const UIArr = apiArr.map((item) => {
+  //         return {
+  //           ...item,
+  //           ID: item.idSet,
+  //           Name: item.nameSet,
+  //           Value: item.valueSet,
+  //         };
+  //       });
+  //       return UIArr;
+  //     },
+  //   },
 
-  convertUItoAPI: {
-    setting: (UIArr) => {
-      const apiArr = UIArr.map((item) => {
-        return {
-          ...item,
-          idSet: item.ID,
-          nameSet: item.Name,
-          valueSet: item.Value,
-        };
-      });
-      return apiArr;
-    },
-  },
+  //   convertUItoAPI: {
+  //     setting: (UIArr) => {
+  //       const apiArr = UIArr.map((item) => {
+  //         return {
+  //           ...item,
+  //           idSet: item.ID,
+  //           nameSet: item.Name,
+  //           valueSet: item.Value,
+  //         };
+  //       });
+  //       return apiArr;
+  //     },
+  //   },
 };
 
 // chỉnh sửa ux/ui

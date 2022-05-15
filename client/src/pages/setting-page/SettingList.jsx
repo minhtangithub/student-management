@@ -15,33 +15,10 @@ export const SettingList = () => {
   useEffect(() => {
     const getData = async () => {
       const apiArr = await api.getSettingList();
-      // const UIArr = helper.convertAPItoUI.setting(apiArr);
       setSettingArrState(apiArr);
-      // console.log(arr);
     };
     getData();
   }, []);
-
-  useEffect(() => {
-    const postData = async () => {
-      const settingArrStateCopy = settingArrState.map((item) => {
-        return {
-          ...item,
-          Checked: undefined,
-          Edit: undefined,
-        };
-      });
-      // api.postSettingList(settingArrStateCopy);
-      axios.post("http://localhost:5000/api/settings", settingArrStateCopy);
-    };
-    postData();
-  }, [settingArrState]);
-
-  // const saveTODB = (UIArr) => {
-  //   const apiArr = helper.convertUItoAPI.setting(settingArrState);
-  //   console.log(apiArr);
-  //   api.postSettingList(apiArr);
-  // };
 
   const handleEvent = {
     handleConfirmAcceptBtn: {
@@ -61,8 +38,9 @@ export const SettingList = () => {
         helper.turnOnNotification("edit");
 
         //cập nhật xuống CSDL
-        // saveTODB();
-        //...
+        api.putSettingList(settingArrState[index]._id, {
+          valueSet: result[0].valueSet,
+        });
       },
     },
 

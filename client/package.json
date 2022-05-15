@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
-  "private": false,
-  "proxy":"http://localhost:3000/admin",
+  "private": true,
+  "proxy":"http://localhost:5000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",

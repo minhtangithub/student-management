@@ -10,8 +10,7 @@ const axiosClient = axios.create({
     "Content-Type": "application/json",
   },
   // //không cần quan tâm này lắm
-  // paramsSerializer: (params) =>
-  //   queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
+  paramsSerializer: (params) => queryString.stringify({ ...params }),
   //dùng axios với mảng
 });
 
@@ -27,20 +26,17 @@ axiosClient.interceptors.request.use(
 
 axiosClient.interceptors.response.use(
   (response) => {
-    if (response && response.data) {
-      const dataProcessed = response.data.map((item) => {
-        return {
-          ...item,
-          Edit: false,
-          Checked: false,
-        };
-      });
+    // if (response && response.data) {
+    //   const dataProcessed = response.data.map((item) => {
+    //     return {
+    //       ...item,
+    //       Edit: false,
+    //       Checked: false,
+    //     };
+    //   });
 
-      return dataProcessed;
-      // return response.data;
-    }
-
-    return response;
+    //   return dataProcessed;
+    return response.data;
   },
   (error) => {
     throw error;
