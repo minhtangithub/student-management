@@ -117,33 +117,53 @@ export const helper = {
     }
   },
 
-  //   convertAPItoUI: {
-  //     setting: (apiArr) => {
-  //       const UIArr = apiArr.map((item) => {
-  //         return {
-  //           ...item,
-  //           ID: item.idSet,
-  //           Name: item.nameSet,
-  //           Value: item.valueSet,
-  //         };
-  //       });
-  //       return UIArr;
-  //     },
-  //   },
-
-  //   convertUItoAPI: {
-  //     setting: (UIArr) => {
-  //       const apiArr = UIArr.map((item) => {
-  //         return {
-  //           ...item,
-  //           idSet: item.ID,
-  //           nameSet: item.Name,
-  //           valueSet: item.Value,
-  //         };
-  //       });
-  //       return apiArr;
-  //     },
-  //   },
+  //checkType là loại cần check, data là dữ liệu cần kiểm tra được gom về 1 object
+  //VD: validateData("empty", {name: ..., ....})
+  validateData: (checkType, data) => {
+    let message;
+    switch (checkType) {
+      case "empty": {
+        let isEmpty =
+          Object.values(data).filter((item) => item.trim().length == 0).length >
+          0;
+        if (isEmpty) {
+          message = "Không được để trống thông tin";
+          return message;
+        }
+      }
+      case "age": {
+        let isAgeValid;
+        let today = new Date();
+        let thisYear = today.getFullYear();
+        let [inputDay, inputMonth, inputYear] = data.dateOfBirth.split("/");
+        let age = Number(thisYear) - Number(inputYear);
+        isAgeValid = age >= 15 && age <= 20;
+        if (!isAgeValid) {
+          message = "Tuổi không đúng quy định";
+          return message;
+        }
+      }
+      case "email": {
+        let isEmailValid = data.email.contains("@");
+        if (!isEmailValid) {
+          message = "Hãy nhập đúng email";
+          return message;
+        }
+      }
+      case "number": {
+        let isNumber = true;
+        Object.values(data).forEach((item) => {
+          if (typeof item === "number" && isFinite(item)) {
+            isNumber = false;
+          }
+        });
+        if (!isNumber) {
+          message = "Hãy nhập dữ liệu là số";
+          return message;
+        }
+      }
+    }
+  },
 };
 
 // chỉnh sửa ux/ui

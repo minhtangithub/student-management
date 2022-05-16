@@ -264,7 +264,7 @@ export const Search = () => {
               </div>
               {item.Edit ? (
                 <div className="row content">
-                  <div className="item col-30-percent center pl-50">
+                  <div className="item col-30-percent center al-left pl-50">
                     <input
                       type="text"
                       className="input--small"
