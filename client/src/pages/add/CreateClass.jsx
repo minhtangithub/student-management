@@ -10,13 +10,16 @@ import { useState } from "react";
 import "./CreateClass.scss";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
-//================
 import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
 import { Input } from "../../components/Input";
 
+import { useParams } from "react-router-dom";
+
 export const CreateClass = () => {
+  const { className, grade, schoolyear } = useParams();
+
   const classNameArr = classArr.map((item) => {
-    return { value: item.ID, text: item.Name };
+    return { value: item.ID, text: item.nameClass };
   });
   const gradeNameArr = gradeArr.map((item) => {
     return { value: item.ID, text: item.Name };
@@ -251,9 +254,9 @@ export const CreateClass = () => {
         <div className="new-class">
           <h4>Danh sách lớp đang lập</h4>
           <div className="class-info">
-            <h5>Tên lớp: 10A1</h5>
-            <h5>Tên khối: 10</h5>
-            <h5>Năm học: 2018-2019</h5>
+            <h5>Tên lớp: {className}</h5>
+            <h5>Tên khối: {grade}</h5>
+            <h5>Năm học: {schoolyear}</h5>
           </div>
           <div className="container">
             <div className="row heading">

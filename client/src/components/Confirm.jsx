@@ -10,6 +10,7 @@ export const Confirm = ({
   status = "success",
 }) => {
   const handleCloseBtnWithAdd = () => {
+    console.log("tắt thông báo thêm");
     document.querySelector(".confirm.add .notification").style.display = "none";
     document.querySelector(".confirm.add").style.display = "none";
   };
@@ -38,7 +39,7 @@ export const Confirm = ({
           <div className="confirm__container">
             <Notification
               status={status}
-              handleCloseBtn={handleCloseBtnWithAdd}
+              handleSuccessCloseBtn={handleCloseBtnWithAdd}
             />
             <h2>Xác nhận thêm mới</h2>
             <div className="confirm__container__content">
@@ -83,7 +84,7 @@ export const Confirm = ({
           <div className="confirm__container">
             <Notification
               status={status}
-              handleCloseBtn={handleCloseBtnWithEdit}
+              handleSuccessCloseBtn={handleCloseBtnWithEdit}
             />
             <h2>Xác nhận sửa</h2>
             <div className="confirm__container__content">
@@ -127,7 +128,7 @@ export const Confirm = ({
         <div className="confirm delete" style={{ display: "none" }}>
           <div className="confirm__container">
             <Notification
-              handleCloseBtn={handleCloseBtnWithDelete}
+              handleSuccessCloseBtn={handleCloseBtnWithDelete}
               status={status}
             />
             <h2>Xác nhận xóa</h2>
@@ -173,7 +174,7 @@ export const Confirm = ({
         <div className="confirm delete-all" style={{ display: "none" }}>
           <div className="confirm__container">
             <Notification
-              handleCloseBtn={handleCloseBtnWithDeleteAll}
+              handleSuccessCloseBtn={handleCloseBtnWithDeleteAll}
               status={status}
             />
             <h2>Xác nhận xóa tất cả bên dưới</h2>

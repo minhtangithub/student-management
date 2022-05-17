@@ -4,7 +4,8 @@ import { Input } from "../../components/Input";
 import { Confirm } from "../../components/Confirm";
 import { useState, useEffect } from "react";
 import { Button } from "../../components/Button";
-// import { studentInfoArr } from "../../config/getAPI";
+import { Notification } from "../../components/Notification";
+
 import { api } from "../../api/api";
 import { helper } from "../../handle-event/HandleEvent";
 import axios from "axios";
@@ -13,6 +14,7 @@ export const AddStudent = () => {
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
   const [studentArrState, setStudentArrState] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getStudentArr = async () => {
@@ -24,16 +26,43 @@ export const AddStudent = () => {
 
   //Xử lý nút lưu của màn hình xác nhận
   const handleConfirmAcceptBtn = () => {
-    //Lưu xuống CSDL
-    const studentArrStateCopy = JSON.parse(JSON.stringify(studentArrState));
-    studentArrStateCopy.push(result[0]);
-    setStudentArrState(studentArrStateCopy);
+    //kiểm tra ràng buộc
+    let checkEmptyMessage = helper.validateData("empty", result[0]);
+    let checkAgeMessage = helper.validateData("age", {
+      dateOfBirth: result[0].dateOfBirth,
+    });
+    let checkEmailMessage = helper.validateData("empty", {
+      email: result[0].email,
+    });
+    const checkMessageArr = [
+      checkEmptyMessage,
+      checkAgeMessage,
+      checkEmailMessage,
+    ];
+    let isValid = checkMessageArr.filter((item) => item !== "ok").length == 0;
 
-    //hiện thông báo
-    document.querySelector(".confirm.add .notification").style.display = "flex";
+    if (!isValid) {
+      //lấy thông báo thất bại đầu tiên
+      const firstFailedMessage = checkMessageArr.filter(
+        (item) => item !== "ok"
+      )[0];
+      setMessage(firstFailedMessage);
+      document.querySelector(
+        ".notification--failed"
+      ).parentElement.style.display = "flex";
+    } else {
+      //Lưu xuống CSDL
+      const studentArrStateCopy = JSON.parse(JSON.stringify(studentArrState));
+      studentArrStateCopy.push(result[0]);
+      setStudentArrState(studentArrStateCopy);
 
-    //Lưu xuống CSDL
-    api.postNewStudentInfo(result[0]);
+      //hiện thông báo
+      document.querySelector(".confirm.add .notification").style.display =
+        "flex";
+
+      //Lưu xuống CSDL
+      api.postNewStudentInfo(result[0]);
+    }
   };
 
   //Xử lý nút hủy của màn hình xác nhận
@@ -93,6 +122,7 @@ export const AddStudent = () => {
         handleConfirmCancelBtn={handleConfirmCancelBtn}
         handleConfirmAcceptBtn={handleConfirmAcceptBtn}
       />
+      <Notification status="failed" message={message} />
       <h3>Thêm học sinh</h3>
 
       <form className="grid">

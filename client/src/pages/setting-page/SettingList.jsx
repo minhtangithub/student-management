@@ -4,6 +4,7 @@ import EditIcon from "../../assets/edit-icon.png";
 import { useState, useEffect } from "react";
 // import { settingArr } from "../../config/getAPI";
 import { Confirm } from "../../components/Confirm";
+import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 import { api } from "../../api/api";
 import axios from "axios";
@@ -11,6 +12,7 @@ export const SettingList = () => {
   const [settingArrState, setSettingArrState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -23,24 +25,33 @@ export const SettingList = () => {
   const handleEvent = {
     handleConfirmAcceptBtn: {
       editSetting: () => {
-        //tạo copy
-        const settingArrStateCopy = helper.generateArrCopy(settingArrState);
+        //kiểm tra ràng buộc dữ liệu
+        let checkEmptyMessage = helper.validateData("empty", result[0]);
+        if (checkEmptyMessage !== "ok") {
+          setMessage(checkEmptyMessage);
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          //tạo copy
+          const settingArrStateCopy = helper.generateArrCopy(settingArrState);
 
-        //cập nhật mảng
-        let index = settingArrStateCopy.findIndex(
-          (item) => item.idSet == result[0].idSet
-        );
-        settingArrStateCopy[index] = result[0];
-        settingArrStateCopy[index].Edit = false;
-        setSettingArrState(settingArrStateCopy);
+          //cập nhật mảng
+          let index = settingArrStateCopy.findIndex(
+            (item) => item.idSet == result[0].idSet
+          );
+          settingArrStateCopy[index] = result[0];
+          settingArrStateCopy[index].Edit = false;
+          setSettingArrState(settingArrStateCopy);
 
-        //hiển thị thông báo
-        helper.turnOnNotification("edit");
+          //hiển thị thông báo
+          helper.turnOnNotification("edit");
 
-        //cập nhật xuống CSDL
-        api.putSettingList(settingArrState[index]._id, {
-          valueSet: result[0].valueSet,
-        });
+          //cập nhật xuống CSDL
+          api.putSettingList(settingArrState[index]._id, {
+            valueSet: result[0].valueSet,
+          });
+        }
       },
     },
 
@@ -61,6 +72,11 @@ export const SettingList = () => {
         helper.turnOnConfirm("edit");
       },
     },
+    // handleValueInputChange: (e, i) => {
+    //   let settingArrStateCopy = JSON.parse(JSON.stringify(settingArrState));
+    //   settingArrStateCopy[i].valueSet = e.target.value;
+    //   setSettingArrState(settingArrStateCopy);
+    // },
   };
 
   return (
@@ -71,6 +87,8 @@ export const SettingList = () => {
         handleConfirmCancelBtn={() => helper.turnOffConfirm("edit")}
         handleConfirmAcceptBtn={handleEvent.handleConfirmAcceptBtn.editSetting}
       />
+      <Notification status="failed" message={message} />
+
       <div className="setting">
         <h3>Danh sách tham số</h3>
         <div className="container">
@@ -113,6 +131,16 @@ export const SettingList = () => {
                         type="text"
                         className="input--small"
                         placeholder="Nhập giá trị mới..."
+                        value={item.valueSet}
+                        onChange={(e) =>
+                          handler.handleEditInputChange(
+                            e,
+                            i,
+                            settingArrState,
+                            setSettingArrState,
+                            "valueSet"
+                          )
+                        }
                       />
                     </div>
                     <div className="item col-33-percent center save-btn__container">

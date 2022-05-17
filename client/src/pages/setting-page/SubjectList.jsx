@@ -10,12 +10,14 @@ import { subjectArr } from "../../config/getAPI";
 import { api } from "../../api/api";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
+import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 
 export const SubjectList = () => {
   const [subjectArrState, setSubjectArrState] = useState(subjectArr);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -28,48 +30,64 @@ export const SubjectList = () => {
   const handleEvent = {
     handleConfirmAcceptBtn: {
       editSubject: () => {
-        //tạo copy
-        const subjectArrStateCopy = helper.generateArrCopy(subjectArrState);
+        //kiểm tra ràng buộc dữ liệu
+        let checkEmptyMessage = helper.validateData("empty", result[0]);
+        if (checkEmptyMessage !== "ok") {
+          setMessage(checkEmptyMessage);
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          //tạo copy
+          const subjectArrStateCopy = helper.generateArrCopy(subjectArrState);
 
-        //dò tìm phần tử mang ID cần sửa
-        let index = subjectArrStateCopy.findIndex(
-          (item) => item.idSubject == result[0].idSubject
-        );
+          //dò tìm phần tử mang ID cần sửa
+          let index = subjectArrStateCopy.findIndex(
+            (item) => item.idSubject == result[0].idSubject
+          );
 
-        //sửa giá trị
-        subjectArrStateCopy[index] = result[0];
-        subjectArrStateCopy[index].Edit = false;
+          //sửa giá trị
+          subjectArrStateCopy[index] = result[0];
+          subjectArrStateCopy[index].Edit = false;
 
-        //set lại mảng, cho thông báo
-        setSubjectArrState(subjectArrStateCopy);
-        helper.turnOnNotification("edit");
+          //set lại mảng, cho thông báo
+          setSubjectArrState(subjectArrStateCopy);
+          helper.turnOnNotification("edit");
 
-        //Cập nhật xuống CSDL
-        api.putSubjectList(subjectArrState[index]._id, {
-          nameSubject: result[0].nameSubject,
-        });
-        setResult([]);
+          //Cập nhật xuống CSDL
+          api.putSubjectList(subjectArrState[index]._id, {
+            nameSubject: result[0].nameSubject,
+          });
+          setResult([]);
+        }
       },
       addSubject: () => {
-        console.log(result);
-        //tạo copy
-        const subjectArrStateCopy = helper.generateArrCopy(subjectArrState);
+        //kiểm tra ràng buộc dữ liệu
+        let checkEmptyMessage = helper.validateData("empty", result[0]);
+        if (checkEmptyMessage !== "ok") {
+          setMessage(checkEmptyMessage);
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          //tạo copy
+          const subjectArrStateCopy = helper.generateArrCopy(subjectArrState);
 
-        //thêm item mới vào mảng copy
-        const newSubjectArrStateCopy = [...subjectArrStateCopy, ...result];
+          //thêm item mới vào mảng copy
+          const newSubjectArrStateCopy = [...subjectArrStateCopy, ...result];
 
-        //Cập nhật mảng, xuất thông báo, ẩn dòng thêm mới
-        setSubjectArrState(newSubjectArrStateCopy);
-        helper.turnOnNotification("add");
+          //Cập nhật mảng, xuất thông báo, ẩn dòng thêm mới
+          setSubjectArrState(newSubjectArrStateCopy);
+          helper.turnOnNotification("add");
+          document.querySelector(".row.add").style.display = "none";
 
-        document.querySelector(".row.add").style.display = "none";
-
-        //Cập nhật xuống CSDL
-        api.postSubjectList({
-          idSubject: result[0].idSubject,
-          nameSubject: result[0].nameSubject,
-        });
-        setResult([]);
+          //Cập nhật xuống CSDL
+          api.postSubjectList({
+            idSubject: result[0].idSubject,
+            nameSubject: result[0].nameSubject,
+          });
+          setResult([]);
+        }
       },
       deleteSubject: () => {
         //tạo copy
@@ -89,11 +107,6 @@ export const SubjectList = () => {
         setResult([]);
       },
       deleteSelectedSubject: () => {
-        //lấy phần tử bị xóa
-        // const deletedItems = subjectArrState.filter((item, i) => {
-        //   return item.idSubject == result[i].idSubject;
-        // });
-
         //tạo copy
         const subjectArrStateCopy = helper.generateArrCopy(subjectArrState);
 
@@ -188,11 +201,11 @@ export const SubjectList = () => {
         setSubjectArrState(subjectArrStateCopy);
       },
     },
-    handleNameInputChange: (e, i) => {
-      let subjectArrStateCopy = JSON.parse(JSON.stringify(subjectArrState));
-      subjectArrStateCopy[i].nameSubject = e.target.value;
-      setSubjectArrState(subjectArrStateCopy);
-    },
+    // handleNameInputChange: (e, i) => {
+    //   let subjectArrStateCopy = JSON.parse(JSON.stringify(subjectArrState));
+    //   subjectArrStateCopy[i].nameSubject = e.target.value;
+    //   setSubjectArrState(subjectArrStateCopy);
+    // },
   };
 
   return (
@@ -225,6 +238,8 @@ export const SubjectList = () => {
           handleEvent.handleConfirmAcceptBtn.deleteSelectedSubject
         }
       />
+      <Notification status="failed" message={message} />
+
       <div className="manage-subject">
         <h3>Danh sách môn học</h3>
 
@@ -284,7 +299,13 @@ export const SubjectList = () => {
                         placeholder="Nhập tên môn học mới..."
                         value={item.nameSubject}
                         onChange={(e) =>
-                          handleEvent.handleNameInputChange(e, i)
+                          handler.handleEditInputChange(
+                            e,
+                            i,
+                            subjectArrState,
+                            setSubjectArrState,
+                            "nameSubject"
+                          )
                         }
                       />
                     </div>

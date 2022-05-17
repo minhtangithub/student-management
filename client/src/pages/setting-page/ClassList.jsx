@@ -9,48 +9,68 @@ import { classArr } from "../../config/getAPI";
 
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
+import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 
 export const ClassList = () => {
   const [classArrState, setClassArrState] = useState(classArr);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
+  const [message, setMessage] = useState("");
   const handleEvent = {
     handleConfirmAcceptBtn: {
       editClass: () => {
-        //Tạo copy
-        const classArrStateCopy = helper.generateArrCopy(classArrState);
+        //kiểm tra ràng buộc dữ liệu
+        let checkEmptyMessage = helper.validateData("empty", result[0]);
+        if (checkEmptyMessage !== "ok") {
+          setMessage(checkEmptyMessage);
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          //Tạo copy
+          const classArrStateCopy = helper.generateArrCopy(classArrState);
 
-        //Tìm index phần tử bị edit
-        let index = classArrStateCopy.findIndex(
-          (item) => item.ID == result[0].ID
-        );
+          //Tìm index phần tử bị edit
+          let index = classArrStateCopy.findIndex(
+            (item) => item.ID == result[0].ID
+          );
 
-        //Cập nhật mảng
-        classArrStateCopy[index] = result[0];
-        classArrStateCopy[index].Edit = false;
-        setClassArrState(classArrStateCopy);
+          //Cập nhật mảng
+          classArrStateCopy[index] = result[0];
+          classArrStateCopy[index].Edit = false;
+          setClassArrState(classArrStateCopy);
 
-        //hiển thị thông báo
-        helper.turnOnNotification("edit");
+          //hiển thị thông báo
+          helper.turnOnNotification("edit");
 
-        //Cập nhật xuống CSDL
-        //...
+          //Cập nhật xuống CSDL
+          //...
+        }
       },
       addClass: () => {
-        //tạp copy
-        const classArrStateCopy = helper.generateArrCopy(classArrState);
+        //kiểm tra ràng buộc dữ liệu
+        let checkEmptyMessage = helper.validateData("empty", result[0]);
+        if (checkEmptyMessage !== "ok") {
+          setMessage(checkEmptyMessage);
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          //tạp copy
+          const classArrStateCopy = helper.generateArrCopy(classArrState);
 
-        //cập nhật mảng
-        const newClassArrStateCopy = [...classArrStateCopy, ...result];
-        setClassArrState(newClassArrStateCopy);
+          //cập nhật mảng
+          const newClassArrStateCopy = [...classArrStateCopy, ...result];
+          setClassArrState(newClassArrStateCopy);
 
-        //hiển thị thông báo, ẩn dòng thêm mới
-        helper.turnOnNotification("add");
-        document.querySelector(".row.add").style.display = "none";
+          //hiển thị thông báo, ẩn dòng thêm mới
+          helper.turnOnNotification("add");
+          document.querySelector(".row.add").style.display = "none";
 
-        //cập nhật xuống CSDL
-        //...
+          //cập nhật xuống CSDL
+          //...
+        }
       },
       deleteClass: () => {
         //tạo copy
@@ -93,7 +113,7 @@ export const ClassList = () => {
           setResult([classArrState[index]]);
           setResultUI([
             {
-              "Tên lớp": classArrState[index].Name,
+              "Tên lớp": classArrState[index].nameClass,
             },
           ]);
           helper.turnOnConfirm("delete");
@@ -105,13 +125,13 @@ export const ClassList = () => {
         let classArrStateCopy = JSON.parse(JSON.stringify(classArrState));
         let index = +e.target.getAttribute("data-set");
         let inputs = e.target.closest(".row").querySelectorAll("input");
-        classArrStateCopy[index].Name = inputs[0].value;
+        classArrStateCopy[index].nameClass = inputs[0].value;
 
         let newValue = classArrStateCopy[index];
         setResult([newValue]);
         setResultUI([
           {
-            "Tên lớp": newValue.Name,
+            "Tên lớp": newValue.nameClass,
           },
         ]);
         helper.turnOnConfirm("edit");
@@ -130,7 +150,7 @@ export const ClassList = () => {
         setResult([newItem]);
         setResultUI([
           {
-            "Tên lớp": newItem.Name,
+            "Tên lớp": newItem.nameClass,
           },
         ]);
         helper.turnOnConfirm("add");
@@ -143,7 +163,7 @@ export const ClassList = () => {
         setResultUI(
           selectedClass.map((item, i) => {
             return {
-              "Tên lớp": item.Name,
+              "Tên lớp": item.nameClass,
             };
           })
         );
@@ -158,11 +178,11 @@ export const ClassList = () => {
         setClassArrState(classArrStateCopy);
       },
     },
-    handleNameInputChange: (e, i) => {
-      let classArrStateCopy = JSON.parse(JSON.stringify(classArrState));
-      classArrStateCopy[i].Name = e.target.value;
-      setClassArrState(classArrStateCopy);
-    },
+    // handleNameInputChange: (e, i) => {
+    //   let classArrStateCopy = JSON.parse(JSON.stringify(classArrState));
+    //   classArrStateCopy[i].nameClass = e.target.value;
+    //   setClassArrState(classArrStateCopy);
+    // },
   };
 
   return (
@@ -193,6 +213,8 @@ export const ClassList = () => {
           handleEvent.handleConfirmAcceptBtn.deleteSelectedClass
         }
       />
+      <Notification status="failed" message={message} />
+
       <div className="manage-class">
         <h3>Danh sách các lớp</h3>
         <div className="container">
@@ -213,7 +235,9 @@ export const ClassList = () => {
                       onChange={(e) => handleEvent.handleCheckbox.class(e)}
                     />
                   </div>
-                  <div className="item col-45-percent center">{item.Name}</div>
+                  <div className="item col-45-percent center">
+                    {item.nameClass}
+                  </div>
                   <div className="item col-45-percent center">
                     <button
                       data-set={i}
@@ -245,9 +269,15 @@ export const ClassList = () => {
                         type="text"
                         className="input--small"
                         placeholder="Nhập tên lớp mới..."
-                        value={item.Name}
+                        value={item.nameClass}
                         onChange={(e) =>
-                          handleEvent.handleNameInputChange(e, i)
+                          handler.handleEditInputChange(
+                            e,
+                            i,
+                            classArrState,
+                            setClassArrState,
+                            "nameClass"
+                          )
                         }
                       />
                     </div>

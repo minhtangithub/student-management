@@ -1,7 +1,7 @@
 import React from "react";
+import { classArr } from "../config/getAPI";
 
 export const handler = {
-  handleConfirmCancelBtn: (confirmType) => {},
   handleClickEditBtn: (e, dataState, setDataState) => {
     if (e.target.classList.contains("edit-img")) {
       let index = +e.target.parentNode.getAttribute("data-set");
@@ -12,6 +12,13 @@ export const handler = {
   },
   handleClickAddBtn: () => {
     document.querySelector(".row.add").style.display = "flex";
+  },
+
+  //giúp có sẵn giá trị khi bấm edit
+  handleEditInputChange: (e, i, dataArr, setDataArr, property) => {
+    let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
+    dataArrCopy[i][property] = e.target.value;
+    setDataArr(dataArrCopy);
   },
 };
 
@@ -124,12 +131,13 @@ export const helper = {
     switch (checkType) {
       case "empty": {
         let isEmpty =
-          Object.values(data).filter((item) => item.trim().length == 0).length >
-          0;
+          Object.values(data).filter((item) => String(item).trim() == "")
+            .length > 0;
         if (isEmpty) {
           message = "Không được để trống thông tin";
           return message;
         }
+        break;
       }
       case "age": {
         let isAgeValid;
@@ -142,27 +150,44 @@ export const helper = {
           message = "Tuổi không đúng quy định";
           return message;
         }
+        break;
       }
       case "email": {
         let isEmailValid = data.email.contains("@");
         if (!isEmailValid) {
-          message = "Hãy nhập đúng email";
+          message = "Nhập sai email";
           return message;
         }
+        break;
       }
       case "number": {
         let isNumber = true;
+        console.log(data);
         Object.values(data).forEach((item) => {
-          if (typeof item === "number" && isFinite(item)) {
+          if (isNaN(Number(item))) {
             isNumber = false;
           }
         });
         if (!isNumber) {
-          message = "Hãy nhập dữ liệu là số";
+          message = "Nhập dữ liệu không phải số";
+          return message;
+        }
+        break;
+      }
+
+      case "class": {
+        let isThereClass = true;
+        const classNameArr = classArr.map((item) => item.nameClass);
+        if (!classNameArr.includes(data.nameClass)) {
+          isThereClass = false;
+        }
+        if (!isThereClass) {
+          message = "Lớp không hợp lệ";
           return message;
         }
       }
     }
+    return "ok";
   },
 };
 

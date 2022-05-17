@@ -8,11 +8,14 @@ import {
   termArr,
   schoolYearArr,
 } from "../../config/getAPI";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 export const Score = () => {
+  let history = useHistory();
+
   //tạo options cho select
   const classNameArr = classArr.map((item) => {
-    return { value: item.ID, text: item.Name };
+    return { value: item.ID, text: item.nameClass };
   });
 
   const subjectNameArr = subjectArr.map((item) => {
@@ -36,7 +39,18 @@ export const Score = () => {
   //     schoolYear: schoolYear,
   //   };
   // };
+  const getSelectedOptions = () => {
+    let optionValues = [];
+    document.querySelectorAll(".dropdown_selected-default").forEach((item) => {
+      optionValues.push(item.innerText);
+    });
+    return optionValues;
+  };
 
+  const handleClickCreateBtn = () => {
+    const [className, subject, term, schoolyear] = getSelectedOptions();
+    history.push(`score/${className}/${subject}/${term}/${schoolyear}`);
+  };
   return (
     <div className="score">
       <h3>Tạo bảng điểm môn</h3>
@@ -80,10 +94,7 @@ export const Score = () => {
           btnType="clear"
           innerText={<Link to="/score/create-score">Tạo danh sách mới</Link>}
         /> */}
-        <Button
-          btnType="add"
-          innerText={<Link to="/score/create-score">Tạo</Link>}
-        />
+        <Button btnType="add" innerText="Tạo" onClick={handleClickCreateBtn} />
       </div>
     </div>
   );

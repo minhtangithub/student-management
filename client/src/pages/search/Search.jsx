@@ -7,11 +7,12 @@ import DeleteIcon from "../../assets/Delete-icon.png";
 import { Button } from "../../components/Button";
 import { Detail } from "../../components/Detail";
 import { Confirm } from "../../components/Confirm";
+import { Notification } from "../../components/Notification";
 import { useState } from "react";
 import { studentScoreArr } from "../../config/getAPI";
 import { handler, helper } from "../../handle-event/HandleEvent";
 
-//studentArrTemp là để hiển thị, StudentScoreArr là để lưu xuống CSDL
+//studentArrTemp là để hiển thị, studentScoreArr là để lưu xuống CSDL
 
 export const Search = () => {
   const [studentArrState, setStudentArrState] = useState(studentScoreArr);
@@ -19,6 +20,7 @@ export const Search = () => {
     useState(studentScoreArr);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
+  const [message, setMessage] = useState("");
 
   const handleEvent = {
     handleConfirmToDelete: () => {
@@ -47,48 +49,77 @@ export const Search = () => {
       //...
     },
     handleConfirmToEdit: () => {
-      //tạo copy
-      const studentArrStateCopy = helper.generateArrCopy(studentArrState);
-      const studentArrTempStateCopy =
-        helper.generateArrCopy(studentArrTempState);
+      //kiểm tra ràng buộc dữ liệu
+      let checkEmptyMessage = helper.validateData("empty", result[0]);
+      let checkNumberMessage = helper.validateData("number", {
+        AvgScore1: result[0].AvgScore1,
+        AvgScore2: result[0].AvgScore2,
+      });
+      let checkClassMessage = helper.validateData("class", {
+        nameClass: result[0].nameClass,
+      });
 
-      //cập nhật ở mảng dữ liệu
-      let index = studentArrStateCopy.findIndex(
-        (item) => item.ID == result[0].ID
-      );
-      studentArrStateCopy[index] = result[0];
-      studentArrStateCopy[index].Edit = false;
-      setStudentArrState(studentArrStateCopy);
+      const checkMessageArr = [
+        checkEmptyMessage,
+        checkNumberMessage,
+        checkClassMessage,
+      ];
+      let isValid = checkMessageArr.filter((item) => item !== "ok").length == 0;
 
-      //cập nhật ở UI
-      let index2 = studentArrTempStateCopy.findIndex(
-        (item) => item.ID == result[0].ID
-      );
-      studentArrTempStateCopy[index2] = result[0];
-      studentArrTempStateCopy[index2].Edit = false;
-      setStudentArrTempState(studentArrTempStateCopy);
+      if (!isValid) {
+        //lấy thông báo thất bại đầu tiên
+        const firstFailedMessage = checkMessageArr.filter(
+          (item) => item !== "ok"
+        )[0];
+        setMessage(firstFailedMessage);
+        document.querySelector(
+          ".notification--failed"
+        ).parentElement.style.display = "flex";
+      } else {
+        //tạo copy
+        const studentArrStateCopy = helper.generateArrCopy(studentArrState);
+        const studentArrTempStateCopy =
+          helper.generateArrCopy(studentArrTempState);
 
-      //hiển thị thông báo
-      helper.turnOnNotification("edit");
+        //cập nhật ở mảng dữ liệu
+        let index = studentArrStateCopy.findIndex(
+          (item) => item.ID == result[0].ID
+        );
+        studentArrStateCopy[index] = result[0];
+        studentArrStateCopy[index].Edit = false;
+        setStudentArrState(studentArrStateCopy);
 
-      //Cập nhật xuống CSDL
-      //...
+        //cập nhật ở UI
+        let index2 = studentArrTempStateCopy.findIndex(
+          (item) => item.ID == result[0].ID
+        );
+        studentArrTempStateCopy[index2] = result[0];
+        studentArrTempStateCopy[index2].Edit = false;
+        setStudentArrTempState(studentArrTempStateCopy);
+
+        //hiển thị thông báo
+        helper.turnOnNotification("edit");
+
+        //Cập nhật xuống CSDL
+        //...
+      }
     },
     handleSaveBtn: (e) => {
       let studentArrStateCopy = JSON.parse(JSON.stringify(studentArrTempState));
       let index = +e.target.getAttribute("data-set");
       let inputs = e.target.closest(".row").querySelectorAll("input");
       studentArrStateCopy[index].Name = inputs[0].value;
-      studentArrStateCopy[index].Class = inputs[1].value;
+      studentArrStateCopy[index].nameClass = inputs[1].value;
       studentArrStateCopy[index].AvgScore1 = inputs[2].value;
       studentArrStateCopy[index].AvgScore2 = inputs[3].value;
-      let newValue = studentArrStateCopy[index];
-      setResult([newValue]);
 
+      let newValue = studentArrStateCopy[index];
+      console.log(">>>newValue", newValue);
+      setResult([newValue]);
       setResultUI([
         {
           "Họ tên": newValue.Name,
-          Lớp: newValue.Class,
+          Lớp: newValue.nameClass,
           "Điểm TBHKI": newValue.AvgScore1,
           "Điểm TBHKII": newValue.AvgScore2,
         },
@@ -130,7 +161,7 @@ export const Search = () => {
           .map((item) => {
             return {
               "Họ tên": item.Name,
-              Lớp: item.Class,
+              Lớp: item.nameClass,
               "Điểm TBHKI": item.AvgScore1,
               "Điểm TBHKII": item.AvgScore2,
               "Năm học": item.SchoolYear,
@@ -150,7 +181,7 @@ export const Search = () => {
         setResultUI([
           {
             "Họ tên": studentArrTempState[index].Name,
-            Lớp: studentArrTempState[index].Class,
+            Lớp: studentArrTempState[index].nameClass,
             "Điểm TBHKI": studentArrTempState[index].AvgScore1,
             "Điểm TBHKII": studentArrTempState[index].AvgScore2,
           },
@@ -181,6 +212,7 @@ export const Search = () => {
         handleConfirmCancelBtn={() => helper.turnOffConfirm("delete")}
         handleConfirmAcceptBtn={handleEvent.handleConfirmToDelete}
       />
+      <Notification status="failed" message={message} />
       <h3>TRA CỨU</h3>
       <div className="grid">
         <div className="row">
@@ -224,7 +256,7 @@ export const Search = () => {
                   {item.Name}
                 </div>
                 <div className="item col-10-percent center al-center">
-                  {item.Class}
+                  {item.nameClass}
                 </div>
                 <div className="item col-20-percent center al-center">
                   {item.AvgScore1}
@@ -269,6 +301,16 @@ export const Search = () => {
                       type="text"
                       className="input--small"
                       placeholder="Nhập họ tên..."
+                      value={item.Name}
+                      onChange={(e) =>
+                        handler.handleEditInputChange(
+                          e,
+                          i,
+                          studentArrTempState,
+                          setStudentArrTempState,
+                          "Name"
+                        )
+                      }
                     />
                   </div>
                   <div className="item col-10-percent center al-center">
@@ -276,6 +318,16 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập lớp..."
+                      value={item.nameClass}
+                      onChange={(e) =>
+                        handler.handleEditInputChange(
+                          e,
+                          i,
+                          studentArrTempState,
+                          setStudentArrTempState,
+                          "nameClass"
+                        )
+                      }
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -283,6 +335,16 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập TBHKI..."
+                      value={item.AvgScore1}
+                      onChange={(e) =>
+                        handler.handleEditInputChange(
+                          e,
+                          i,
+                          studentArrTempState,
+                          setStudentArrTempState,
+                          "AvgScore1"
+                        )
+                      }
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -290,6 +352,16 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập TBHKII..."
+                      value={item.AvgScore2}
+                      onChange={(e) =>
+                        handler.handleEditInputChange(
+                          e,
+                          i,
+                          studentArrTempState,
+                          setStudentArrTempState,
+                          "AvgScore2"
+                        )
+                      }
                     />
                   </div>
                   <div className="item col-20-percent center al-center save-btn__container">
