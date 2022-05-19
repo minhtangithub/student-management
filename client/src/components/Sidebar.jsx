@@ -287,20 +287,20 @@ const Sidebar = () => {
               },
               {
                 title: "Thêm",
-                itemId: "/:id",
+                itemId: "/add",
                 elemBefore: () => (
                   <img src={Add} alt="" /> //<i class="fa-solid fa-tv"></i>
                 ),
                 subNav: [
                   {
                     title: "Tiếp nhận học sinh",
-                    itemId: "/add-student",
+                    itemId: "/add/add-student",
                     // Requires v1.9.1+ (https://github.com/abhijithvijayan/react-minimal-side-navigation/issues/13)
                     // elemBefore: () => <img src={Home} alt="" />,
                   },
                   {
                     title: "Lập danh sách lớp",
-                    itemId: "/add-class",
+                    itemId: "/add/add-class",
                     // elemBefore: () => <img src={Home} alt="" />,
                   },
                 ],
@@ -321,19 +321,19 @@ const Sidebar = () => {
               },
               {
                 title: "Báo cáo",
-                itemId: "*",
+                itemId: "/report",
                 elemBefore: () => (
                   <img src={File} alt="" /> //<i class="fa-solid fa-file-lines"></i>
                 ),
                 subNav: [
                   {
                     title: "Báo cáo môn học",
-                    itemId: "/report-subject",
+                    itemId: "/report/report-subject",
                     // Requires v1.9.1+ (https://github.com/abhijithvijayan/react-minimal-side-navigation/issues/13)
                   },
                   {
                     title: "Báo cáo học kỳ",
-                    itemId: "/report-term",
+                    itemId: "/report/report-term",
                   },
                 ],
               },
