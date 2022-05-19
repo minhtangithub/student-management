@@ -4,6 +4,7 @@
   @include flex(center, center);
   flex-direction: column;
   @include overlay();
+  z-index: 1000;
   &__container {
     width: 500px;
     height: 500px;
