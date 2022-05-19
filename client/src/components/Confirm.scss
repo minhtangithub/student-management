@@ -3,6 +3,7 @@
 .confirm {
   @include overlay();
   @include flex(center, center);
+  z-index: 999;
   &__container {
     width: 500px;
     background-color: #fff;
