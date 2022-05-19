@@ -4,14 +4,17 @@ import "./CreateReportTerm.scss";
 import { reportTermArr } from "../../../config/getAPI";
 
 import { Button } from "../../../components/Button";
+import { useParams } from "react-router-dom";
 
 export const CreateReportTerm = () => {
+  const { term, schoolyear } = useParams();
+
   return (
     <div className="create-report-term">
       <h3>Báo cáo tổng kết học kì</h3>
       <div className="score-info">
-        <h4>Học kỳ: 1</h4>
-        <h4>Năm học: 2018-2019</h4>
+        <h4>{term}</h4>
+        <h4>Năm học: {schoolyear}</h4>
       </div>
       <div className="container">
         <div className="row heading">

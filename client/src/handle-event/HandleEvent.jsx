@@ -1,7 +1,7 @@
 import React from "react";
+import { classArr } from "../config/getAPI";
 
 export const handler = {
-  handleConfirmCancelBtn: (confirmType) => {},
   handleClickEditBtn: (e, dataState, setDataState) => {
     if (e.target.classList.contains("edit-img")) {
       let index = +e.target.parentNode.getAttribute("data-set");
@@ -13,22 +13,30 @@ export const handler = {
   handleClickAddBtn: () => {
     document.querySelector(".row.add").style.display = "flex";
   },
+
+  //giúp có sẵn giá trị khi bấm edit
+  handleEditInputChange: (e, i, dataArr, setDataArr, property) => {
+    let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
+    dataArrCopy[i][property] = e.target.value;
+    setDataArr(dataArrCopy);
+  },
 };
 
 export const helper = {
-  generateID: (dataArr) => {
-    const IDArr = dataArr.map((item) => item.ID);
-    let newIDNum = Number(IDArr[IDArr.length - 1]) + 1;
-    let newIDString;
+  generateID: (dataArr, idName, prefix = "") => {
+    const lastID = dataArr[dataArr.length - 1][idName];
+    const lastIDNumber = lastID.replace(prefix, "");
+    let newIDNum = Number(lastIDNumber) + 1;
+    let newID;
     if (newIDNum < 10) {
-      newIDString = `00${newIDNum}`;
+      newID = `${prefix}00${newIDNum}`;
     } else if (newIDNum < 100) {
-      newIDString = `0${newIDNum}`;
+      newID = `${prefix}0${newIDNum}`;
     } else {
-      newIDString = `${newIDNum}`;
+      newID = `${prefix}${newIDNum}`;
     }
 
-    return newIDString;
+    return newID;
   },
   generateArrCopy: (dataArr) => {
     return JSON.parse(JSON.stringify(dataArr));
@@ -114,6 +122,72 @@ export const helper = {
         return;
       }
     }
+  },
+
+  //checkType là loại cần check, data là dữ liệu cần kiểm tra được gom về 1 object
+  //VD: validateData("empty", {name: ..., ....})
+  validateData: (checkType, data) => {
+    let message;
+    switch (checkType) {
+      case "empty": {
+        let isEmpty =
+          Object.values(data).filter((item) => String(item).trim() == "")
+            .length > 0;
+        if (isEmpty) {
+          message = "Không được để trống thông tin";
+          return message;
+        }
+        break;
+      }
+      case "age": {
+        let isAgeValid;
+        let today = new Date();
+        let thisYear = today.getFullYear();
+        let [inputDay, inputMonth, inputYear] = data.dateOfBirth.split("/");
+        let age = Number(thisYear) - Number(inputYear);
+        isAgeValid = age >= 15 && age <= 20;
+        if (!isAgeValid) {
+          message = "Tuổi không đúng quy định";
+          return message;
+        }
+        break;
+      }
+      case "email": {
+        let isEmailValid = data.email.contains("@");
+        if (!isEmailValid) {
+          message = "Nhập sai email";
+          return message;
+        }
+        break;
+      }
+      case "number": {
+        let isNumber = true;
+        console.log(data);
+        Object.values(data).forEach((item) => {
+          if (isNaN(Number(item))) {
+            isNumber = false;
+          }
+        });
+        if (!isNumber) {
+          message = "Nhập dữ liệu không phải số";
+          return message;
+        }
+        break;
+      }
+
+      case "class": {
+        let isThereClass = true;
+        const classNameArr = classArr.map((item) => item.nameClass);
+        if (!classNameArr.includes(data.nameClass)) {
+          isThereClass = false;
+        }
+        if (!isThereClass) {
+          message = "Lớp không hợp lệ";
+          return message;
+        }
+      }
+    }
+    return "ok";
   },
 };
 

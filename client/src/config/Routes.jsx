@@ -28,14 +28,26 @@ export const Routes = () => {
       <Route path="/setting/setting-list" component={SettingList}></Route>
       <Route path="/add-student" component={AddStudent}></Route>
       <Route path="/add-class" exact component={AddClass}></Route>
-      <Route path="/add-class/create-class" component={CreateClass}></Route>
+      <Route
+        path="/add-class/:className/:grade/:schoolyear"
+        component={CreateClass}
+      ></Route>
       <Route path="/search" component={Search}></Route>
       <Route path="/score" exact component={Score}></Route>
-      <Route path="/score/create-score" component={CreateScore}></Route>
+      <Route
+        path="/score/:className/:subject/:term/:schoolyear"
+        component={CreateScore}
+      ></Route>
       <Route path="/report-subject" exact component={ReportSubject}></Route>
-      <Route path="/report-subject/:id" component={CreateReportSubject}></Route>
+      <Route
+        path="/report-subject/:subject/:term/:schoolyear"
+        component={CreateReportSubject}
+      ></Route>
       <Route path="/report-term" exact component={ReportTerm}></Route>
-      <Route path="/report-term/:id" component={CreateReportTerm}></Route>
+      <Route
+        path="/report-term/:term/:schoolyear"
+        component={CreateReportTerm}
+      ></Route>
       <Route path="*" component={NotFound}></Route>
     </Switch>
   );

@@ -3,14 +3,19 @@ import "./CreateScore.scss";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
+import { Notification } from "../../components/Notification";
 import { classListArr } from "../../config/getAPI";
 import { useState } from "react";
+import { helper } from "../../handle-event/HandleEvent";
+import { useParams } from "react-router-dom";
 
 export const CreateScore = () => {
+  const { className, subject, term, schoolyear } = useParams();
+
   const [status, setstatus] = useState("input");
+  const [message, setMessage] = useState("");
   const [finalResult, setFinalResult] = useState([]);
 
-  // const avgScore = {};
   const handleClickAddBtn = () => {
     const finalResultTemp = [];
     const inputs15Min = document.querySelectorAll(".min-15 input");
@@ -28,10 +33,40 @@ export const CreateScore = () => {
 
       finalResultTemp.push(newItem);
     });
-
-    setFinalResult(finalResultTemp);
-    setstatus("confirm");
+    //kiểm tra ràng buộc dữ liệu
+    let checkEmptyMessage = "ok";
+    let checkNumberMessage = "ok";
+    finalResultTemp.forEach((item) => {
+      if (helper.validateData("empty", item) !== "ok")
+        checkEmptyMessage = helper.validateData("empty", item);
+      if (
+        helper.validateData("number", {
+          score15Min: item.score15Min,
+          score1Per: item.score1Per,
+        }) !== "ok"
+      )
+        checkNumberMessage = helper.validateData("number", {
+          score15Min: item.score15Min,
+          score1Per: item.score1Per,
+        });
+    });
+    const checkMessageArr = [checkEmptyMessage, checkNumberMessage];
+    let isValid = checkMessageArr.filter((item) => item !== "ok").length == 0;
+    if (!isValid) {
+      //lấy thông báo thất bại đầu tiên
+      const firstFailedMessage = checkMessageArr.filter(
+        (item) => item !== "ok"
+      )[0];
+      setMessage(firstFailedMessage);
+      document.querySelector(
+        ".notification--failed"
+      ).parentElement.style.display = "flex";
+    } else {
+      setFinalResult(finalResultTemp);
+      setstatus("confirm");
+    }
   };
+
   const handleClickSaveBtn = () => {
     document.querySelector(".confirm.add").style.display = "flex";
   };
@@ -52,14 +87,16 @@ export const CreateScore = () => {
         handleConfirmAcceptBtn={handleConfirmAcceptBtn}
         handleConfirmCancelBtn={handleConfirmCancelBtn}
       />
+      <Notification status="failed" message={message} />
+
       {status == "input" ? (
         <div className="create-score">
           <h3>Tạo bảng điểm</h3>
           <div className="score-info">
-            <h4>Lớp: 10A1</h4>
-            <h4>Học kỳ: 1</h4>
-            <h4>Năm học: 2018-2019</h4>
-            <h4>Môn học: Toán</h4>
+            <h4>Lớp: {className}</h4>
+            <h4>{term}</h4>
+            <h4>Năm học: {schoolyear}</h4>
+            <h4>Môn học: {subject}</h4>
           </div>
           <div className="container">
             <div className="row heading">
@@ -105,9 +142,10 @@ export const CreateScore = () => {
         <div className="create-score">
           <h3>Tạo bảng điểm</h3>
           <div className="score-info">
-            <h4>Học kỳ: 1</h4>
-            <h4>Năm học: 2018-2019</h4>
-            <h4>Môn học: Toán</h4>
+            <h4>Lớp: {className}</h4>
+            <h4>Học kỳ: {term}</h4>
+            <h4>Năm học: {schoolyear}</h4>
+            <h4>Môn học: {subject}</h4>
           </div>
           <div className="container">
             <div className="row heading">

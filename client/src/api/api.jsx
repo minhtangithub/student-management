@@ -48,16 +48,24 @@ export const api = {
   //     const url = "score";
   //     return axiosClient.post(url, payload);
   //   },
-  postSettingList: (payload) => {
-    const url = "settings";
-    return axiosClient.post(url, payload);
+  putSettingList: (id, payload) => {
+    const url = "settings/" + String(id);
+    return axiosClient.put(url, payload);
   },
   //   postClassArr: (payload) => {
   //     const url = "students";
   //     return axiosClient.post(url, payload);
   //   },
+  putSubjectList: (id, payload) => {
+    const url = "subjects/" + String(id);
+    return axiosClient.put(url, payload);
+  },
   postSubjectList: (payload) => {
     const url = "subjects";
     return axiosClient.post(url, payload);
+  },
+  deleteSubjectList: (id) => {
+    const url = "subjects/" + String(id);
+    return axiosClient.delete(url);
   },
 };

@@ -9,30 +9,34 @@ const axiosClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  //không cần quan tâm này lắm
-  paramsSerializer: (params) =>
-    queryString.stringify({ ...params, api_key: apiConfig.apiKey }),
+  // //không cần quan tâm này lắm
+  paramsSerializer: (params) => queryString.stringify({ ...params }),
   //dùng axios với mảng
 });
 
 //can thiệp trước khi gửi hoặc nhận các request/response
-axiosClient.interceptors.request.use(async (config) => config);
+axiosClient.interceptors.request.use(
+  async (config) => {
+    return config;
+  },
+  (error) => {
+    throw error;
+  }
+);
 
 axiosClient.interceptors.response.use(
   (response) => {
-    if (response && response.data) {
-      const dataProcessed = response.data.map((item) => {
-        return {
-          ...item,
-          Edit: false,
-          Checked: false,
-        };
-      });
+    // if (response && response.data) {
+    //   const dataProcessed = response.data.map((item) => {
+    //     return {
+    //       ...item,
+    //       Edit: false,
+    //       Checked: false,
+    //     };
+    //   });
 
-      return dataProcessed;
-    }
-
-    return response;
+    //   return dataProcessed;
+    return response.data;
   },
   (error) => {
     throw error;

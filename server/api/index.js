@@ -15,6 +15,14 @@ const schoolYearRoute = require("./routes/schoolYear");
 const reportedSubject = require("./routes/reportedSubject");
 const reportedTerm = require("./routes/reportedTerm");
 
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 dotenv.config();
 app.use(express.json());
 
