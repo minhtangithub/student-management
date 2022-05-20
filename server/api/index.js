@@ -6,10 +6,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 var bodyParser = require("body-parser");
 const studentRoute = require("./routes/student");
-const _classRoute = require("./routes/_class");
+const cClassRoute = require("./routes/cClass");
+const gradeRoute = require("./routes/grade");
 const subjectRoute = require("./routes/subject");
 const settingRoute = require("./routes/setting");
-const gradeRoute = require("./routes/grade");
 const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
 const reportedSubject = require("./routes/reportedSubject");
@@ -28,7 +28,7 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/students", studentRoute);
-app.use("/api/classes", _classRoute);
+app.use("/api/classes", cClassRoute);
 app.use("/api/subjects", subjectRoute);
 app.use("/api/settings", settingRoute);
 app.use("/api/grades", gradeRoute);
