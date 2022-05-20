@@ -18,17 +18,67 @@ const settingSchema = new mongoose.Schema({
   },
 });
 
+//studentSchema
+const studentSchema = new mongoose.Schema({
+  ID: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  dateOfBirth: String,
+  address: String,
+  gender: String,
+  cClass: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CClass",
+  },
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    },
+  ],
+});
+
 //classSchema
-const _classSchema = new mongoose.Schema({
+const cClassSchema = new mongoose.Schema({
   nameClass: {
     type: String,
     required: true,
     unique: true,
   },
+  grade: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Grade",
+  },
   students: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Student",
+    },
+  ],
+});
+
+//gradeSchema
+const gradeSchema = new mongoose.Schema({
+  gradeName: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  cClasses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CClass",
     },
   ],
 });
@@ -83,10 +133,10 @@ const subjectSchema = new mongoose.Schema({
 
 //Bảng điểm
 const scoreSheetSchema = new mongoose.Schema({
-  _classes: [
+  cClasses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "_Class",
+      ref: "CClass",
     },
   ],
   subjects: [
@@ -113,61 +163,16 @@ const coEffectSchema = new mongoose.Schema({
   },
 });
 
-//studentSchema
-const studentSchema = new mongoose.Schema({
-  ID: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  fullName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  dateOfBirth: String,
-  address: String,
-  gender: String,
-  _class: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "_Class",
-  },
-  subjects: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Subject",
-    },
-  ],
-});
-
-const gradeSchema = new mongoose.Schema({
-  gradeName: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  _classes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "_Class",
-    },
-  ],
-});
-
 const termSchema = new mongoose.Schema({
   nameTerm: {
     type: String,
     required: true,
     unique: true,
   },
-  _classes: [
+  cClasses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "_Class",
+      ref: "CClass",
     },
   ],
 });
@@ -187,10 +192,10 @@ const reportedSubjectSchema = new mongoose.Schema({
       ref: "Subject",
     },
   ],
-  _classes: [
+  cClasses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "_Class",
+      ref: "CClass",
     },
   ],
   totalStudents: {
@@ -215,10 +220,10 @@ const reportedTermSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "schoolYear",
   },
-  _classes: [
+  cClasses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "_Class",
+      ref: "CClass",
     },
   ],
   totalStudents: {
@@ -233,7 +238,7 @@ const reportedTermSchema = new mongoose.Schema({
 });
 
 let Student = mongoose.model("Student", studentSchema);
-let _Class = mongoose.model("_Class", _classSchema);
+let CClass = mongoose.model("CClass", cClassSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
 let Setting = mongoose.model("Setting", settingSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
@@ -247,7 +252,7 @@ let CoEffect = mongoose.model("CoEffectSchema", coEffectSchema);
 
 module.exports = {
   Student,
-  _Class,
+  CClass,
   Subject,
   Setting,
   Grade,
