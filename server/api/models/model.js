@@ -66,6 +66,12 @@ const cClassSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
+  schoolYears: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SchoolYear",
+    },
+  ],
 });
 
 //gradeSchema
