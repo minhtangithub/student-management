@@ -1,0 +1,54 @@
+@use "../scss/" as *;
+
+.card {
+  width: 235px;
+  display: block;
+  height: auto;
+  /* background-color: #fff; */
+  position: relative;
+  filter: drop-shadow(1px 1px 2.5px rgba(0, 0, 0, 0.067));
+
+  .card-main {
+    width: 235px;
+    height: 439.75px;
+    /* height: 500px; */
+    /* width: 100%; */
+  }
+
+  .card-tagName {
+    font-size: 24px;
+    padding: 20px 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(34%);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  // .card-tag {
+  //   width: 280px;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   transform: translateY(33%);
+  //   /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  // }
+
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 230px;
+    font-size: 14px;
+    text-align: center;
+    // padding-left: 35px;
+    transform: translate(5%, 850%);
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    filter: drop-shadow(5px 5px 2.5px rgba(0, 0, 0, 0.067));
+  }
+}

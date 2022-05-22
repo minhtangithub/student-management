@@ -171,3 +171,12 @@ h3 {
 .row.content {
   flex-direction: row;
 }
+
+.card-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #e5e5e5; */
+  gap: 60px;
+}

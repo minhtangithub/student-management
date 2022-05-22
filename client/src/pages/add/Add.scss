@@ -2,9 +2,9 @@
 .add {
   & > a {
     // @include flex(center, center);
-    display: flex;
+    // display: flex;
     // justify-content: center;
-    align-items: center;
+    // align-items: center;
     i {
       position: relative;
       top: 2px;
@@ -12,76 +12,27 @@
       margin-right: 5px;
     }
   }
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-family: "Inter", sans-serif;
+  }
 }
 
 .add {
   @include manage();
   @include main-container;
 
-  h4,
-  a {
-    margin-top: 30px;
-    margin-left: 44px;
-    font-size: 20px;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-    color: #000;
-    font-weight: 700;
-    text-decoration: none;
-  }
+  // h4,
+  // a {
+  //   margin-top: 30px;
+  //   margin-left: 44px;
+  //   font-size: 20px;
+  //   text-transform: uppercase;
+  //   margin-bottom: 30px;
+  //   color: #000;
+  //   font-weight: 700;
+  //   text-decoration: none;
+  // }
 }
-
-//   .container {
-//     margin: 0 auto;
-//     width: 80%;
-//   }
-// }
-
-// .add .row {
-//   @include list-row();
-// }
-
-// .add-student .row {
-//   @include list-row();
-// }
-// .add-class .row {
-//   @include list-row();
-// }
-
-// .setting,
-// .add-student,
-// .add-class {
-//   input[type="checkbox"] {
-//     @include checkbox();
-//     margin-left: auto;
-//   }
-
-//   // input[type="text"] {
-//   //   border: 1px solid #000;
-//   // }
-//   .item {
-//     text-align: center;
-//   }
-
-//   .edit-btn,
-//   .delete-btn {
-//     background: none;
-//   }
-//   .save-btn__container {
-//     @include flex(center, center);
-//   }
-// }
-
-// .add-student ~ .btns {
-//   margin-top: 30px;
-// }
-
-// .add-class ~ .btns {
-//   margin-top: 30px;
-// }
-
-// // .manage-class {
-// //   .container {
-// //     width: 70%;
-// //     margin: 0 auto;
-// // }
