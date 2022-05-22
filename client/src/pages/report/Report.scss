@@ -1,0 +1,38 @@
+@use "../../scss/" as *;
+.report {
+  & > a {
+    // @include flex(center, center);
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    i {
+      position: relative;
+      top: 2px;
+      left: 2px;
+      margin-right: 5px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-family: "Inter", sans-serif;
+  }
+}
+
+.report {
+  @include manage();
+  @include main-container;
+
+  // h4,
+  // a {
+  //   margin-top: 30px;
+  //   margin-left: 44px;
+  //   font-size: 20px;
+  //   text-transform: uppercase;
+  //   margin-bottom: 30px;
+  //   color: #000;
+  //   font-weight: 700;
+  //   text-decoration: none;
+  // }
+}
