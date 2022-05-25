@@ -15,7 +15,7 @@ const gradeController = {
   // GET ALL GRADES
   getAllGrades: async (req, res) => {
     try {
-      const grades = await Grade.find().populate("cClasses");
+      const grades = await Grade.find();
       res.status(200).json(grades);
     } catch (err) {
       res.status(500).json(err);
@@ -25,7 +25,7 @@ const gradeController = {
   //GET A GRADE
   getGrade: async (req, res) => {
     try {
-      const grade = await Grade.findById(req.params.id);
+      const grade = await Grade.findById(req.params.id).populate("cClasses");
       res.status(200).json(grade);
     } catch (err) {
       res.status(500).json(err);

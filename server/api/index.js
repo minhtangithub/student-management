@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 var bodyParser = require("body-parser");
+const settingRoute = require("./routes/setting");
 const studentRoute = require("./routes/student");
 const cClassRoute = require("./routes/cClass");
 const gradeRoute = require("./routes/grade");
 const subjectRoute = require("./routes/subject");
-const settingRoute = require("./routes/setting");
+const coEffectRoute = require("./routes/coEffect");
 const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
 const reportedSubject = require("./routes/reportedSubject");
@@ -27,11 +28,12 @@ dotenv.config();
 app.use(express.json());
 
 //ROUTES
+app.use("/api/settings", settingRoute);
 app.use("/api/students", studentRoute);
 app.use("/api/classes", cClassRoute);
-app.use("/api/subjects", subjectRoute);
-app.use("/api/settings", settingRoute);
 app.use("/api/grades", gradeRoute);
+app.use("/api/subjects", subjectRoute);
+app.use("/api/coEffects", coEffectRoute);
 app.use("/api/termRoute", termRoute);
 app.use("/api/schoolYears", schoolYearRoute);
 app.use("/api/reportedSubjects", reportedSubject);
@@ -53,6 +55,6 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.listen(5000, () => {
+app.listen(8000, () => {
   console.log("Backend is running on port 5000");
 });

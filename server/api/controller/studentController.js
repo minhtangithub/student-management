@@ -1,4 +1,4 @@
-const { Student, _Class, Subject } = require("../models/model");
+const { Student, CClass, Subject } = require("../models/model");
 
 const studentController = {
   //ADD STUDENT
@@ -6,12 +6,11 @@ const studentController = {
     try {
       const newStudent = new Student(req.body);
       const savedStudent = await newStudent.save();
-      if (req.body._class) {
-        const _class = _Class.findById(req.body._class);
-        await _class.updateOne({ $push: { students: savedStudent._id } });
+      if (req.body.cClass) {
+        const cClass = CClass.findById(req.body.cClass);
+        await cClass.updateOne({ $push: { students: savedStudent._id } });
         res.status(200).json(savedStudent);
       }
-      res.status(200).json(savedStudent);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -30,11 +29,9 @@ const studentController = {
   //GET A STUDENT
   getStudent: async (req, res) => {
     try {
-      const student = await Student.findById(req.params.id).populate(
-        "subjects",
-        "_class"
-      );
-
+      const student = await Student.findById(req.params.id)
+        .populate("cClass")
+        .populate("subjects");
       res.status(200).json(student);
     } catch (err) {
       res.status(500).json(err);
@@ -55,11 +52,14 @@ const studentController = {
   //DELETE A STUDENT
   deleteStudent: async (req, res) => {
     try {
-      await _Class.updateMany(
+      await CClass.updateMany(
         { students: req.params.id },
         { $pull: { students: req.params.id } }
       );
-      await Subject.updateMany({ students: req.params.id }, { students: null });
+      await Subject.updateMany(
+        { students: req.params.id },
+        { $pull: { students: req.params.id } }
+      );
       await Student.findByIdAndDelete(req.params.id);
       res.status(200).json("Deleted successfully!");
     } catch (err) {

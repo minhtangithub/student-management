@@ -1,19 +1,19 @@
 const router = require("express").Router();
 const gradeController = require("../controller/gradeController");
 
-// ADD A GRADE
+// ADD A SETTING
 router.post("/", gradeController.addGrade);
 
-//GET ALL GRADES
+//GET ALL SETTINGS
 router.get("/", gradeController.getAllGrades);
 
-//GET A GRADE
-router.get("/:id", gradeController.getGrade);
-
-//PUT A GRADE
+//UPDATE A SETTING
 router.put("/:id", gradeController.updateGrade);
 
-//DELETE A GRADE
-// router.delete("/:id", gradeController.deleteGrade);
+//GET A SETTING
+router.get("/:id", gradeController.getGrade);
+
+//DELETE A SETTING
+router.delete("/:id", gradeController.deleteGrade);
 
 module.exports = router;
