@@ -43,7 +43,7 @@ const cClassController = {
   updateClass: async (req, res) => {
     try {
       const cClass = await CClass.findById(req.params.id);
-      if (req.body.grade) {
+      if (req.body.grade && !cClass.grade) {
         // const author = Author.find({ _id: req.body.author });
         const grade = Grade.findById(req.body.grade);
         await grade.updateOne({ $push: { cClasses: cClass._id } });

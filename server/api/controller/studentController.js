@@ -9,8 +9,8 @@ const studentController = {
       if (req.body.cClass) {
         const cClass = CClass.findById(req.body.cClass);
         await cClass.updateOne({ $push: { students: savedStudent._id } });
-        res.status(200).json(savedStudent);
       }
+      res.status(200).json(savedStudent);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -42,6 +42,11 @@ const studentController = {
   updateStudent: async (req, res) => {
     try {
       const student = await Student.findById(req.params.id);
+      if (req.body.cClass && !student.cClass) {
+        // const author = Author.find({ _id: req.body.author });
+        const cClass = CClass.findById(req.body.cClass);
+        await cClass.updateOne({ $push: { students: student._id } });
+      }
       await student.updateOne({ $set: req.body });
       res.status(200).json("Updated successfully!");
     } catch (err) {
