@@ -49,6 +49,21 @@ const studentSchema = new mongoose.Schema({
   ],
 });
 
+//gradeSchema
+const gradeSchema = new mongoose.Schema({
+  gradeName: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  cClasses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CClass",
+    },
+  ],
+});
+
 //classSchema
 const cClassSchema = new mongoose.Schema({
   nameClass: {
@@ -66,19 +81,10 @@ const cClassSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
-});
-
-//gradeSchema
-const gradeSchema = new mongoose.Schema({
-  gradeName: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  cClasses: [
+  schoolYears: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "CClass",
+      ref: "SchoolYear",
     },
   ],
 });
@@ -237,11 +243,11 @@ const reportedTermSchema = new mongoose.Schema({
   },
 });
 
+let Setting = mongoose.model("Setting", settingSchema);
 let Student = mongoose.model("Student", studentSchema);
+let Grade = mongoose.model("Grade", gradeSchema);
 let CClass = mongoose.model("CClass", cClassSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
-let Setting = mongoose.model("Setting", settingSchema);
-let Grade = mongoose.model("Grade", gradeSchema);
 let Term = mongoose.model("Term", termSchema);
 let SchoolYear = mongoose.model("SchoolYear", schoolYearSchema);
 let ReportedSubject = mongoose.model("ReportedSubject", reportedSubjectSchema);
