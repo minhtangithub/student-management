@@ -115,7 +115,7 @@ const subjectSchema = new mongoose.Schema({
   ],
 });
 
-//Điểm 1 môn học: Bao gồm: Tên môt môn học, trong môn học này sẽ thống kê cho toàn bộ các lớp, tham chiếu đến một môn học
+//Điểm 1 môn học: Bao gồm: Tên môt môn học, trong môn học này sẽ thống kê cho toàn bộ các lớp, tham chiếu đến một môn học, và các điểm, hệ số môn học
 const scoreSubjectSchema = new mongoose.Schema({
   cClasses: [
     {
@@ -160,6 +160,7 @@ const coEffectSchema = new mongoose.Schema({
   },
 });
 
+//Định nghĩa học kỳ
 const termSchema = new mongoose.Schema({
   nameTerm: {
     type: String,
@@ -174,6 +175,7 @@ const termSchema = new mongoose.Schema({
   ],
 });
 
+//Định nghĩa năm học
 const schoolYearSchema = new mongoose.Schema({
   nameSchYear: {
     type: String,
@@ -182,6 +184,7 @@ const schoolYearSchema = new mongoose.Schema({
   },
 });
 
+//Dữ liệu chứa báo cáo một môn học
 const reportedSubjectSchema = new mongoose.Schema({
   subject: {
     type: mongoose.Schema.Types.ObjectId,
@@ -210,6 +213,7 @@ const reportedSubjectSchema = new mongoose.Schema({
   },
 });
 
+//Dữ liệu chứa báo cáo một học kỳ
 const reportedTermSchema = new mongoose.Schema({
   term: {
     type: mongoose.Schema.Types.ObjectId,
