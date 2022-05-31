@@ -29,8 +29,8 @@ export const AddClass = () => {
   };
 
   const handleClickCreateBtn = () => {
-    const [className, grade, schoolyear] = getSelectedOptions();
-    history.push(`add-class/${className}/${grade}/${schoolyear}`);
+    const [className, grade, schoolYear] = getSelectedOptions();
+    history.push(`add-class/${className}/${grade}/${schoolYear}`);
   };
 
   return (

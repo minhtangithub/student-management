@@ -3,18 +3,34 @@ import "./ReportTerm.scss";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { schoolYearArr, termArr } from "../../config/getAPI";
+// import { schoolYearArr, termArr } from "../../config/getAPI";
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 
+import { api } from "../../api/api";
 export const ReportTerm = () => {
   let history = useHistory();
 
-  const termNameArr = termArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
-  const schoolYearNameArr = schoolYearArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const termNameArr = termArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+  // const schoolYearNameArr = schoolYearArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+
+  // const [subjectArrState, setSubjectArrState] = useState([]);
+  const [termArrState, setTermArrState] = useState([]);
+  const [schoolYearArrState, setSchoolYearArrState] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const termArr = await api.getTermList();
+      const schoolYearArr = await api.getSchoolYearList();
+      setTermArrState(termArr);
+      setSchoolYearArrState(schoolYearArr);
+    };
+    getData();
+  }, []);
 
   const getSelectedOptions = () => {
     let optionValues = [];
@@ -25,8 +41,8 @@ export const ReportTerm = () => {
   };
 
   const handleClickCreateBtn = () => {
-    const [term, schoolyear] = getSelectedOptions();
-    history.push(`report-term/${term}/${schoolyear}`);
+    const [term, schoolYear] = getSelectedOptions();
+    history.push(`report-term/${term}/${schoolYear}`);
   };
 
   return (
@@ -39,7 +55,7 @@ export const ReportTerm = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Học kì"
             selectName="Term"
-            options={termNameArr}
+            options={termArrState}
           />
         </div>
         <div className="row">
@@ -48,7 +64,7 @@ export const ReportTerm = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Năm học"
             selectName="SchoolYear"
-            options={schoolYearNameArr}
+            options={schoolYearArrState}
           />
         </div>
       </div>

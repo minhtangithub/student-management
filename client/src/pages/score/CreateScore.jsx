@@ -10,7 +10,7 @@ import { helper } from "../../handle-event/HandleEvent";
 import { useParams } from "react-router-dom";
 
 export const CreateScore = () => {
-  const { className, subject, term, schoolyear } = useParams();
+  const { className, subject, term, schoolYear } = useParams();
 
   const [status, setstatus] = useState("input");
   const [message, setMessage] = useState("");
@@ -95,7 +95,7 @@ export const CreateScore = () => {
           <div className="score-info">
             <h4>Lớp: {className}</h4>
             <h4>{term}</h4>
-            <h4>Năm học: {schoolyear}</h4>
+            <h4>Năm học: {schoolYear}</h4>
             <h4>Môn học: {subject}</h4>
           </div>
           <div className="container">
@@ -144,7 +144,7 @@ export const CreateScore = () => {
           <div className="score-info">
             <h4>Lớp: {className}</h4>
             <h4>Học kỳ: {term}</h4>
-            <h4>Năm học: {schoolyear}</h4>
+            <h4>Năm học: {schoolYear}</h4>
             <h4>Môn học: {subject}</h4>
           </div>
           <div className="container">

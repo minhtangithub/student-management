@@ -1,20 +1,37 @@
 import React from "react";
 import "./CreateReportSubject.scss";
 
-import { reportSubjectArr } from "../../../config/getAPI";
+// import { reportSubjectArr } from "../../../config/getAPI";
+import { useState, useEffect } from "react";
 
 import { Button } from "../../../components/Button";
 import { useParams } from "react-router-dom";
+import { api } from "../../../api/api";
 
 export const CreateReportSubject = () => {
-  const { subject, term, schoolyear } = useParams();
+  const { subject, term, schoolYear } = useParams();
+  const [reportSubjectState, setReportSubjectState] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const apiArr = await api.getReportSubjects();
+      const UIApiArr = apiArr.filter(
+        (item) =>
+          item.subject == subject &&
+          item.term == term &&
+          item.schoolYear == schoolYear
+      );
+      setReportSubjectState(UIApiArr);
+    };
+    getData();
+  }, []);
 
   return (
     <div className="create-report-subject">
       <h3>Báo cáo tổng kết môn học</h3>
       <div className="score-info">
         <h4>{term}</h4>
-        <h4>Năm học: {schoolyear}</h4>
+        <h4>Năm học: {schoolYear}</h4>
         <h4>Môn học: {subject}</h4>
       </div>
       <div className="container">
@@ -26,19 +43,19 @@ export const CreateReportSubject = () => {
           </div>
           <div className="item col-25-percent center al-center">Tỉ lệ</div>
         </div>
-        {reportSubjectArr.map((item) => (
+        {reportSubjectState.map((item) => (
           <div className="row content">
             <div className="item col-25-percent center al-center">
-              {item.Class}
+              {item.className}
             </div>
             <div className="item col-25-percent center al-center">
-              {item.Total}
+              {item.totalStudents}
             </div>
             <div className="item col-25-percent center al-center">
-              {item.Passed}
+              {item.passed}
             </div>
             <div className="item col-25-percent center al-center">
-              {item.Rate}
+              {item.rate}
             </div>
           </div>
         ))}

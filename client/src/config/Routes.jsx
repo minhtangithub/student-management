@@ -32,13 +32,13 @@ export const Routes = () => {
       <Route path="/add/add-student" component={AddStudent}></Route>
       <Route path="/add/add-class" exact component={AddClass}></Route>
       <Route
-        path="/add-class/:className/:grade/:schoolyear"
+        path="/add/add-class/:className/:grade/:schoolYear"
         component={CreateClass}
       ></Route>
       <Route path="/search" component={Search}></Route>
       <Route path="/score" exact component={Score}></Route>
       <Route
-        path="/score/:className/:subject/:term/:schoolyear"
+        path="/score/:className/:subject/:term/:schoolYear"
         component={CreateScore}
       ></Route>
       <Route path="/report" exact component={Report}></Route>
@@ -48,12 +48,12 @@ export const Routes = () => {
         component={ReportSubject}
       ></Route>
       <Route
-        path="/report/report-subject/:subject/:term/:schoolyear"
+        path="/report/report-subject/:subject/:term/:schoolYear"
         component={CreateReportSubject}
       ></Route>
       <Route path="/report/report-term" exact component={ReportTerm}></Route>
       <Route
-        path="/report/report-term/:term/:schoolyear"
+        path="/report/report-term/:term/:schoolYear"
         component={CreateReportTerm}
       ></Route>
       <Route path="*" component={NotFound}></Route>

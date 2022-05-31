@@ -3,22 +3,41 @@ import "./ReportSubject.scss";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { schoolYearArr, termArr, subjectArr } from "../../config/getAPI";
+// import { schoolYearArr, termArr, subjectArr } from "../../config/getAPI";
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import { api } from "../../api/api";
 
 export const ReportSubject = () => {
   let history = useHistory();
 
-  const subjectNameArr = subjectArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const subjectNameArr = subjectArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
 
-  const termNameArr = termArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
-  const schoolYearNameArr = schoolYearArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const termNameArr = termArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+  // const schoolYearNameArr = schoolYearArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+
+  const [subjectArrState, setSubjectArrState] = useState([]);
+  const [termArrState, setTermArrState] = useState([]);
+  const [schoolYearArrState, setSchoolYearArrState] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const subjectArr = await api.getSubjectList();
+      const termArr = await api.getTermList();
+      const schoolYearArr = await api.getSchoolYearList();
+      setSubjectArrState(subjectArr);
+      setTermArrState(termArr);
+      setSchoolYearArrState(schoolYearArr);
+    };
+    getData();
+  }, []);
 
   const getSelectedOptions = () => {
     let optionValues = [];
@@ -29,8 +48,8 @@ export const ReportSubject = () => {
   };
 
   const handleClickCreateBtn = () => {
-    const [subject, term, schoolyear] = getSelectedOptions();
-    history.push(`report-subject/${subject}/${term}/${schoolyear}`);
+    const [subject, term, schoolYear] = getSelectedOptions();
+    history.push(`report-subject/${subject}/${term}/${schoolYear}`);
   };
   return (
     <div className="report-subject">
@@ -42,7 +61,7 @@ export const ReportSubject = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Tên môn"
             selectName="SubjectName"
-            options={subjectNameArr}
+            options={subjectArrState}
           />
         </div>
         <div className="row">
@@ -51,7 +70,7 @@ export const ReportSubject = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Học kì"
             selectName="Term"
-            options={termNameArr}
+            options={termArrState}
           />
         </div>
         <div className="row">
@@ -60,7 +79,7 @@ export const ReportSubject = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Năm học"
             selectName="SchoolYear"
-            options={schoolYearNameArr}
+            options={schoolYearArrState}
           />
         </div>
       </div>

@@ -16,7 +16,7 @@ import { Input } from "../../components/Input";
 import { useParams } from "react-router-dom";
 
 export const CreateClass = () => {
-  const { className, grade, schoolyear } = useParams();
+  const { className, grade, schoolYear } = useParams();
 
   const classNameArr = classArr.map((item) => {
     return { value: item.ID, text: item.nameClass };
@@ -256,7 +256,7 @@ export const CreateClass = () => {
           <div className="class-info">
             <h5>Tên lớp: {className}</h5>
             <h5>Tên khối: {grade}</h5>
-            <h5>Năm học: {schoolyear}</h5>
+            <h5>Năm học: {schoolYear}</h5>
           </div>
           <div className="container">
             <div className="row heading">

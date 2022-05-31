@@ -48,8 +48,8 @@ export const Score = () => {
   };
 
   const handleClickCreateBtn = () => {
-    const [className, subject, term, schoolyear] = getSelectedOptions();
-    history.push(`score/${className}/${subject}/${term}/${schoolyear}`);
+    const [className, subject, term, schoolYear] = getSelectedOptions();
+    history.push(`score/${className}/${subject}/${term}/${schoolYear}`);
   };
   return (
     <div className="score">

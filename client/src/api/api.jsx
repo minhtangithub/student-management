@@ -34,6 +34,14 @@ export const api = {
     const url = "subjects";
     return axiosClient.get(url, params);
   },
+  getTermList: (params) => {
+    const url = "termRoute";
+    return axiosClient.get(url, params);
+  },
+  getSchoolYearList: (params) => {
+    const url = "schoolYears";
+    return axiosClient.get(url, params);
+  },
 
   //POST
   postNewStudentInfo: (payload) => {

@@ -153,7 +153,8 @@ const scoreSheetSchema = new mongoose.Schema({
   ],
   fifMinutesScore: Number, // 15 minutes score
   aLessonScore: Number, // a lesson score
-  finalScore: Number, // final score
+  // finalScore: Number,
+  // final score
   mediumScore: Number, // medium score
 });
 
@@ -192,18 +193,34 @@ const schoolYearSchema = new mongoose.Schema({
 });
 
 const reportedSubjectSchema = new mongoose.Schema({
-  subjects: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Subject",
-    },
-  ],
-  cClasses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CClass",
-    },
-  ],
+  // subjects: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Subject",
+  //   },
+  // ],
+  subject: {
+    type: String,
+    required: true,
+  },
+  // cClasses: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "CClass",
+  //   },
+  // ],
+  className: {
+    type: String,
+    required: true,
+  },
+  term: {
+    type: String,
+    required: true,
+  },
+  schoolYear: {
+    type: String,
+    required: true,
+  },
   totalStudents: {
     type: Number,
   },
@@ -216,22 +233,34 @@ const reportedSubjectSchema = new mongoose.Schema({
 });
 
 const reportedTermSchema = new mongoose.Schema({
-  terms: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Term",
-    },
-  ],
-  schoolYears: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "schoolYear",
+  // terms: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Term",
+  //   },
+  // ],
+  // schoolYears: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "schoolYear",
+  // },
+  // cClasses: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "CClass",
+  //   },
+  // ],
+  className: {
+    type: String,
+    required: true,
   },
-  cClasses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CClass",
-    },
-  ],
+  term: {
+    type: String,
+    required: true,
+  },
+  schoolYear: {
+    type: String,
+    required: true,
+  },
   totalStudents: {
     type: Number,
   },
