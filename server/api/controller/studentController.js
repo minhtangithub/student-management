@@ -29,9 +29,8 @@ const studentController = {
   //GET A STUDENT
   getStudent: async (req, res) => {
     try {
-      const student = await Student.findById(req.params.id)
-        .populate("cClass")
-        .populate("subjects");
+      const student = await Student.findById(req.params.id).populate("cClass");
+      // .populate("subjects");
       res.status(200).json(student);
     } catch (err) {
       res.status(500).json(err);
@@ -61,10 +60,10 @@ const studentController = {
         { students: req.params.id },
         { $pull: { students: req.params.id } }
       );
-      await Subject.updateMany(
-        { students: req.params.id },
-        { $pull: { students: req.params.id } }
-      );
+      // await Subject.updateMany(
+      //   { students: req.params.id },
+      //   { $pull: { students: req.params.id } }
+      // );
       await Student.findByIdAndDelete(req.params.id);
       res.status(200).json("Deleted successfully!");
     } catch (err) {

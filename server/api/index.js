@@ -7,14 +7,15 @@ const morgan = require("morgan");
 var bodyParser = require("body-parser");
 const settingRoute = require("./routes/setting");
 const studentRoute = require("./routes/student");
-const cClassRoute = require("./routes/cClass");
 const gradeRoute = require("./routes/grade");
+const cClassRoute = require("./routes/cClass");
 const subjectRoute = require("./routes/subject");
-const coEffectRoute = require("./routes/coEffect");
 const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
-const reportedSubject = require("./routes/reportedSubject");
-const reportedTerm = require("./routes/reportedTerm");
+const scoreSubjectRoute = require("./routes/scoreSubject");
+const coEffectRoute = require("./routes/coEffect");
+const reportedSubjectRoute = require("./routes/reportedSubject");
+const reportedTermRoute = require("./routes/reportedTerm");
 
 app.use(
   cors({
@@ -28,16 +29,17 @@ dotenv.config();
 app.use(express.json());
 
 //ROUTES
-app.use("/api/settings", settingRoute);
-app.use("/api/students", studentRoute);
-app.use("/api/classes", cClassRoute);
-app.use("/api/grades", gradeRoute);
-app.use("/api/subjects", subjectRoute);
-app.use("/api/coEffects", coEffectRoute);
-app.use("/api/termRoute", termRoute);
-app.use("/api/schoolYears", schoolYearRoute);
-app.use("/api/reportedSubjects", reportedSubject);
-app.use("/app/reportedTerms", reportedTerm);
+app.use("/api/setting", settingRoute);
+app.use("/api/student", studentRoute);
+app.use("/api/grade", gradeRoute);
+app.use("/api/class", cClassRoute);
+app.use("/api/subject", subjectRoute);
+app.use("/api/term", termRoute);
+app.use("/api/schoolYear", schoolYearRoute);
+app.use("/api/scoreSubject", scoreSubjectRoute);
+app.use("/api/coEffect", coEffectRoute);
+app.use("/api/reportedSubjects", reportedSubjectRoute);
+app.use("/app/reportedTerms", reportedTermRoute);
 
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -55,6 +57,6 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.listen(8000, () => {
+app.listen(5000, () => {
   console.log("Backend is running on port 5000");
 });

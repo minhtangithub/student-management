@@ -10,4 +10,10 @@ router.get("/", reportedSubject.getReportedSubjects);
 //GET A REPORTED_SUBJECT
 router.get("/:id", reportedSubject.getReportedSubject);
 
+//PUT A REPORTED_SUBJECT
+router.put("/:id", reportedSubject.getReportedSubject);
+
+//DELETE A REPORTED_SUBJECT
+router.delete("/:id", reportedSubject.getReportedSubject);
+
 module.exports = router;
