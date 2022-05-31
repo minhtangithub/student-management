@@ -1,19 +1,19 @@
 const router = require("express").Router();
 const subjectController = require("../controller/subjectController");
 
-// ADD A STUDENT
+// ADD A SUBJECT
 router.post("/", subjectController.addSubject);
 
-//GET A STUDENT
+//GET A SUBJECT
 router.get("/:id", subjectController.getSubject);
 
-//GET ALL STUDENT
+//GET ALL SUBJECTS
 router.get("/", subjectController.getAllSubjects);
 
-//UPDATE A STUDENT
+//UPDATE A SUBJECT
 router.put("/:id", subjectController.updateSubject);
 
-//DELETE A STUDENT
+//DELETE A SUBJECT
 router.delete("/:id", subjectController.deleteSubject);
 
 module.exports = router;

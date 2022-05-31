@@ -25,7 +25,7 @@ const schoolYearController = {
   //GET A SCHOOL_YEAR
   getSchoolYear: async (req, res) => {
     try {
-      const schoolYear = await schoolYear.findById(req.params.id);
+      const schoolYear = await SchoolYear.findById(req.params.id);
       res.status(200).json(schoolYear);
     } catch (err) {
       res.status(500).json(err);

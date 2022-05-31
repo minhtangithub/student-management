@@ -22,13 +22,12 @@ const subjectController = {
     }
   },
 
-  //GET A STUDENT
+  //GET A SUBJECT
   getSubject: async (req, res) => {
     try {
-      const subject = await Subject.findById(req.params.id).populate(
+      const subject = await Subject.findById(req.params.id); /*.populate(
         "students"
-      );
-
+      )*/
       res.status(200).json(subject);
     } catch (err) {
       res.status(500).json(err);
@@ -46,10 +45,10 @@ const subjectController = {
     }
   },
 
-  //DELETE A STUDENT
+  //DELETE A SUBJECT
   deleteSubject: async (req, res) => {
     try {
-      await Student.updateMany({ subjects: req.params.id }, { subjects: null });
+      // await Student.updateMany({ subjects: req.params.id }, { subjects: null });
       await Subject.findByIdAndDelete(req.params.id);
       res.status(200).json("Deleted successfully!");
     } catch (err) {
