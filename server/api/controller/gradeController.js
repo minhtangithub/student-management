@@ -6,7 +6,6 @@ const gradeController = {
     try {
       const newGrade = new Grade(req.body);
       const savedGrade = await newGrade.save();
-
       res.status(200).json(savedGrade);
     } catch (err) {
       res.status(500).json(err);
