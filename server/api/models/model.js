@@ -85,7 +85,7 @@ const cClassSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Term",
   },
-  schoolYears: {
+  schoolYear: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "SchoolYear",
   },
@@ -128,27 +128,6 @@ const subjectSchema = new mongoose.Schema({
 
 //Điểm 1 môn học: Bao gồm: Tên môt môn học, trong môn học này sẽ thống kê cho toàn bộ các lớp, tham chiếu đến một môn học, và các điểm, hệ số môn học
 const scoreSubjectSchema = new mongoose.Schema({
-  cClasses: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CClass",
-  },
-  subject: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Subject",
-  },
-  fifMinutesScore: Number, // 15 minutes score
-  aLessonScore: Number, // a lesson score
-  finalScore: Number,
-  // final score
-  mediumScore: Number, // medium score
-  coEffect: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CoEffect",
-  },
-});
-
-//chi tiết điểm
-const scoreDetailSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
@@ -157,15 +136,70 @@ const scoreDetailSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CClass",
   },
-  score: {
+  scoreDetails: [
+    {
+      score: {
+        type: Number,
+        required: true,
+      },
+      coEffect: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CoEffect",
+      },
+    },
+  ],
+  avgScore: {
     type: Number,
     required: true,
   },
-  coEffect: {
+});
+
+const scoreStudentSchema = new mongoose.Schema({
+  student: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CoEffect",
+    ref: "Student",
+  },
+  cClass: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CClass",
+  },
+  scoreDetails: [
+    {
+      score: {
+        type: Number,
+        required: true,
+      },
+      coEffect: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CoEffect",
+      },
+    },
+  ],
+  avgScore: {
+    type: Number,
+    required: true,
   },
 });
+
+//chi tiết điểm
+// const scoreDetailSchema = new mongoose.Schema({
+//   student: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Student",
+//   },
+//   cClass: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "CClass",
+//   },
+//   score: {
+//     type: Number,
+//     required: true,
+//   },
+//   coEffect: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "CoEffect",
+//   },
+// });
 
 //Hệ số môn học
 const coEffectSchema = new mongoose.Schema({
@@ -267,7 +301,7 @@ const reportedTermSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Term",
   },
-  schoolYears: {
+  schoolYear: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "schoolYear",
   },

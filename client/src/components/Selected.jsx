@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import CheckOutSideClick from "../handle-event/CheckOutSideClick";
 import "./Selected.scss";
 
-function Selected({ props }) {
+function Selected({ props, onChangeSelect }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState(false);
 
   function handleClose() {
     setIsActive(false);
+    onChangeSelect();
   }
 
   function handleClickClose(e) {

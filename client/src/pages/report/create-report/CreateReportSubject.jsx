@@ -46,7 +46,7 @@ export const CreateReportSubject = () => {
         {reportSubjectState.map((item) => (
           <div className="row content">
             <div className="item col-25-percent center al-center">
-              {item.className}
+              {item.cClass}
             </div>
             <div className="item col-25-percent center al-center">
               {item.totalStudents}

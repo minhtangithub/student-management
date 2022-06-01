@@ -10,6 +10,7 @@ export const Input = ({
   selectName = "",
   options = [],
   //options có dạng [{value, text}, {}, {}]
+  onChangeSelect = () => {},
 }) => {
   const [arr, setArr] = useState([]);
   // console.log(
@@ -45,7 +46,10 @@ export const Input = ({
     return (
       <div className="grid__item select">
         <label htmlFor="">{labelText}</label>
-        <Selected props={options.map((item) => item.text)}></Selected>
+        <Selected
+          props={options.map((item) => item.text)}
+          onChangeSelect={onChangeSelect}
+        ></Selected>
       </div>
     );
   else if (type == "small")

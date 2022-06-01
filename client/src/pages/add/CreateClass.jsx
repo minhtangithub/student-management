@@ -6,12 +6,13 @@ import AddIcon from "../../assets/Add-icon.png";
 import DeleteIcon from "../../assets/Delete-icon.png";
 import { GrFormAdd } from "react-icons/gr";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./CreateClass.scss";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
 import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
 import { Input } from "../../components/Input";
+import { api } from "../../api/api";
 
 import { useParams } from "react-router-dom";
 
@@ -21,15 +22,18 @@ export const CreateClass = () => {
   const classNameArr = classArr.map((item) => {
     return { value: item.ID, text: item.nameClass };
   });
-  const gradeNameArr = gradeArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
-  const schoolYearNameArr = schoolYearArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const gradeNameArr = gradeArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+  // const schoolYearNameArr = schoolYearArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
   //   const [studentArrState, setStudentArrState] = useState(studentInfoArr);
-  const [studentArrTempState, setStudentArrTempState] =
-    useState(studentInfoArr);
+  const [classArrState, setClassArrState] = useState([]);
+  const [gradeArrState, setGradeArrState] = useState([]);
+  const [schoolYearArrState, setSchoolYearArrState] = useState([]);
+  const [studentArrState, setStudentArrState] = useState([]);
+  const [studentArrTempState, setStudentArrTempState] = useState([]);
   const [newClassArrState, setNewClassArrState] = useState([]);
   const [result, setResult] = useState([]);
 
@@ -39,10 +43,43 @@ export const CreateClass = () => {
     "Sĩ số": "39",
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      const gradeArr = await api.getGradeList();
+      // const classArr = await api.getTermList();
+      const schoolYearArr = await api.getSchoolYearList();
+      const UIgradeArr = gradeArr.map((item) => {
+        return {
+          text: item.gradeName,
+        };
+      });
+      // const UIClassArr = termArr.map((item) => {
+      //   return {
+      //     text: item.nameClass,
+      //   };
+      // });
+      const UISchoolYearArr = schoolYearArr.map((item) => {
+        return {
+          text: item.nameSchYear,
+        };
+      });
+      const studentArr = await api.getStudentInfoArr();
+      console.log(studentArr);
+
+      // console.log(subjectArr, UIsubjectArr);
+      setGradeArrState(UIgradeArr);
+      // setClassArrState(UItermArr);
+      setClassArrState(classNameArr);
+      setSchoolYearArrState(UISchoolYearArr);
+      setStudentArrState(studentArr);
+    };
+    getData();
+  }, []);
+
   const handleEvent = {
     handleChangeInput: (e) => {
       const inputValue = e.target.value;
-      const studentArrStateCopy = studentInfoArr.filter((item) => {
+      const studentArrStateCopy = studentArrState.filter((item) => {
         for (const [key, value] of Object.entries(item)) {
           if (String(value).toLowerCase().includes(inputValue.toLowerCase()))
             return true;
@@ -50,11 +87,21 @@ export const CreateClass = () => {
         return false;
       });
 
-      setStudentArrTempState(studentArrStateCopy);
+      const UIStudentArr = studentArrStateCopy.map((item) => {
+        return {
+          ID: item._id,
+          fullName: item.fullName,
+          dateOfBirth: item.dateOfBirth,
+          gender: item.gender == "male" ? "Nam" : "Nữ",
+          address: item.address,
+        };
+      });
+
+      setStudentArrTempState(UIStudentArr);
     },
     handleClickSearchBtn: () => {
       const inputValue = document.querySelector(".search__input").value;
-      const studentArrStateCopy = studentInfoArr.filter((item) => {
+      const studentArrStateCopy = studentArrState.filter((item) => {
         for (const [key, value] of Object.entries(item)) {
           if (String(value).toLowerCase().includes(inputValue.toLowerCase()))
             return true;
@@ -62,7 +109,17 @@ export const CreateClass = () => {
         return false;
       });
 
-      setStudentArrTempState(studentArrStateCopy);
+      const UIStudentArr = studentArrStateCopy.map((item) => {
+        return {
+          ID: item._id,
+          fullName: item.fullName,
+          dateOfBirth: item.dateOfBirth,
+          gender: item.gender == "male" ? "Nam" : "Nữ",
+          address: item.address,
+        };
+      });
+
+      setStudentArrTempState(UIStudentArr);
       document.querySelector(".search__input").value = "";
     },
     handleClickAddBtn: (e) => {
@@ -74,8 +131,8 @@ export const CreateClass = () => {
         let newItem = studentArrTempState[index];
         //kiểm tra nếu trùng thì không thêm
         //Nếu lấy của copy sẽ bị khác giá trị con trỏ
-        if (!newClassArrState.includes(newItem)) {
-          newClassArrStateCopy.push(newItem);
+        if (!newClassArrState.includes(newItem.ID)) {
+          newClassArrStateCopy.push(newItem.ID);
           setNewClassArrState(newClassArrStateCopy);
         }
       }
@@ -90,6 +147,12 @@ export const CreateClass = () => {
     },
     handleConfirm: () => {
       //thêm vào danh lớp...
+      // const newClass = {
+      //   nameClass: className,
+      //   grade: grade,
+      //   schoolYear: schoolYear,
+      //   students: newClassArrState,
+      // };
 
       //hiển thị thông báo
       document.querySelector(".confirm.add .notification").style.display =
@@ -135,17 +198,17 @@ export const CreateClass = () => {
               <div className="grid__item option__input">
                 <Input
                   type="select"
-                  labelText="Tên lớp"
-                  selectName="ClassName"
-                  options={classNameArr}
+                  labelText="Tên khối"
+                  selectName="GradeName"
+                  options={gradeArrState}
                 />
               </div>
               <div className="grid__item option__input">
                 <Input
                   type="select"
-                  labelText="Tên khối"
-                  selectName="GradeName"
-                  options={gradeNameArr}
+                  labelText="Tên lớp"
+                  selectName="ClassName"
+                  options={classArrState}
                 />
               </div>
             </div>
@@ -155,7 +218,7 @@ export const CreateClass = () => {
                   type="select"
                   labelText="Năm học"
                   selectName="SchoolYear"
-                  options={schoolYearNameArr}
+                  options={schoolYearArrState}
                 />
               </div>
               <div className="grid__item option__input">
@@ -221,16 +284,16 @@ export const CreateClass = () => {
                 <>
                   <div className="row content">
                     <div className="item col-30-percent center pl-50 al-left">
-                      {item.Name}
+                      {item.fullName}
                     </div>
                     <div className="item col-10-percent center al-center">
-                      {item.Gender}
+                      {item.gender}
                     </div>
                     <div className="item col-20-percent center al-center">
-                      {item.Birthdate}
+                      {item.dateOfBirth}
                     </div>
                     <div className="item col-20-percent center al-center">
-                      {item.Address}
+                      {item.address}
                     </div>
                     <div className="item col-20-percent center al-center">
                       <button
@@ -280,16 +343,16 @@ export const CreateClass = () => {
                 <>
                   <div className="row content">
                     <div className="item col-30-percent center pl-50">
-                      {item.Name}
+                      {item.fullName}
                     </div>
                     <div className="item col-10-percent center al-center">
-                      {item.Gender}
+                      {item.gender}
                     </div>
                     <div className="item col-20-percent center al-center">
-                      {item.Birthdate}
+                      {item.dateOfBirth}
                     </div>
                     <div className="item col-20-percent center al-center">
-                      {item.Address}
+                      {item.address}
                     </div>
                     <div className="item col-20-percent center al-center">
                       <button

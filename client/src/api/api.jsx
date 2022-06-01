@@ -42,6 +42,10 @@ export const api = {
     const url = "schoolYear";
     return axiosClient.get(url, params);
   },
+  getGradeList: (params) => {
+    const url = "grade";
+    return axiosClient.get(url, params);
+  },
 
   //POST
   postNewStudentInfo: (payload) => {
