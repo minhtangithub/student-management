@@ -91,8 +91,8 @@ const cClassSchema = new mongoose.Schema({
   },
 });
 
-//danh sách các lớp học
-const classListSchema = new mongoose.Schema({
+//danh sách các lớp học - Note: Tân thêm
+const cClassListSchema = new mongoose.Schema({
   idClass: {
     type: String,
     required: true,
@@ -147,7 +147,7 @@ const scoreSubjectSchema = new mongoose.Schema({
   },
 });
 
-//chi tiết điểm
+//Chi tiết điểm - Note: Tân thêm
 const scoreDetailSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
@@ -286,7 +286,15 @@ let Setting = mongoose.model("Setting", settingSchema);
 let Student = mongoose.model("Student", studentSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
 let CClass = mongoose.model("CClass", cClassSchema);
+
+//Tân đề xuất CClassList
+let CClassList = mongoose.model("CClassList", cClassListSchema);
+
 let Subject = mongoose.model("Subject", subjectSchema);
+
+//Tân đề xuất ScoreDetail
+let ScoreDetail = mongoose.model("ScoreDetailSchema", scoreDetailSchema);
+
 let ScoreSubject = mongoose.model("ScoreSubjectSchema", scoreSubjectSchema);
 let CoEffect = mongoose.model("CoEffectSchema", coEffectSchema);
 let Term = mongoose.model("Term", termSchema);
@@ -300,7 +308,9 @@ module.exports = {
   Student,
   Grade,
   CClass,
+  CClassList,
   Subject,
+  ScoreDetail,
   ScoreSubject,
   CoEffect,
   Term,
