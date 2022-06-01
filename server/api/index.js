@@ -39,8 +39,9 @@ app.use("/api/classList", cClassListRoute);
 app.use("/api/subject", subjectRoute);
 app.use("/api/term", termRoute);
 app.use("/api/schoolYear", schoolYearRoute);
-app.use("/api/scoreSubject", scoreSubjectRoute);
 app.use("/api/scoreDetail", scoreDetailRoute);
+app.use("/api/scoreSubject", scoreSubjectRoute);
+
 app.use("/api/coEffect", coEffectRoute);
 app.use("/api/reportedSubject", reportedSubjectRoute);
 app.use("/app/reportedTerm", reportedTermRoute);
