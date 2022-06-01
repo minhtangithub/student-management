@@ -118,6 +118,12 @@ const subjectSchema = new mongoose.Schema({
     unique: true,
   },
 
+  //hệ số môn
+  coEffiSubject: {
+    type: Number,
+    required: true,
+  },
+
   // students: [
   //   {
   //     type: mongoose.Schema.Types.ObjectId,
@@ -127,6 +133,8 @@ const subjectSchema = new mongoose.Schema({
 });
 
 //Điểm 1 môn học: Bao gồm: Tên môt môn học, trong môn học này sẽ thống kê cho toàn bộ các lớp, tham chiếu đến một môn học, và các điểm, hệ số môn học
+
+//điểm 1 môn học của 1 học sinh --> dùng cho trang nhập điểm
 const scoreSubjectSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
@@ -136,8 +144,16 @@ const scoreSubjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CClass",
   },
+  subject: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Subject",
+  },
   scoreDetails: [
     {
+      scoreName: {
+        type: String,
+        required: true,
+      },
       score: {
         type: Number,
         required: true,
@@ -154,7 +170,29 @@ const scoreSubjectSchema = new mongoose.Schema({
   },
 });
 
-const scoreStudentSchema = new mongoose.Schema({
+// const scoreTermSchema = new mongoose.Schema({
+//   student: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Student",
+//   },
+//   cClass: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "CClass",
+//   },
+//   scoreSubjects: [
+//     {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "ScoreSubject",
+//     },
+//   ],
+//   termAvgScore: {
+//     type: Number,
+//     required: true,
+//   },
+// });
+
+//điểm theo năm học của học sinh --> dùng cho trang tra cứu
+const scoreSchoolYearSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
@@ -163,19 +201,21 @@ const scoreStudentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "CClass",
   },
-  scoreDetails: [
+  scoreTerms: [
     {
-      score: {
+      scoreSubjects: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "ScoreSubject",
+        },
+      ],
+      termAvgScore: {
         type: Number,
         required: true,
       },
-      coEffect: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CoEffect",
-      },
     },
   ],
-  avgScore: {
+  schoolYearAvgScore: {
     type: Number,
     required: true,
   },
