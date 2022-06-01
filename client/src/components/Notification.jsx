@@ -1,8 +1,12 @@
 import React from "react";
 import SuccessImg from "../../src/assets/Success.png";
 import FailImg from "../../src/assets/Fail.png";
+import CloseBtn from "../../src/assets/closeBtn.png";
+import repeatIcon from "../../src/assets/repeat.png";
+import continueIcon from "../../src/assets/continue.png";
+
 import "./Notification.scss";
-import { GrFormClose } from "react-icons/gr";
+// import { GrFormClose } from "react-icons/gr";
 
 export const Notification = ({
   status,
@@ -24,13 +28,25 @@ export const Notification = ({
       case "success": {
         return (
           <>
-            <button onClick={handleSuccessCloseBtn}>
-              <i>
+            <div className="top">
+              <button onClick={handleSuccessCloseBtn}>
+                {/* <i>
                 <GrFormClose />
-              </i>
-            </button>
-            <img src={SuccessImg} alt="" />
-            <p>Thành công</p>
+              </i> */}
+                <img className="closeBtn" src={CloseBtn} alt="" />
+              </button>
+            </div>
+            <div className="main">
+              <img src={SuccessImg} alt="" />
+              <p>Thao tác thành công!</p>
+              <button
+                className="confirmBtn successBtn"
+                onClick={handleSuccessCloseBtn}
+              >
+                <span>Tiếp tục</span>
+                <img className="btnIcon" src={continueIcon} alt="" />
+              </button>
+            </div>
           </>
         );
         break;
@@ -39,14 +55,26 @@ export const Notification = ({
       case "failed": {
         return (
           <>
-            <button onClick={handleFailedCloseBtn}>
-              <i>
+            <div className="top">
+              <button onClick={handleFailedCloseBtn}>
+                {/* <i>
                 <GrFormClose />
-              </i>
-            </button>
-            <img src={FailImg} alt="" />
-            <p>Thất bại</p>
-            <h4 className="failed-message">{message}</h4>
+              </i> */}
+                <img className="closeBtn" src={CloseBtn} alt="" />
+              </button>
+            </div>
+            <div className="main">
+              <img src={FailImg} alt="" />
+              <p>Thao tác thất bại!</p>
+              <h4 className="failed-message">{message}</h4>
+              <button
+                className="confirmBtn failBtn"
+                onClick={handleFailedCloseBtn}
+              >
+                <span>Thử lại</span>
+                <img className="btnIcon" src={repeatIcon} alt="" />
+              </button>
+            </div>
           </>
         );
         break;
