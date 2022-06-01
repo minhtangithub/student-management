@@ -32,9 +32,25 @@ export const ReportSubject = () => {
       const subjectArr = await api.getSubjectList();
       const termArr = await api.getTermList();
       const schoolYearArr = await api.getSchoolYearList();
-      setSubjectArrState(subjectArr);
-      setTermArrState(termArr);
-      setSchoolYearArrState(schoolYearArr);
+      const UIsubjectArr = subjectArr.map((item) => {
+        return {
+          text: item.nameSubject,
+        };
+      });
+      const UItermArr = termArr.map((item) => {
+        return {
+          text: item.nameTerm,
+        };
+      });
+      const UISchoolYearArr = schoolYearArr.map((item) => {
+        return {
+          text: item.nameSchYear,
+        };
+      });
+      // console.log(subjectArr, UIsubjectArr);
+      setSubjectArrState(UIsubjectArr);
+      setTermArrState(UItermArr);
+      setSchoolYearArrState(UISchoolYearArr);
     };
     getData();
   }, []);

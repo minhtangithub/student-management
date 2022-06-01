@@ -81,18 +81,28 @@ const cClassSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
-  term: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Term",
-    },
-  ],
-  schoolYears: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "SchoolYear",
-    },
-  ],
+  term: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Term",
+  },
+  schoolYears: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SchoolYear",
+  },
+});
+
+//danh sách các lớp học
+const classListSchema = new mongoose.Schema({
+  idClass: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  nameClass: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 
 //Định nghĩa một môn học
@@ -107,29 +117,28 @@ const subjectSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  students: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
-  ],
+
+  // students: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Student",
+  //   },
+  // ],
 });
 
 //Điểm 1 môn học: Bao gồm: Tên môt môn học, trong môn học này sẽ thống kê cho toàn bộ các lớp, tham chiếu đến một môn học, và các điểm, hệ số môn học
 const scoreSubjectSchema = new mongoose.Schema({
-  cClasses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CClass",
-    },
-  ],
+  cClasses: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CClass",
+  },
   subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
   },
   fifMinutesScore: Number, // 15 minutes score
   aLessonScore: Number, // a lesson score
-  // finalScore: Number,
+  finalScore: Number,
   // final score
   mediumScore: Number, // medium score
   coEffect: {
@@ -138,23 +147,53 @@ const scoreSubjectSchema = new mongoose.Schema({
   },
 });
 
+//chi tiết điểm
+const scoreDetailSchema = new mongoose.Schema({
+  student: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Student",
+  },
+  cClass: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CClass",
+  },
+  score: {
+    type: Number,
+    required: true,
+  },
+  coEffect: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CoEffect",
+  },
+});
+
 //Hệ số môn học
 const coEffectSchema = new mongoose.Schema({
-  subject: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Subject",
-  },
-  co15min: {
-    type: Number,
+  // subject: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Subject",
+  // },
+  // co15min: {
+  //   type: Number,
+  //   required: true,
+  //   unique: true,
+  // },
+  // co45min: {
+  //   type: Number,
+  //   required: true,
+  //   unique: true,
+  // },
+  // coFinal: {
+  //   type: Number,
+  //   required: true,
+  //   unique: true,
+  // },
+  nameCoEff: {
+    type: String,
     required: true,
     unique: true,
   },
-  co45min: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  coFinal: {
+  Value: {
     type: Number,
     required: true,
     unique: true,
@@ -168,12 +207,12 @@ const termSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  cClasses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CClass",
-    },
-  ],
+  // cClasses: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "CClass",
+  //   },
+  // ],
 });
 
 //Định nghĩa năm học
@@ -191,9 +230,13 @@ const reportedSubjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
   },
-  grade: {
+  // grade: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Grade",
+  // },
+  cClass: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Grade",
+    ref: "CClass",
   },
   totalStudents: {
     type: Number,
@@ -216,6 +259,10 @@ const reportedSubjectSchema = new mongoose.Schema({
 
 //Dữ liệu chứa báo cáo một học kỳ
 const reportedTermSchema = new mongoose.Schema({
+  cClass: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CClass",
+  },
   term: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Term",
