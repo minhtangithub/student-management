@@ -37,10 +37,10 @@ const studentSchema = new mongoose.Schema({
   dateOfBirth: String,
   address: String,
   gender: String,
-  cClass: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CClass",
-  },
+  // cClass: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "CClass",
+  // },
   // subjects: [
   //   {
   //     type: mongoose.Schema.Types.ObjectId,
