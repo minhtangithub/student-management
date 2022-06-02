@@ -85,8 +85,8 @@ const cClassSchema = new mongoose.Schema({
   },
 });
 
-//danh sách các lớp học - Note: Tân thêm
-const cClassListSchema = new mongoose.Schema({
+//danh sách các lớp học
+const classListSchema = new mongoose.Schema({
   idClass: {
     type: String,
     required: true,
@@ -154,8 +154,29 @@ const scoreSubjectSchema = new mongoose.Schema({
   },
 });
 
-//Chi tiết điểm - Note: Tân thêm
-const scoreDetailSchema = new mongoose.Schema({
+// const scoreTermSchema = new mongoose.Schema({
+//   student: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Student",
+//   },
+//   cClass: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "CClass",
+//   },
+//   scoreSubjects: [
+//     {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "ScoreSubject",
+//     },
+//   ],
+//   termAvgScore: {
+//     type: Number,
+//     required: true,
+//   },
+// });
+
+//điểm theo năm học của học sinh --> dùng cho trang tra cứu
+const scoreSchoolYearSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
@@ -313,9 +334,8 @@ module.exports = {
   Student,
   Grade,
   CClass,
-  CClassList,
+  ClassList,
   Subject,
-  ScoreDetail,
   ScoreSubject,
   ScoreSchoolYear,
   CoEff,

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { helper } from "../../handle-event/HandleEvent";
 import { useParams } from "react-router-dom";
 
+//get từ DS lớp, giữ lại id của HS
 export const CreateScore = () => {
   const { className, subject, term, schoolYear } = useParams();
 
@@ -72,7 +73,20 @@ export const CreateScore = () => {
   };
   const handleConfirmAcceptBtn = () => {
     //Lưu xuống CSDL
-    // ...
+    const payloadToApi = finalResult.map((item) => {
+      // studentid, Name, className, classID, score15Min, score1Per, avgScore
+      //to
+      //student(id), cClass(id), subject(id), scoreDetails [{ scoreName, score, coEff(id)}], avgScore
+      // return {
+      //   student: studentID,
+      //   cClass: classID,
+      //   subject: lấy tên subject rồi dò trong ds môn,
+      //   scoreDetails: [
+      //     { scoreName: 15p ....}
+      //   ]
+      //   avgScore: avgScore
+      // };
+    });
 
     document.querySelector(".confirm.add .notification").style.display = "flex";
   };

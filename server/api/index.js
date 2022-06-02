@@ -40,7 +40,6 @@ app.use("/api/subject", subjectRoute);
 app.use("/api/coEff", coEffRoute);
 app.use("/api/term", termRoute);
 app.use("/api/schoolYear", schoolYearRoute);
-app.use("/api/scoreDetail", scoreDetailRoute);
 app.use("/api/scoreSubject", scoreSubjectRoute);
 app.use("/api/scoreSchoolYear", scoreSchoolYearRoute);
 app.use("/api/reportedSubjects", reportedSubjectRoute);
