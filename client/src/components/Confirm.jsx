@@ -50,7 +50,7 @@ export const Confirm = ({
                       if (key !== "Checked" && key !== "Edit" && key !== "ID")
                         return (
                           <p>
-                            {key} : {value}
+                            {key}: {value}
                           </p>
                         );
                     })}
@@ -95,7 +95,7 @@ export const Confirm = ({
                       if (key !== "Checked" && key !== "Edit" && key !== "ID")
                         return (
                           <p>
-                            {key} : {value}
+                            {key}: {value}
                           </p>
                         );
                     })}
@@ -140,7 +140,7 @@ export const Confirm = ({
                       if (key !== "Checked" && key !== "Edit")
                         return (
                           <p>
-                            {key} : {value}
+                            {key}: {value}
                           </p>
                         );
                     })}
@@ -186,7 +186,7 @@ export const Confirm = ({
                       if (key !== "Checked" && key !== "Edit")
                         return (
                           <p>
-                            {key} : {value}
+                            {key}: {value}
                           </p>
                         );
                     })}
