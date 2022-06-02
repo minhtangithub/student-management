@@ -466,7 +466,33 @@ export const reportTermArr = [
 
 export const ScoreSchoolYear = [
   {
-    cClass: "62987df432ccf23e24458a34",
+    cClass: "629890503524eacf2ef6d91a",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+  {
+    cClass: "629890503524eacf2ef6d91a",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+  {
+    cClass: "629890503524eacf2ef6d91a",
     student: "62973a06db2cf7f0efda5db6",
     scoreTerms: [
       {

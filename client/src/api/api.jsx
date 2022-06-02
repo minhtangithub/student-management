@@ -102,6 +102,10 @@ export const api = {
     const url = "settings/" + String(id);
     return axiosClient.put(url, payload);
   },
+  putScoreSchoolYear: (id, payload) => {
+    const url = "scoreSchoolYear/" + String(id);
+    return axiosClient.put(url, payload);
+  },
 
   //DELETE*****************************
   deleteSubjectList: (id) => {
