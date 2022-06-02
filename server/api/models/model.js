@@ -142,15 +142,15 @@ const scoreSubjectSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      coEffect: {
+      coEff: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "CoEffect",
+        ref: "CoEff",
       },
     },
   ],
   avgScore: {
     type: Number,
-    required: true,
+    // required: true,
   },
 });
 
@@ -205,26 +205,7 @@ const scoreDetailSchema = new mongoose.Schema({
 // });
 
 //Hệ số môn học
-const coEffectSchema = new mongoose.Schema({
-  // subject: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Subject",
-  // },
-  // co15min: {
-  //   type: Number,
-  //   required: true,
-  //   unique: true,
-  // },
-  // co45min: {
-  //   type: Number,
-  //   required: true,
-  //   unique: true,
-  // },
-  // coFinal: {
-  //   type: Number,
-  //   required: true,
-  //   unique: true,
-  // },
+const coEffSchema = new mongoose.Schema({
   nameCoEff: {
     type: String,
     required: true,
@@ -317,17 +298,11 @@ let Setting = mongoose.model("Setting", settingSchema);
 let Student = mongoose.model("Student", studentSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
 let CClass = mongoose.model("CClass", cClassSchema);
-
-//Tân đề xuất CClassList
-let CClassList = mongoose.model("CClassList", cClassListSchema);
-
+let ClassList = mongoose.model("ClassList", classListSchema);
 let Subject = mongoose.model("Subject", subjectSchema);
-
-//Tân đề xuất ScoreDetail
-let ScoreDetail = mongoose.model("ScoreDetailSchema", scoreDetailSchema);
-
-let ScoreSubject = mongoose.model("ScoreSubjectSchema", scoreSubjectSchema);
-let CoEffect = mongoose.model("CoEffectSchema", coEffectSchema);
+let CoEff = mongoose.model("CoEff", coEffSchema);
+let ScoreSubject = mongoose.model("ScoreSubject", scoreSubjectSchema);
+let ScoreSchoolYear = mongoose.model("ScoreSchoolYear", scoreSchoolYearSchema);
 let Term = mongoose.model("Term", termSchema);
 let SchoolYear = mongoose.model("SchoolYear", schoolYearSchema);
 let ReportedSubject = mongoose.model("ReportedSubject", reportedSubjectSchema);
@@ -342,8 +317,8 @@ module.exports = {
   Subject,
   ScoreDetail,
   ScoreSubject,
-  // ScoreSchoolYear,
-  CoEffect,
+  ScoreSchoolYear,
+  CoEff,
   Term,
   SchoolYear,
   ReportedSubject,

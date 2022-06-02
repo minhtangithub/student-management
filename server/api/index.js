@@ -15,8 +15,7 @@ const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
 const scoreSubjectRoute = require("./routes/scoreSubject");
 const scoreSchoolYearRoute = require("./routes/scoreSchoolYear");
-const scoreDetailRoute = require("./routes/scoreDetail");
-const coEffectRoute = require("./routes/coEffect");
+const coEffRoute = require("./routes/coEff");
 const reportedSubjectRoute = require("./routes/reportedSubject");
 const reportedTermRoute = require("./routes/reportedTerm");
 
@@ -38,14 +37,14 @@ app.use("/api/grade", gradeRoute);
 app.use("/api/class", classRoute);
 app.use("/api/classList", classListRoute);
 app.use("/api/subject", subjectRoute);
+app.use("/api/coEff", coEffRoute);
 app.use("/api/term", termRoute);
 app.use("/api/schoolYear", schoolYearRoute);
 app.use("/api/scoreDetail", scoreDetailRoute);
 app.use("/api/scoreSubject", scoreSubjectRoute);
 app.use("/api/scoreSchoolYear", scoreSchoolYearRoute);
-app.use("/api/coEffect", coEffectRoute);
-app.use("/api/reportedSubject", reportedSubjectRoute);
-app.use("/app/reportedTerm", reportedTermRoute);
+app.use("/api/reportedSubjects", reportedSubjectRoute);
+app.use("/app/reportedTerms", reportedTermRoute);
 
 mongoose
   .connect(process.env.MONGO_URL, {
