@@ -9,7 +9,7 @@ import { Detail } from "../../components/Detail";
 import { Confirm } from "../../components/Confirm";
 import { Notification } from "../../components/Notification";
 import { useState, useEffect } from "react";
-// import { studentScoreArr } from "../../config/getAPI";
+import { ScoreSchoolYear } from "../../config/getAPI";
 import { handler, helper } from "../../handle-event/HandleEvent";
 import { api } from "../../api/api";
 
@@ -19,6 +19,7 @@ export const Search = () => {
   const [studentArrState, setStudentArrState] = useState([]);
   const [studentInfoState, setStudentInfoState] = useState([]);
   const [classArrState, setClassArrState] = useState([]);
+  const [classListState, setClassListState] = useState([]);
   const [studentArrTempState, setStudentArrTempState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
@@ -26,14 +27,17 @@ export const Search = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const scoreSchoolYearArr = await api.getScoreSchoolYear();
+      // const scoreSchoolYearArr = await api.getScoreSchoolYear();
+      const scoreSchoolYearArr = ScoreSchoolYear;
       const studentInfoArr = await api.getStudentInfoArr();
       const classArr = await api.getCCLASS();
+      const classList = await api.getClassListArr();
 
       console.log(scoreSchoolYearArr, studentInfoArr, classArr);
       setStudentArrState(scoreSchoolYearArr);
       setStudentInfoState(studentInfoArr);
       setClassArrState(classArr);
+      setClassListState(classList);
     };
     getData();
   }, []);
@@ -41,39 +45,50 @@ export const Search = () => {
   const handleEvent = {
     handleConfirmToDelete: () => {
       //Tạo copy
-      const studentArrStateCopy = helper.generateArrCopy(studentArrState);
-      let studentArrTempStateCopy = helper.generateArrCopy(studentArrTempState);
+      const studentArrStateCopy = studentArrState;
+      let studentArrTempStateCopy = studentArrTempState;
 
       //Cập nhật mảng dữ liệu
       const newSubjectArrStateCopy = studentArrStateCopy.filter((item, i) => {
-        return item.ID !== result[0].ID;
+        return item._id !== result[0]._id;
       });
       setStudentArrState(newSubjectArrStateCopy);
 
       //cập nhật UI
       const newSubjectArrTempStateCopy = studentArrTempStateCopy.filter(
         (item, i) => {
-          return item.ID !== result[0].ID;
+          return item._id !== result[0]._id;
         }
       );
+
       setStudentArrTempState(newSubjectArrTempStateCopy);
 
       //Cho hiện thông báo lên
       helper.turnOnNotification("delete");
 
       //cập nhật xuống CSDL
-      //...
+      let deletedItemID = result[0]._id;
+      api.deleteScoreSchoolYear(deletedItemID);
     },
     handleConfirmToEdit: () => {
       //kiểm tra ràng buộc dữ liệu
-      let checkEmptyMessage = helper.validateData("empty", result[0]);
+      let checkEmptyMessage = helper.validateData("empty", {
+        cClass: result[0].cClass,
+        student: result[0].student,
+        AvgScore1: result[0].scoreTerms[0].termAvgScore,
+        AvgScore2: result[0].scoreTerms[1].termAvgScore,
+      });
       let checkNumberMessage = helper.validateData("number", {
-        AvgScore1: result[0].AvgScore1,
-        AvgScore2: result[0].AvgScore2,
+        AvgScore1: result[0].scoreTerms[0].termAvgScore,
+        AvgScore2: result[0].scoreTerms[1].termAvgScore,
       });
-      let checkClassMessage = helper.validateData("class", {
-        nameClass: result[0].nameClass,
-      });
+      let checkClassMessage = helper.validateData(
+        "class",
+        {
+          nameClass: result[0].nameClass,
+        },
+        classListState
+      );
 
       const checkMessageArr = [
         checkEmptyMessage,
@@ -99,7 +114,7 @@ export const Search = () => {
 
         //cập nhật ở mảng dữ liệu
         let index = studentArrStateCopy.findIndex(
-          (item) => item.ID == result[0].ID
+          (item) => item._id == result[0]._id
         );
         studentArrStateCopy[index] = result[0];
         studentArrStateCopy[index].Edit = false;
@@ -107,7 +122,7 @@ export const Search = () => {
 
         //cập nhật ở UI
         let index2 = studentArrTempStateCopy.findIndex(
-          (item) => item.ID == result[0].ID
+          (item) => item._id == result[0]._id
         );
         studentArrTempStateCopy[index2] = result[0];
         studentArrTempStateCopy[index2].Edit = false;
@@ -117,27 +132,40 @@ export const Search = () => {
         helper.turnOnNotification("edit");
 
         //Cập nhật xuống CSDL
-        //...
+        api.putScoreSchoolYear(result[0]._id, result[0]);
       }
     },
     handleSaveBtn: (e) => {
       let studentArrStateCopy = JSON.parse(JSON.stringify(studentArrTempState));
       let index = +e.target.getAttribute("data-set");
       let inputs = e.target.closest(".row").querySelectorAll("input");
-      studentArrStateCopy[index].Name = inputs[0].value;
-      studentArrStateCopy[index].nameClass = inputs[1].value;
-      studentArrStateCopy[index].AvgScore1 = inputs[2].value;
-      studentArrStateCopy[index].AvgScore2 = inputs[3].value;
+      // studentArrStateCopy[index].Name = inputs[0].value;
+      // studentArrStateCopy[index].nameClass = inputs[1].value;
+      // studentArrStateCopy[index].AvgScore1 = inputs[2].value;
+      // studentArrStateCopy[index].AvgScore2 = inputs[3].value;
+
+      studentInfoState.find(
+        (info) => info._id == studentArrStateCopy[index].student
+      ).fullName = inputs[0].value;
+      classArrState.find(
+        (classItem) => classItem._id == studentArrStateCopy[index].cClass
+      ).nameClass = inputs[1].value;
+      studentArrStateCopy[index].scoreTerms[0].termAvgScore = inputs[2].value;
+      studentArrStateCopy[index].scoreTerms[1].termAvgScore = inputs[3].value;
 
       let newValue = studentArrStateCopy[index];
       console.log(">>>newValue", newValue);
       setResult([newValue]);
       setResultUI([
         {
-          "Họ tên": newValue.Name,
-          Lớp: newValue.nameClass,
-          "Điểm TBHKI": newValue.AvgScore1,
-          "Điểm TBHKII": newValue.AvgScore2,
+          "Họ tên": studentInfoState.find(
+            (info) => info._id == newValue.student
+          ).fullName,
+          Lớp: classArrState.find(
+            (classItem) => classItem._id == newValue.cClass
+          ).nameClass,
+          "Điểm TBHKI": newValue.scoreTerms[0].termAvgScore,
+          "Điểm TBHKII": newValue.scoreTerms[1].termAvgScore,
         },
       ]);
       helper.turnOnConfirm("edit");
@@ -171,16 +199,17 @@ export const Search = () => {
       if (e.target.classList.contains("info-img")) {
         let index = +e.target.parentNode.getAttribute("data-set");
         const newResultUI = studentArrState
-          .filter(
-            (item) => item.StudentID == studentArrTempState[index].StudentID
-          )
+          .filter((item) => item.student == studentArrTempState[index].student)
           .map((item) => {
             return {
-              "Họ tên": item.Name,
-              Lớp: item.nameClass,
-              "Điểm TBHKI": item.AvgScore1,
-              "Điểm TBHKII": item.AvgScore2,
-              "Năm học": item.SchoolYear,
+              "Họ tên": studentInfoState.find(
+                (info) => info._id == item.student
+              ).fullName,
+              Lớp: classArrState.find(
+                (classItem) => classItem._id == item.cClass
+              ).nameClass,
+              "Điểm TBHKI": item.scoreTerms[0].termAvgScore,
+              "Điểm TBHKII": item.scoreTerms[1].termAvgScore,
             };
           });
         setResultUI(newResultUI);
@@ -194,25 +223,58 @@ export const Search = () => {
         let index = +e.target.parentNode.getAttribute("data-set");
         console.log(index);
         setResult([studentArrTempState[index]]);
+
         setResultUI([
           {
-            "Họ tên": studentArrTempState[index].Name,
-            Lớp: studentArrTempState[index].nameClass,
-            "Điểm TBHKI": studentArrTempState[index].AvgScore1,
-            "Điểm TBHKII": studentArrTempState[index].AvgScore2,
+            "Họ tên": studentInfoState.find(
+              (info) => info._id == studentArrTempState[index].student
+            ).fullName,
+            Lớp: classArrState.find(
+              (classItem) => classItem._id == studentArrTempState[index].cClass
+            ).nameClass,
+            "Điểm TBHKI": studentArrTempState[index].scoreTerms[0].termAvgScore,
+            "Điểm TBHKII":
+              studentArrTempState[index].scoreTerms[1].termAvgScore,
           },
         ]);
         helper.turnOnConfirm("delete");
       }
     },
-
-    // handleNameInputChange: (e, i) => {
-    //   let subjectArrStateCopy = JSON.parse(JSON.stringify(subjectArrState));
-    //   subjectArrStateCopy[i].Name = e.target.value;
-    //   setSubjectArrState(subjectArrStateCopy);
-    // },
+    handleEditName: (e, i) => {
+      // let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
+      studentInfoState.find(
+        (info) => info._id == studentArrTempState[i].student
+      ).fullName = e.target.value;
+      setStudentArrTempState(studentArrTempState);
+    },
+    handleEditClass: (e, i) => {
+      classArrState.find(
+        (info) => info._id == studentArrTempState[i].cClass
+      ).fullName = e.target.value;
+      setStudentArrTempState(studentArrTempState);
+    },
+    handleEditAvg1: (e, i) => {
+      const id = studentArrTempState[i]._id;
+      const studentArrStateCopy = studentArrTempState;
+      studentArrStateCopy.find(
+        (item) => item._id == id
+      )[0].scoreTerms[0].termAvgScore = e.target.value;
+      setStudentArrTempState(studentArrStateCopy);
+    },
+    handleEditAvg2: (e, i) => {
+      const id = studentArrTempState[i]._id;
+      const studentArrStateCopy = studentArrTempState;
+      studentArrStateCopy.find(
+        (item) => item._id == id
+      )[0].scoreTerms[1].termAvgScore = e.target.value;
+      setStudentArrTempState(studentArrStateCopy);
+    },
   };
-
+  studentArrTempState.map((item, i) => {
+    console.log(
+      studentInfoState.find((info) => info._id == item.student).fullName
+    );
+  });
   return (
     <div className="search-page">
       <Detail result={resultUI} />
@@ -271,6 +333,10 @@ export const Search = () => {
         {studentArrTempState.map((item, i) => {
           return (
             <>
+              {console.log(
+                studentInfoState.find((info) => info._id == item.student)
+                  .fullName
+              )}
               <div className="row content">
                 <div className="item col-30-percent center al-left pl-50">
                   {
@@ -333,15 +399,7 @@ export const Search = () => {
                           (info) => info._id == item.student
                         ).fullName
                       }
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "Name"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditName(e, i)}
                     />
                   </div>
                   <div className="item col-10-percent center al-center">
@@ -354,15 +412,7 @@ export const Search = () => {
                           (classItem) => classItem._id == item.cClass
                         ).nameClass
                       }
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "nameClass"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditClass(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -371,15 +421,7 @@ export const Search = () => {
                       className="input--tiny"
                       placeholder="Nhập TBHKI..."
                       value={item.scoreTerms[0].termAvgScore}
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "AvgScore1"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditAvg1(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -388,15 +430,7 @@ export const Search = () => {
                       className="input--tiny"
                       placeholder="Nhập TBHKII..."
                       value={item.scoreTerms[1].termAvgScore}
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "AvgScore2"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditAvg2(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center save-btn__container">

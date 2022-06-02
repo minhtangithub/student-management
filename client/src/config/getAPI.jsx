@@ -463,3 +463,45 @@ export const reportTermArr = [
     Rate: "75%",
   },
 ];
+
+export const ScoreSchoolYear = [
+  {
+    cClass: "629890503524eacf2ef6d91a",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+  {
+    cClass: "629890503524eacf2ef6d91a",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+  {
+    cClass: "6298a8b6f7ab8c4b70e5ac91",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+];

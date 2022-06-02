@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 export const api = {
   //GET
   getAStudentInfoArr: (ID, params) => {
-    const url = "student/" + ID;
+    const url = "student/" + String(ID);
     return axiosClient.get(url, params);
   },
   getStudentInfoArr: (params) => {
@@ -88,6 +88,10 @@ export const api = {
     const url = "class";
     return axiosClient.post(url, payload);
   },
+  postScoreSubject: (payload) => {
+    const url = "scoreSubject";
+    return axiosClient.post(url, payload);
+  },
 
   //PUT***************************
   putSubjectList: (id, payload) => {
@@ -102,6 +106,10 @@ export const api = {
     const url = "settings/" + String(id);
     return axiosClient.put(url, payload);
   },
+  putScoreSchoolYear: (id, payload) => {
+    const url = "scoreSchoolYear/" + String(id);
+    return axiosClient.put(url, payload);
+  },
 
   //DELETE*****************************
   deleteSubjectList: (id) => {
@@ -110,6 +118,10 @@ export const api = {
   },
   deleteClassList: (id) => {
     const url = "classList/" + String(id);
+    return axiosClient.delete(url);
+  },
+  deleteScoreSchoolYear: (id) => {
+    const url = "scoreSchoolYear/" + String(id);
     return axiosClient.delete(url);
   },
 };
