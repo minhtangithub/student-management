@@ -463,3 +463,19 @@ export const reportTermArr = [
     Rate: "75%",
   },
 ];
+
+export const ScoreSchoolYear = [
+  {
+    cClass: "62987df432ccf23e24458a34",
+    student: "62973a06db2cf7f0efda5db6",
+    scoreTerms: [
+      {
+        termAvgScore: 8,
+      },
+      {
+        termAvgScore: 9,
+      },
+    ],
+    schoolYearAvgScore: 8.5,
+  },
+];

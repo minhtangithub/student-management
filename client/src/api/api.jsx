@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 export const api = {
   //GET
   getAStudentInfoArr: (ID, params) => {
-    const url = "student/" + ID;
+    const url = "student/" + String(ID);
     return axiosClient.get(url, params);
   },
   getStudentInfoArr: (params) => {
@@ -110,6 +110,10 @@ export const api = {
   },
   deleteClassList: (id) => {
     const url = "classList/" + String(id);
+    return axiosClient.delete(url);
+  },
+  deleteScoreSchoolYear: (id) => {
+    const url = "scoreSchoolYear/" + String(id);
     return axiosClient.delete(url);
   },
 };
