@@ -1,21 +1,48 @@
 @use "../scss/" as *;
-.setting {
-  & > a {
-    // @include flex(center, center);
-    display: flex;
-    // justify-content: center;
-    align-items: center;
-    i {
-      position: relative;
-      top: 2px;
-      left: 2px;
-      margin-right: 5px;
-    }
+.setting-home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: relative;
+  .img-main {
+    width: 400px;
+    position: absolute;
+    top: 5%;
+    left: 5%;
   }
-  a {
-    text-decoration: none;
-    color: #000;
-    font-family: "Inter", sans-serif;
+  .main-1 {
+    flex: 2;
+    // background-color: red;
+  }
+  .main-2 {
+    font-family: "Poppins";
+    flex: 3;
+    padding-right: 70px;
+    // background-color: #333;
+    .desc {
+      height: 40vh;
+      margin: 100px 0 10px 115px;
+      font-family: "Josefin Sans", sans-serif;
+      h1 {
+        font-size: 39px;
+        font-weight: bold;
+        line-height: 1.35;
+        color: #2f2f2f;
+      }
+      p {
+        margin-top: 20px;
+        font-size: 19px;
+        margin-bottom: 100px;
+        // color: #30384c;
+        z-index: 1;
+        font-family: "Inter";
+        font-weight: 300;
+        line-height: 28px;
+        // word-spacing: 3px;
+        margin-left: 5px;
+        // font-family: "Josefin Sans", sans-serif;
+      }
+    }
   }
 }
 
@@ -41,6 +68,11 @@
     margin: 0 auto;
     width: 80%;
   }
+}
+
+.setting .container {
+  margin: 0 auto;
+  width: 80%;
 }
 
 .setting .row {
@@ -91,11 +123,3 @@
 //     width: 70%;
 //     margin: 0 auto;
 // }
-
-.card-container {
-  a {
-    text-decoration: none;
-    color: #000;
-    font-family: "Inter", sans-serif;
-  }
-}
