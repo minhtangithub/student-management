@@ -19,6 +19,7 @@ export const Search = () => {
   const [studentArrState, setStudentArrState] = useState([]);
   const [studentInfoState, setStudentInfoState] = useState([]);
   const [classArrState, setClassArrState] = useState([]);
+  const [classListState, setClassListState] = useState([]);
   const [studentArrTempState, setStudentArrTempState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
@@ -30,11 +31,13 @@ export const Search = () => {
       const scoreSchoolYearArr = ScoreSchoolYear;
       const studentInfoArr = await api.getStudentInfoArr();
       const classArr = await api.getCCLASS();
+      const classList = await api.getClassListArr();
 
       console.log(scoreSchoolYearArr, studentInfoArr, classArr);
       setStudentArrState(scoreSchoolYearArr);
       setStudentInfoState(studentInfoArr);
       setClassArrState(classArr);
+      setClassListState(classList);
     };
     getData();
   }, []);
@@ -42,8 +45,8 @@ export const Search = () => {
   const handleEvent = {
     handleConfirmToDelete: () => {
       //Tạo copy
-      const studentArrStateCopy = helper.generateArrCopy(studentArrState);
-      let studentArrTempStateCopy = helper.generateArrCopy(studentArrTempState);
+      const studentArrStateCopy = studentArrState;
+      let studentArrTempStateCopy = studentArrTempState;
 
       //Cập nhật mảng dữ liệu
       const newSubjectArrStateCopy = studentArrStateCopy.filter((item, i) => {
@@ -69,14 +72,23 @@ export const Search = () => {
     },
     handleConfirmToEdit: () => {
       //kiểm tra ràng buộc dữ liệu
-      let checkEmptyMessage = helper.validateData("empty", result[0]);
+      let checkEmptyMessage = helper.validateData("empty", {
+        cClass: result[0].cClass,
+        student: result[0].student,
+        AvgScore1: result[0].scoreTerms[0].termAvgScore,
+        AvgScore2: result[0].scoreTerms[1].termAvgScore,
+      });
       let checkNumberMessage = helper.validateData("number", {
-        AvgScore1: result[0].AvgScore1,
-        AvgScore2: result[0].AvgScore2,
+        AvgScore1: result[0].scoreTerms[0].termAvgScore,
+        AvgScore2: result[0].scoreTerms[1].termAvgScore,
       });
-      let checkClassMessage = helper.validateData("class", {
-        nameClass: result[0].nameClass,
-      });
+      let checkClassMessage = helper.validateData(
+        "class",
+        {
+          nameClass: result[0].nameClass,
+        },
+        classListState
+      );
 
       const checkMessageArr = [
         checkEmptyMessage,
@@ -120,7 +132,7 @@ export const Search = () => {
         helper.turnOnNotification("edit");
 
         //Cập nhật xuống CSDL
-        //...
+        api.putScoreSchoolYear(result[0]._id, result[0]);
       }
     },
     handleSaveBtn: (e) => {

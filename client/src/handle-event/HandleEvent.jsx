@@ -1,5 +1,9 @@
 import React from "react";
-import { classArr } from "../config/getAPI";
+// import { classArr } from "../config/getAPI";
+// import { api } from "../api/api";
+// import { useState, useEffect } from "react";
+
+// const [classArr, setclassArr] = useState([])
 
 export const handler = {
   handleClickEditBtn: (e, dataState, setDataState) => {
@@ -127,7 +131,7 @@ export const helper = {
 
   //checkType là loại cần check, data là dữ liệu cần kiểm tra được gom về 1 object
   //VD: validateData("empty", {name: ..., ....})
-  validateData: (checkType, data) => {
+  validateData: (checkType, data, classArr) => {
     let message;
     switch (checkType) {
       case "empty": {

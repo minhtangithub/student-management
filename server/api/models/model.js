@@ -85,8 +85,8 @@ const cClassSchema = new mongoose.Schema({
   },
 });
 
-//danh sách các lớp học
-const classListSchema = new mongoose.Schema({
+//danh sách các lớp học - Note: Tân thêm
+const cClassListSchema = new mongoose.Schema({
   idClass: {
     type: String,
     required: true,
@@ -154,29 +154,8 @@ const scoreSubjectSchema = new mongoose.Schema({
   },
 });
 
-// const scoreTermSchema = new mongoose.Schema({
-//   student: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "Student",
-//   },
-//   cClass: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "CClass",
-//   },
-//   scoreSubjects: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "ScoreSubject",
-//     },
-//   ],
-//   termAvgScore: {
-//     type: Number,
-//     required: true,
-//   },
-// });
-
-//điểm theo năm học của học sinh --> dùng cho trang tra cứu
-const scoreSchoolYearSchema = new mongoose.Schema({
+//Chi tiết điểm - Note: Tân thêm
+const scoreDetailSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
@@ -337,11 +316,17 @@ const reportedTermSchema = new mongoose.Schema({
 let Setting = mongoose.model("Setting", settingSchema);
 let Student = mongoose.model("Student", studentSchema);
 let Grade = mongoose.model("Grade", gradeSchema);
-let CClass = mongoose.model("CClas", cClassSchema);
-let ClassList = mongoose.model("ClassList", classListSchema);
+let CClass = mongoose.model("CClass", cClassSchema);
+
+//Tân đề xuất CClassList
+let CClassList = mongoose.model("CClassList", cClassListSchema);
+
 let Subject = mongoose.model("Subject", subjectSchema);
-let ScoreSubject = mongoose.model("ScoreSubject", scoreSubjectSchema);
-let ScoreSchoolYear = mongoose.model("ScoreSchoolYear", scoreSchoolYearSchema);
+
+//Tân đề xuất ScoreDetail
+let ScoreDetail = mongoose.model("ScoreDetailSchema", scoreDetailSchema);
+
+let ScoreSubject = mongoose.model("ScoreSubjectSchema", scoreSubjectSchema);
 let CoEffect = mongoose.model("CoEffectSchema", coEffectSchema);
 let Term = mongoose.model("Term", termSchema);
 let SchoolYear = mongoose.model("SchoolYear", schoolYearSchema);
@@ -353,8 +338,9 @@ module.exports = {
   Student,
   Grade,
   CClass,
-  ClassList,
+  CClassList,
   Subject,
+  ScoreDetail,
   ScoreSubject,
   ScoreSchoolYear,
   CoEffect,

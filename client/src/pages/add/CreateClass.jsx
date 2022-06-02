@@ -243,7 +243,7 @@ export const CreateClass = () => {
         students: newStudentIDs,
       });
       api.postClassWithStudents({
-        nameClass: "10A9",
+        nameClass: className,
         grade: gradeID,
         schoolYear: schoolYearID,
         students: newStudentIDs,
