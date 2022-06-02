@@ -8,22 +8,16 @@ var bodyParser = require("body-parser");
 const settingRoute = require("./routes/setting");
 const studentRoute = require("./routes/student");
 const gradeRoute = require("./routes/grade");
-<<<<<<< HEAD
 const classRoute = require("./routes/cClass");
 const classListRoute = require("./routes/classList");
-=======
 const cClassRoute = require("./routes/cClass");
 const cClassListRoute = require("./routes/cClassList");
->>>>>>> 04a3e97515162b0ccff0be753b17169afcb772c4
 const subjectRoute = require("./routes/subject");
 const termRoute = require("./routes/term");
 const schoolYearRoute = require("./routes/schoolYear");
 const scoreSubjectRoute = require("./routes/scoreSubject");
-<<<<<<< HEAD
 const scoreSchoolYearRoute = require("./routes/scoreSchoolYear");
-=======
 const scoreDetailRoute = require("./routes/scoreDetail");
->>>>>>> 04a3e97515162b0ccff0be753b17169afcb772c4
 const coEffectRoute = require("./routes/coEffect");
 const reportedSubjectRoute = require("./routes/reportedSubject");
 const reportedTermRoute = require("./routes/reportedTerm");
@@ -43,13 +37,8 @@ app.use(express.json());
 app.use("/api/setting", settingRoute);
 app.use("/api/student", studentRoute);
 app.use("/api/grade", gradeRoute);
-<<<<<<< HEAD
 app.use("/api/class", classRoute);
 app.use("/api/classList", classListRoute);
-=======
-app.use("/api/class", cClassRoute);
-app.use("/api/classList", cClassListRoute);
->>>>>>> 04a3e97515162b0ccff0be753b17169afcb772c4
 app.use("/api/subject", subjectRoute);
 app.use("/api/term", termRoute);
 app.use("/api/schoolYear", schoolYearRoute);
