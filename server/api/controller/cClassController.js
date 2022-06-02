@@ -3,16 +3,14 @@ const { Student, CClass, Grade } = require("../models/model");
 const cClassController = {
   //ADD CLASS
   addClass: async (req, res) => {
-    console.log("hello from add class");
     try {
-      const newcClass = new CClass(req.body);
-      const savedcClass = await newcClass.save();
-      // if (req.body.grade) {
-      // const author = Author.find({ _id: req.body.author });
-      // const grade = Grade.findById(req.body.grade);
-      // await grade.updateOne({ $push: { cClasses: savedcClass._id } });
-      // }
-      res.status(200).json(savedcClass);
+      const newClass = new CClass(req.body);
+      const savedClass = await newClass.save();
+      if (req.body.grade) {
+        const grade = Grade.findById(req.body.grade);
+        await grade.updateOne({ $push: { cClasses: savedClass._id } });
+      }
+      res.status(200).json(savedClass);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -21,8 +19,8 @@ const cClassController = {
   // GET ALL CLASSES
   getAllClasses: async (req, res) => {
     try {
-      const cClasses = await CClass.find();
-      res.status(200).json(cClasses);
+      const classes = await CClass.find();
+      res.status(200).json(classes);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -45,7 +43,6 @@ const cClassController = {
     try {
       const cClass = await CClass.findById(req.params.id);
       if (req.body.grade && !cClass.grade) {
-        // const author = Author.find({ _id: req.body.author });
         const grade = Grade.findById(req.body.grade);
         await grade.updateOne({ $push: { cClasses: cClass._id } });
       }
