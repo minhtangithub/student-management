@@ -63,7 +63,7 @@ const cClassSchema = new mongoose.Schema({
   nameClass: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   grade: {
     type: mongoose.Schema.Types.ObjectId,
@@ -75,10 +75,10 @@ const cClassSchema = new mongoose.Schema({
       ref: "Student",
     },
   ],
-  term: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Term",
-  },
+  // term: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Term",
+  // },
   schoolYear: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "SchoolYear",
@@ -112,10 +112,10 @@ const subjectSchema = new mongoose.Schema({
     unique: true,
   },
   //hệ số môn
-  coEffSubject: {
-    type: Number,
-    required: true,
-  },
+  // coEffSubject: {
+  //   type: Number,
+  //   required: true,
+  // },
 });
 
 //điểm 1 môn học của 1 học sinh --> dùng cho trang nhập điểm

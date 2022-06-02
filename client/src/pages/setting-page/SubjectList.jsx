@@ -6,7 +6,7 @@ import EditIcon from "../../assets/edit-icon.png";
 import DeleteIcon from "../../assets/Delete-icon.png";
 import { useState, useEffect } from "react";
 
-import { subjectArr } from "../../config/getAPI";
+// import { subjectArr } from "../../config/getAPI";
 import { api } from "../../api/api";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
@@ -14,7 +14,7 @@ import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 
 export const SubjectList = () => {
-  const [subjectArrState, setSubjectArrState] = useState(subjectArr);
+  const [subjectArrState, setSubjectArrState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
   const [message, setMessage] = useState([]);

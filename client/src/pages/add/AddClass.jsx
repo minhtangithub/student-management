@@ -3,23 +3,24 @@ import "./AddClass.scss";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Notification } from "../../components/Notification";
-import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
+// import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { api } from "../../api/api";
 import { useState, useEffect } from "react";
 
 export const AddClass = () => {
   let history = useHistory();
+  let allClass;
   const [classArrState, setClassArrState] = useState([]);
   const [gradeArrState, setGradeArrState] = useState([]);
   const [schoolYearArrState, setSchoolYearArrState] = useState([]);
   const [message, setMessage] = useState("");
 
   //tạo options cho select
-  const classNameArr = classArr.map((item) => {
-    return { value: item.ID, text: item.nameClass };
-  });
+  // const classNameArr = classArr.map((item) => {
+  //   return { value: item.ID, text: item.nameClass };
+  // });
   // const gradeNameArr = gradeArr.map((item) => {
   //   return { value: item.ID, text: item.Name };
   // });
@@ -30,18 +31,18 @@ export const AddClass = () => {
   useEffect(() => {
     const getData = async () => {
       const gradeArr = await api.getGradeList();
-      // const classArr = await api.getTermList();
+      const classArr = await api.getClassListArr();
       const schoolYearArr = await api.getSchoolYearList();
       const UIgradeArr = gradeArr.map((item) => {
         return {
           text: item.gradeName,
         };
       });
-      // const UIClassArr = termArr.map((item) => {
-      //   return {
-      //     text: item.nameClass,
-      //   };
-      // });
+      const UIClassArr = classArr.map((item) => {
+        return {
+          text: item.nameClass,
+        };
+      });
       const UISchoolYearArr = schoolYearArr.map((item) => {
         return {
           text: item.nameSchYear,
@@ -50,7 +51,8 @@ export const AddClass = () => {
       // console.log(subjectArr, UIsubjectArr);
       setGradeArrState(UIgradeArr);
       // setClassArrState(UItermArr);
-      setClassArrState(classNameArr);
+      setClassArrState(UIClassArr);
+      allClass = UIClassArr;
       setSchoolYearArrState(UISchoolYearArr);
     };
     getData();
@@ -76,7 +78,7 @@ export const AddClass = () => {
     const gradeValue = document.querySelector(".dropdown_selected-default")
       ? document.querySelectorAll(".dropdown_selected-default")[0].innerText
       : "";
-    const newClassArrState = classNameArr.filter((item) =>
+    const newClassArrState = allClass.filter((item) =>
       item.text.includes(gradeValue)
     );
     console.log("set new state");

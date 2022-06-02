@@ -2,12 +2,16 @@ import axiosClient from "./axiosClient";
 
 export const api = {
   //GET
+  getAStudentInfoArr: (ID, params) => {
+    const url = "student/" + ID;
+    return axiosClient.get(url, params);
+  },
   getStudentInfoArr: (params) => {
     const url = "student";
     return axiosClient.get(url, params);
   },
   getClassListArr: (params) => {
-    const url = "class";
+    const url = "classList";
     return axiosClient.get(url, params);
   },
   //   getStudentScoreArr: (params) => {
@@ -46,8 +50,16 @@ export const api = {
     const url = "grade";
     return axiosClient.get(url, params);
   },
+  getCCLASS: (params) => {
+    const url = "class";
+    return axiosClient.get(url, params);
+  },
+  getScoreSchoolYear: (params) => {
+    const url = "scoreSchoolYear";
+    return axiosClient.get(url, params);
+  },
 
-  //POST
+  //POST******************************************************
   postNewStudentInfo: (payload) => {
     const url = "student";
     return axiosClient.post(url, payload);
@@ -60,24 +72,44 @@ export const api = {
   //     const url = "score";
   //     return axiosClient.post(url, payload);
   //   },
-  putSettingList: (id, payload) => {
-    const url = "settings/" + String(id);
-    return axiosClient.put(url, payload);
-  },
   //   postClassArr: (payload) => {
   //     const url = "student";
   //     return axiosClient.post(url, payload);
   //   },
-  putSubjectList: (id, payload) => {
-    const url = "subject/" + String(id);
-    return axiosClient.put(url, payload);
-  },
   postSubjectList: (payload) => {
     const url = "subject";
     return axiosClient.post(url, payload);
   },
+  postClassList: (payload) => {
+    const url = "classList";
+    return axiosClient.post(url, payload);
+  },
+  postClassWithStudents: (payload) => {
+    const url = "class";
+    return axiosClient.post(url, payload);
+  },
+
+  //PUT***************************
+  putSubjectList: (id, payload) => {
+    const url = "subject/" + String(id);
+    return axiosClient.put(url, payload);
+  },
+  putClassList: (id, payload) => {
+    const url = "classList/" + String(id);
+    return axiosClient.put(url, payload);
+  },
+  putSettingList: (id, payload) => {
+    const url = "settings/" + String(id);
+    return axiosClient.put(url, payload);
+  },
+
+  //DELETE*****************************
   deleteSubjectList: (id) => {
     const url = "subject/" + String(id);
+    return axiosClient.delete(url);
+  },
+  deleteClassList: (id) => {
+    const url = "classList/" + String(id);
     return axiosClient.delete(url);
   },
 };

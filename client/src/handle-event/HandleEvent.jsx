@@ -24,7 +24,8 @@ export const handler = {
 
 export const helper = {
   generateID: (dataArr, idName, prefix = "") => {
-    const lastID = dataArr[dataArr.length - 1][idName];
+    const lastID =
+      dataArr.length > 0 ? dataArr[dataArr.length - 1][idName] : prefix + "000";
     const lastIDNumber = lastID.replace(prefix, "");
     let newIDNum = Number(lastIDNumber) + 1;
     let newID;

@@ -8,19 +8,35 @@ import { Button } from "../../components/Button";
 import { Detail } from "../../components/Detail";
 import { Confirm } from "../../components/Confirm";
 import { Notification } from "../../components/Notification";
-import { useState } from "react";
-import { studentScoreArr } from "../../config/getAPI";
+import { useState, useEffect } from "react";
+// import { studentScoreArr } from "../../config/getAPI";
 import { handler, helper } from "../../handle-event/HandleEvent";
+import { api } from "../../api/api";
 
 //studentArrTemp là để hiển thị, studentScoreArr là để lưu xuống CSDL
 
 export const Search = () => {
-  const [studentArrState, setStudentArrState] = useState(studentScoreArr);
-  const [studentArrTempState, setStudentArrTempState] =
-    useState(studentScoreArr);
+  const [studentArrState, setStudentArrState] = useState([]);
+  const [studentInfoState, setStudentInfoState] = useState([]);
+  const [classArrState, setClassArrState] = useState([]);
+  const [studentArrTempState, setStudentArrTempState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const scoreSchoolYearArr = await api.getScoreSchoolYear();
+      const studentInfoArr = await api.getStudentInfoArr();
+      const classArr = await api.getCCLASS();
+
+      console.log(scoreSchoolYearArr, studentInfoArr, classArr);
+      setStudentArrState(scoreSchoolYearArr);
+      setStudentInfoState(studentInfoArr);
+      setClassArrState(classArr);
+    };
+    getData();
+  }, []);
 
   const handleEvent = {
     handleConfirmToDelete: () => {
@@ -253,16 +269,23 @@ export const Search = () => {
             <>
               <div className="row content">
                 <div className="item col-30-percent center al-left pl-50">
-                  {item.Name}
+                  {
+                    studentInfoState.find((info) => info._id == item.student)
+                      .fullName
+                  }
                 </div>
                 <div className="item col-10-percent center al-center">
-                  {item.nameClass}
+                  {
+                    classArrState.find(
+                      (classItem) => classItem._id == item.cClass
+                    ).nameClass
+                  }
                 </div>
                 <div className="item col-20-percent center al-center">
-                  {item.AvgScore1}
+                  {item.scoreTerms[0].termAvgScore}
                 </div>
                 <div className="item col-20-percent center al-center">
-                  {item.AvgScore2}
+                  {item.scoreTerms[1].termAvgScore}
                 </div>
                 <div className="item col-20-percent center al-center">
                   <button
@@ -301,7 +324,11 @@ export const Search = () => {
                       type="text"
                       className="input--small"
                       placeholder="Nhập họ tên..."
-                      value={item.Name}
+                      value={
+                        studentInfoState.find(
+                          (info) => info._id == item.student
+                        ).fullName
+                      }
                       onChange={(e) =>
                         handler.handleEditInputChange(
                           e,
@@ -318,7 +345,11 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập lớp..."
-                      value={item.nameClass}
+                      value={
+                        classArrState.find(
+                          (classItem) => classItem._id == item.cClass
+                        ).nameClass
+                      }
                       onChange={(e) =>
                         handler.handleEditInputChange(
                           e,
@@ -335,7 +366,7 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập TBHKI..."
-                      value={item.AvgScore1}
+                      value={item.scoreTerms[0].termAvgScore}
                       onChange={(e) =>
                         handler.handleEditInputChange(
                           e,
@@ -352,7 +383,7 @@ export const Search = () => {
                       type="text"
                       className="input--tiny"
                       placeholder="Nhập TBHKII..."
-                      value={item.AvgScore2}
+                      value={item.scoreTerms[1].termAvgScore}
                       onChange={(e) =>
                         handler.handleEditInputChange(
                           e,

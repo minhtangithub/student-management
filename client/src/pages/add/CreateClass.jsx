@@ -10,7 +10,9 @@ import { useState, useEffect } from "react";
 import "./CreateClass.scss";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
-import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
+import { Notification } from "../../components/Notification";
+
+// import { classArr, schoolYearArr, gradeArr } from "../../config/getAPI";
 import { Input } from "../../components/Input";
 import { api } from "../../api/api";
 
@@ -18,10 +20,10 @@ import { useParams } from "react-router-dom";
 
 export const CreateClass = () => {
   const { className, grade, schoolYear } = useParams();
-
-  const classNameArr = classArr.map((item) => {
-    return { value: item.ID, text: item.nameClass };
-  });
+  // let gradeID, schoolYearID;
+  // const classNameArr = classArr.map((item) => {
+  //   return { value: item.ID, text: item.nameClass };
+  // });
   // const gradeNameArr = gradeArr.map((item) => {
   //   return { value: item.ID, text: item.Name };
   // });
@@ -29,6 +31,9 @@ export const CreateClass = () => {
   //   return { value: item.ID, text: item.Name };
   // });
   //   const [studentArrState, setStudentArrState] = useState(studentInfoArr);
+  let allClass;
+  // , allGrade, allSchoolYear;
+  let maxTotal = 40;
   const [classArrState, setClassArrState] = useState([]);
   const [gradeArrState, setGradeArrState] = useState([]);
   const [schoolYearArrState, setSchoolYearArrState] = useState([]);
@@ -36,47 +41,105 @@ export const CreateClass = () => {
   const [studentArrTempState, setStudentArrTempState] = useState([]);
   const [newClassArrState, setNewClassArrState] = useState([]);
   const [result, setResult] = useState([]);
+  const [allCCLASS, setAllCCLASS] = useState([]);
+  const [message, setMessage] = useState("");
 
-  const newClassInfo = {
-    ID: "001",
-    "Tên lớp": "10A1",
-    "Sĩ số": "39",
-  };
+  // const newClassInfo = {
+  //   ID: "001",
+  //   "Tên lớp": "10A1",
+  //   "Sĩ số": "39",
+  // };
 
   useEffect(() => {
     const getData = async () => {
       const gradeArr = await api.getGradeList();
-      // const classArr = await api.getTermList();
+      const classArr = await api.getClassListArr();
       const schoolYearArr = await api.getSchoolYearList();
       const UIgradeArr = gradeArr.map((item) => {
         return {
+          ...item,
           text: item.gradeName,
         };
       });
-      // const UIClassArr = termArr.map((item) => {
-      //   return {
-      //     text: item.nameClass,
-      //   };
-      // });
+      const UIClassArr = classArr.map((item) => {
+        return {
+          ...item,
+          text: item.nameClass,
+        };
+      });
       const UISchoolYearArr = schoolYearArr.map((item) => {
         return {
+          ...item,
           text: item.nameSchYear,
         };
       });
       const studentArr = await api.getStudentInfoArr();
-      console.log(studentArr);
-
+      // console.log(studentArr);
+      const allCCLASSArr = await api.getCCLASS();
       // console.log(subjectArr, UIsubjectArr);
       setGradeArrState(UIgradeArr);
-      // setClassArrState(UItermArr);
-      setClassArrState(classNameArr);
+      // allGrade = [...gradeArr];
+      setClassArrState(UIClassArr);
+      allClass = UIClassArr;
       setSchoolYearArrState(UISchoolYearArr);
+      // allSchoolYear = [...schoolYearArr];
       setStudentArrState(studentArr);
+      setAllCCLASS(allCCLASSArr);
+
+      // console.log(allClass, allGrade, allSchoolYear);
     };
     getData();
   }, []);
 
+  const onChangeSelect = () => {
+    const gradeValue = document.querySelector(".dropdown_selected-default")
+      ? document.querySelectorAll(".dropdown_selected-default")[0].innerText
+      : "";
+    const newClassArrState = allClass.filter((item) =>
+      item.text.includes(gradeValue)
+    );
+    console.log("set new state");
+    setClassArrState(newClassArrState);
+  };
+
+  const getSelectedOptions = () => {
+    let optionValues = [];
+    document.querySelectorAll(".dropdown_selected-default").forEach((item) => {
+      optionValues.push(item.innerText);
+    });
+    return optionValues;
+  };
+
   const handleEvent = {
+    handleClickChoose: async () => {
+      const [selectedGrade, selectedClass, selectedSchoolYear] =
+        getSelectedOptions();
+      const selectedGradeID = gradeArrState.find(
+        (item) => item.gradeName == selectedGrade
+      )._id;
+      const selectedSchoolYearID = schoolYearArrState.find(
+        (item) => item.nameSchYear == selectedSchoolYear
+      )._id;
+      const selectedCCLASS = allCCLASS.filter(
+        (item) =>
+          item.grade == selectedGradeID &&
+          item.nameClass == selectedClass &&
+          item.schoolYear == selectedSchoolYearID
+      )[0];
+
+      // console.log(selectedCCLASS, allCCLASS);
+      let selectedStudents = [];
+      const studentsOfSelectedCLASS = Array.from(selectedCCLASS.students);
+      studentArrState.forEach(async (item) => {
+        if (studentsOfSelectedCLASS.includes(item._id)) {
+          selectedStudents.push(item);
+        }
+      });
+
+      const newClassArrStateCopy = [...selectedStudents, ...newClassArrState];
+      // console.log(newClassArrStateCopy);
+      setNewClassArrState(newClassArrStateCopy);
+    },
     handleChangeInput: (e) => {
       const inputValue = e.target.value;
       const studentArrStateCopy = studentArrState.filter((item) => {
@@ -87,17 +150,17 @@ export const CreateClass = () => {
         return false;
       });
 
-      const UIStudentArr = studentArrStateCopy.map((item) => {
-        return {
-          ID: item._id,
-          fullName: item.fullName,
-          dateOfBirth: item.dateOfBirth,
-          gender: item.gender == "male" ? "Nam" : "Nữ",
-          address: item.address,
-        };
-      });
+      // const UIStudentArr = studentArrStateCopy.map((item) => {
+      //   return {
+      //     ID: item._id,
+      //     fullName: item.fullName,
+      //     dateOfBirth: item.dateOfBirth,
+      //     gender: item.gender == "male" ? "Nam" : "Nữ",
+      //     address: item.address,
+      //   };
+      // });
 
-      setStudentArrTempState(UIStudentArr);
+      setStudentArrTempState(studentArrStateCopy);
     },
     handleClickSearchBtn: () => {
       const inputValue = document.querySelector(".search__input").value;
@@ -109,17 +172,17 @@ export const CreateClass = () => {
         return false;
       });
 
-      const UIStudentArr = studentArrStateCopy.map((item) => {
-        return {
-          ID: item._id,
-          fullName: item.fullName,
-          dateOfBirth: item.dateOfBirth,
-          gender: item.gender == "male" ? "Nam" : "Nữ",
-          address: item.address,
-        };
-      });
+      // const UIStudentArr = studentArrStateCopy.map((item) => {
+      //   return {
+      //     ID: item._id,
+      //     fullName: item.fullName,
+      //     dateOfBirth: item.dateOfBirth,
+      //     gender: item.gender == "male" ? "Nam" : "Nữ",
+      //     address: item.address,
+      //   };
+      // });
 
-      setStudentArrTempState(UIStudentArr);
+      setStudentArrTempState(studentArrStateCopy);
       document.querySelector(".search__input").value = "";
     },
     handleClickAddBtn: (e) => {
@@ -127,32 +190,64 @@ export const CreateClass = () => {
       console.log(e.target);
       if (addImgEl.classList.contains("add-img")) {
         let index = +addImgEl.parentNode.getAttribute("data-set");
-        let newClassArrStateCopy = JSON.parse(JSON.stringify(newClassArrState));
+        let newClassArrStateCopy = newClassArrState;
+
         let newItem = studentArrTempState[index];
         //kiểm tra nếu trùng thì không thêm
         //Nếu lấy của copy sẽ bị khác giá trị con trỏ
-        if (!newClassArrState.includes(newItem.ID)) {
-          newClassArrStateCopy.push(newItem.ID);
+        if (newClassArrState.includes(newItem)) {
+          setMessage("Học sinh đã có trong danh sách");
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else if (newClassArrState.length >= maxTotal) {
+          setMessage("Sĩ số tối đa là " + maxTotal + " học sinh");
+          document.querySelector(
+            ".notification--failed"
+          ).parentElement.style.display = "flex";
+        } else {
+          newClassArrStateCopy.push(newItem);
           setNewClassArrState(newClassArrStateCopy);
         }
       }
     },
     handleClickSaveBtn: () => {
-      const newResult = newClassInfo;
-      setResult([newResult]);
+      setResult([
+        {
+          Lớp: className,
+          Khối: grade,
+          "Năm học": schoolYear,
+          "Sĩ số": newClassArrState.length,
+        },
+      ]);
       document.querySelector(".confirm.add").style.display = "flex";
     },
     handleCancel: () => {
       document.querySelector(".confirm.add").style.display = "none";
     },
     handleConfirm: () => {
-      //thêm vào danh lớp...
-      // const newClass = {
-      //   nameClass: className,
-      //   grade: grade,
-      //   schoolYear: schoolYear,
-      //   students: newClassArrState,
-      // };
+      // console.log(allClass, allGrade, allSchoolYear);
+
+      //Lưu xuống CSDL
+      const newStudentIDs = newClassArrState.map((item) => item._id);
+      // console.log(gradeArrState, schoolYearArrState);
+      let gradeID = gradeArrState.filter((item) => item.gradeName == grade)[0]
+        ._id;
+      let schoolYearID = schoolYearArrState.filter(
+        (item) => item.nameSchYear == schoolYear
+      )[0]._id;
+      console.log({
+        nameClass: className,
+        grade: gradeID,
+        schoolYear: schoolYearID,
+        students: newStudentIDs,
+      });
+      api.postClassWithStudents({
+        nameClass: "10A9",
+        grade: gradeID,
+        schoolYear: schoolYearID,
+        students: newStudentIDs,
+      });
 
       //hiển thị thông báo
       document.querySelector(".confirm.add .notification").style.display =
@@ -174,6 +269,8 @@ export const CreateClass = () => {
   return (
     <>
       <div className="create-class">
+        <Notification status="failed" message={message} />
+
         <div className="search-page">
           {/* <Detail result={result} /> */}
           <Confirm
@@ -201,6 +298,7 @@ export const CreateClass = () => {
                   labelText="Tên khối"
                   selectName="GradeName"
                   options={gradeArrState}
+                  onChangeSelect={onChangeSelect}
                 />
               </div>
               <div className="grid__item option__input">
@@ -225,7 +323,7 @@ export const CreateClass = () => {
                 <div className="search__btns">
                   <button
                     className="search__button"
-                    onClick={handleEvent.handleClickSearchBtn}
+                    onClick={handleEvent.handleClickChoose}
                   >
                     Chọn
                   </button>
@@ -287,7 +385,7 @@ export const CreateClass = () => {
                       {item.fullName}
                     </div>
                     <div className="item col-10-percent center al-center">
-                      {item.gender}
+                      {item.gender == "male" ? "Nam" : "Nữ"}
                     </div>
                     <div className="item col-20-percent center al-center">
                       {item.dateOfBirth}
@@ -346,7 +444,7 @@ export const CreateClass = () => {
                       {item.fullName}
                     </div>
                     <div className="item col-10-percent center al-center">
-                      {item.gender}
+                      {item.gender == "male" ? "Nam" : "Nữ"}
                     </div>
                     <div className="item col-20-percent center al-center">
                       {item.dateOfBirth}

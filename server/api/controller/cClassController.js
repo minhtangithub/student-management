@@ -3,14 +3,15 @@ const { Student, CClass, Grade } = require("../models/model");
 const cClassController = {
   //ADD CLASS
   addClass: async (req, res) => {
+    console.log("hello from add class");
     try {
       const newcClass = new CClass(req.body);
       const savedcClass = await newcClass.save();
-      if (req.body.grade) {
-        // const author = Author.find({ _id: req.body.author });
-        const grade = Grade.findById(req.body.grade);
-        await grade.updateOne({ $push: { cClasses: savedcClass._id } });
-      }
+      // if (req.body.grade) {
+      // const author = Author.find({ _id: req.body.author });
+      // const grade = Grade.findById(req.body.grade);
+      // await grade.updateOne({ $push: { cClasses: savedcClass._id } });
+      // }
       res.status(200).json(savedcClass);
     } catch (err) {
       res.status(500).json(err);

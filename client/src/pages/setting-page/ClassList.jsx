@@ -3,9 +3,10 @@ import "../Setting.scss";
 
 import EditIcon from "../../assets/edit-icon.png";
 import DeleteIcon from "../../assets/Delete-icon.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { classArr } from "../../config/getAPI";
+// import { classArr } from "../../config/getAPI";
+import { api } from "../../api/api";
 
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
@@ -13,10 +14,19 @@ import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 
 export const ClassList = () => {
-  const [classArrState, setClassArrState] = useState(classArr);
+  const [classArrState, setClassArrState] = useState([]);
   const [result, setResult] = useState([]);
   const [resultUI, setResultUI] = useState([]);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const apiArr = await api.getClassListArr();
+      setClassArrState(apiArr);
+    };
+    getData();
+  }, []);
+
   const handleEvent = {
     handleConfirmAcceptBtn: {
       editClass: () => {
@@ -33,7 +43,7 @@ export const ClassList = () => {
 
           //Tìm index phần tử bị edit
           let index = classArrStateCopy.findIndex(
-            (item) => item.ID == result[0].ID
+            (item) => item.idClass == result[0].idClass
           );
 
           //Cập nhật mảng
@@ -45,7 +55,10 @@ export const ClassList = () => {
           helper.turnOnNotification("edit");
 
           //Cập nhật xuống CSDL
-          //...
+          api.putClassList(classArrState[index]._id, {
+            nameClass: result[0].nameClass,
+          });
+          setResult([]);
         }
       },
       addClass: () => {
@@ -69,7 +82,12 @@ export const ClassList = () => {
           document.querySelector(".row.add").style.display = "none";
 
           //cập nhật xuống CSDL
-          //...
+          api.postClassList({
+            idClass: result[0].idClass,
+            nameClass: result[0].nameClass,
+          });
+          console.log(result);
+          setResult([]);
         }
       },
       deleteClass: () => {
@@ -78,7 +96,7 @@ export const ClassList = () => {
 
         //cập nhật mảng
         const newClassArrStateCopy = classArrStateCopy.filter((item, i) => {
-          return item.ID !== result[0].ID;
+          return item.idClass !== result[0].idClass;
         });
         setClassArrState(newClassArrStateCopy);
 
@@ -86,7 +104,8 @@ export const ClassList = () => {
         helper.turnOnNotification("delete");
 
         //cập nhật xuống CSDL
-        //...
+        api.deleteClassList(result[0]._id);
+        setResult([]);
       },
       deleteSelectedClass: () => {
         //tạo copy
@@ -102,7 +121,10 @@ export const ClassList = () => {
         helper.turnOnNotification("delete-all");
 
         //cập nhật xuống CSDL
-        //...
+        result.forEach((item) => {
+          api.deleteClassList(item._id);
+        });
+        setResult([]);
       },
     },
 
@@ -141,8 +163,8 @@ export const ClassList = () => {
       class: () => {
         const inputs = document.querySelectorAll(".row.add input");
         const newItem = {
-          ID: helper.generateID(classArrState),
-          Name: inputs[0].value,
+          idClass: helper.generateID(classArrState, "idClass", ""),
+          nameClass: inputs[0].value,
           Edit: false,
           Checked: false,
         };
