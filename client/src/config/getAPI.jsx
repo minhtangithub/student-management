@@ -492,7 +492,7 @@ export const ScoreSchoolYear = [
     schoolYearAvgScore: 8.5,
   },
   {
-    cClass: "629890503524eacf2ef6d91a",
+    cClass: "6298a8b6f7ab8c4b70e5ac91",
     student: "62973a06db2cf7f0efda5db6",
     scoreTerms: [
       {

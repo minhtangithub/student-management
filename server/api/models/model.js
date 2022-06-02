@@ -342,7 +342,7 @@ module.exports = {
   Subject,
   ScoreDetail,
   ScoreSubject,
-  ScoreSchoolYear,
+  // ScoreSchoolYear,
   CoEffect,
   Term,
   SchoolYear,

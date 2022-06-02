@@ -88,6 +88,10 @@ export const api = {
     const url = "class";
     return axiosClient.post(url, payload);
   },
+  postScoreSubject: (payload) => {
+    const url = "scoreSubject";
+    return axiosClient.post(url, payload);
+  },
 
   //PUT***************************
   putSubjectList: (id, payload) => {

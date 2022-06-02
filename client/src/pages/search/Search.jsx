@@ -240,31 +240,35 @@ export const Search = () => {
         helper.turnOnConfirm("delete");
       }
     },
-    handleEditName: (e, i, dataArr, setDataArr, property) => {
-      let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
-      dataArrCopy[i][property] = e.target.value;
-      setDataArr(dataArrCopy);
+    handleEditName: (e, i) => {
+      // let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
+      studentInfoState.find(
+        (info) => info._id == studentArrTempState[i].student
+      ).fullName = e.target.value;
+      setStudentArrTempState(studentArrTempState);
     },
-    handleEditName: (e, i, dataArr, setDataArr, property) => {
-      let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
-      dataArrCopy[i][property] = e.target.value;
-      setDataArr(dataArrCopy);
+    handleEditClass: (e, i) => {
+      classArrState.find(
+        (info) => info._id == studentArrTempState[i].cClass
+      ).fullName = e.target.value;
+      setStudentArrTempState(studentArrTempState);
     },
-    handleEditName: (e, i, dataArr, setDataArr, property) => {
-      let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
-      dataArrCopy[i][property] = e.target.value;
-      setDataArr(dataArrCopy);
+    handleEditAvg1: (e, i) => {
+      const id = studentArrTempState[i]._id;
+      const studentArrStateCopy = studentArrTempState;
+      studentArrStateCopy.find(
+        (item) => item._id == id
+      )[0].scoreTerms[0].termAvgScore = e.target.value;
+      setStudentArrTempState(studentArrStateCopy);
     },
-    handleEditName: (e, i, dataArr, setDataArr, property) => {
-      let dataArrCopy = JSON.parse(JSON.stringify(dataArr));
-      dataArrCopy[i][property] = e.target.value;
-      setDataArr(dataArrCopy);
+    handleEditAvg2: (e, i) => {
+      const id = studentArrTempState[i]._id;
+      const studentArrStateCopy = studentArrTempState;
+      studentArrStateCopy.find(
+        (item) => item._id == id
+      )[0].scoreTerms[1].termAvgScore = e.target.value;
+      setStudentArrTempState(studentArrStateCopy);
     },
-    // handleNameInputChange: (e, i) => {
-    //   let subjectArrStateCopy = JSON.parse(JSON.stringify(subjectArrState));
-    //   subjectArrStateCopy[i].Name = e.target.value;
-    //   setSubjectArrState(subjectArrStateCopy);
-    // },
   };
   studentArrTempState.map((item, i) => {
     console.log(
@@ -395,15 +399,7 @@ export const Search = () => {
                           (info) => info._id == item.student
                         ).fullName
                       }
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "Name"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditName(e, i)}
                     />
                   </div>
                   <div className="item col-10-percent center al-center">
@@ -416,15 +412,7 @@ export const Search = () => {
                           (classItem) => classItem._id == item.cClass
                         ).nameClass
                       }
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "nameClass"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditClass(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -433,15 +421,7 @@ export const Search = () => {
                       className="input--tiny"
                       placeholder="Nhập TBHKI..."
                       value={item.scoreTerms[0].termAvgScore}
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "AvgScore1"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditAvg1(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center">
@@ -450,15 +430,7 @@ export const Search = () => {
                       className="input--tiny"
                       placeholder="Nhập TBHKII..."
                       value={item.scoreTerms[1].termAvgScore}
-                      onChange={(e) =>
-                        handler.handleEditInputChange(
-                          e,
-                          i,
-                          studentArrTempState,
-                          setStudentArrTempState,
-                          "AvgScore2"
-                        )
-                      }
+                      onChange={(e) => handleEvent.handleEditAvg2(e, i)}
                     />
                   </div>
                   <div className="item col-20-percent center al-center save-btn__container">
