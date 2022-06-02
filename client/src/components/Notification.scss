@@ -12,7 +12,7 @@
     border-radius: 35px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     @include flex(center, center);
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: column;
     .top {
       width: 100%;
