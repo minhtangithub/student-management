@@ -108,7 +108,9 @@ export const AddClass = () => {
     <div className="add-class">
       <Notification status="failed" message={message} />
       <h3>Lập danh sách lớp</h3>
-
+      <div className="guide">
+        Điền thông tin lớp học mới cần tạo. Lưu ý điền đầy đủ các trường
+      </div>
       <div className="grid">
         <div className="row">
           <Input

@@ -70,6 +70,7 @@ export const ReportSubject = () => {
   return (
     <div className="report-subject">
       <h3>TẠO BÁO CÁO TỔNG KẾT MÔN HỌC</h3>
+      <div className="guide">Chọn đầy đủ các thông tin theo mẫu bên dưới.</div>
       <div className="grid">
         <div className="row">
           <Input

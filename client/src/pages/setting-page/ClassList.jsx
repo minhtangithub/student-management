@@ -217,6 +217,9 @@ export const ClassList = () => {
 
       <div className="manage-class">
         <h3>Danh sách các lớp</h3>
+        <div className="guide">
+          Bạn có thể chỉnh tên của lớp học hoặc thêm mới tên một lớp học chưa có
+        </div>
         <div className="container">
           <div className="row heading">
             <div className="item col-10-percent center"></div>

@@ -15,6 +15,11 @@ export const Setting = () => {
     <>
       <div className="setting">
         <h3>Thay đổi quy định</h3>
+        <div className="guide">
+          Chỉnh sửa danh sách các tham số <br />
+          Chỉnh sửa danh sách tên các lớp của trường <br />
+          Chỉnh sửa danh sách tên các môn học được dạy của trường
+        </div>
         <div className="card-container">
           <Card
             img={Card1}
