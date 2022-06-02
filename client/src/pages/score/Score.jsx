@@ -54,7 +54,10 @@ export const Score = () => {
   return (
     <div className="score">
       <h3>Tạo bảng điểm môn</h3>
-
+      <div className="guide">
+        Điền thông tin môn học cần tạo bảng điểm mới. Lưu ý điền đầy đủ các
+        trường
+      </div>
       <div className="grid">
         <div className="row">
           <Input

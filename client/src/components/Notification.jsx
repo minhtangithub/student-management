@@ -39,6 +39,8 @@ export const Notification = ({
             <div className="main">
               <img src={SuccessImg} alt="" />
               <p>Thao tác thành công!</p>
+            </div>
+            <div className="bottom">
               <button
                 className="confirmBtn successBtn"
                 onClick={handleSuccessCloseBtn}
@@ -67,6 +69,8 @@ export const Notification = ({
               <img src={FailImg} alt="" />
               <p>Thao tác thất bại!</p>
               <h4 className="failed-message">{message}</h4>
+            </div>
+            <div className="bottom">
               <button
                 className="confirmBtn failBtn"
                 onClick={handleFailedCloseBtn}

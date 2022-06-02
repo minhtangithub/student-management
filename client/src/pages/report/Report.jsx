@@ -13,6 +13,11 @@ export const Report = () => {
     <>
       <div className="report">
         <h3>Tạo báo cáo</h3>
+        <div className="guide">
+          Tạo báo cáo theo môn học: danh sách các lớp có học môn học đó
+          <br />
+          Tạo báo cáo theo học kì: danh sách các lớp học trong học kì
+        </div>
         <div className="card-container">
           <Card
             img={Card3}

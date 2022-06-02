@@ -58,6 +58,7 @@ export const ReportTerm = () => {
   return (
     <div className="report-term">
       <h3>Tạo báo cáo tổng kết học kì</h3>
+      <div className="guide">Chọn đầy đủ các thông tin theo mẫu bên dưới.</div>
       <div className="grid">
         <div className="row">
           <Input

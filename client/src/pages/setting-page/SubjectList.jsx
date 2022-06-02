@@ -242,7 +242,9 @@ export const SubjectList = () => {
 
       <div className="manage-subject">
         <h3>Danh sách môn học</h3>
-
+        <div className="guide">
+          Bạn có thể chỉnh tên của môn học hoặc thêm mới một môn học chưa có
+        </div>
         <div className="container">
           <div className="row heading">
             <div className="item col-10-percent center "></div>

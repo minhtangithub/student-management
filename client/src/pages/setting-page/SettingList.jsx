@@ -91,6 +91,7 @@ export const SettingList = () => {
 
       <div className="setting">
         <h3>Danh sách tham số</h3>
+        <div className="guide">Bạn chỉ có thể chỉnh giá trị của tham số</div>
         <div className="container">
           <div className="grid">
             <div className="row heading">
