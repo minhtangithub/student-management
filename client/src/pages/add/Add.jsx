@@ -12,6 +12,10 @@ export const Add = () => {
     <>
       <div className="add">
         <h3>Thêm</h3>
+        <div className="guide">
+          Tạo hồ sơ học sinh mới <br />
+          Tạo lớp học mới từ lớp học đã có hoặc từ danh sách học sinh
+        </div>
         <div className="card-container">
           <Card
             img={Card1}

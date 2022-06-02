@@ -288,6 +288,9 @@ export const CreateClass = () => {
           {/* <Detail /> */}
           <h3>Lập danh sách lớp</h3>
           <h4>Chọn từ danh sách lớp đã có</h4>
+          <div className="guide">
+            Chọn lớp học đã có mà bạn muốn lấy danh sách học sinh
+          </div>
           <div className="grid">
             <div className="row">
               {/* <label htmlFor="">Học Sinh</label> */}
@@ -333,6 +336,9 @@ export const CreateClass = () => {
           </div>
           <hr></hr>
           <h4>Tìm tên học sinh</h4>
+          <div className="guide">
+            Tìm theo tên của học sinh mà bạn muốn thêm vào lớp
+          </div>
           <div className="grid">
             <div className="row">
               <div className="grid__item">

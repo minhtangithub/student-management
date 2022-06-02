@@ -230,6 +230,10 @@ export const Search = () => {
       />
       <Notification status="failed" message={message} />
       <h3>TRA CỨU</h3>
+      <div className="guide">
+        Nhập thêm học sinh mà bạn muốn tìm. Bạn có thể xem chi tiết, chỉnh sửa
+        hoặc xóa học sinh ở đây.
+      </div>
       <div className="grid">
         <div className="row">
           <div className="grid__item">

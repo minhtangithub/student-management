@@ -124,6 +124,10 @@ export const AddStudent = () => {
       />
       <Notification status="failed" message={message} />
       <h3>Thêm học sinh</h3>
+      <div className="guide">
+        Điền vào thông tin học sinh theo mẫu bên dưới. Lưu ý điền đầy đủ tất cả
+        các trường
+      </div>
 
       <form className="grid">
         <div className="row">

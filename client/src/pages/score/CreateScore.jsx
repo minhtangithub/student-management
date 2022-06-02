@@ -92,6 +92,10 @@ export const CreateScore = () => {
       {status == "input" ? (
         <div className="create-score">
           <h3>Tạo bảng điểm</h3>
+          <div className="guide">
+            Nhập đầy đủ từng cột điểm cho từng học sinh. Điểm trung bình sẽ được
+            tính tự động
+          </div>
           <div className="score-info">
             <h4>Lớp: {className}</h4>
             <h4>{term}</h4>
@@ -141,6 +145,10 @@ export const CreateScore = () => {
       ) : (
         <div className="create-score">
           <h3>Tạo bảng điểm</h3>
+          <div className="guide">
+            Nhập đầy đủ từng cột điểm cho từng học sinh. Điểm trung bình sẽ được
+            tính tự động
+          </div>
           <div className="score-info">
             <h4>Lớp: {className}</h4>
             <h4>Học kỳ: {term}</h4>
