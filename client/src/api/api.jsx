@@ -19,11 +19,11 @@ export const api = {
   //     return axiosClient.get(url, params);
   //   },
   getReportSubjects: (params) => {
-    const url = "reportedSubjects";
+    const url = "reportedSubject";
     return axiosClient.get(url, params);
   },
   getReportTerm: (params) => {
-    const url = "reportedTerms";
+    const url = "reportedTerm";
     return axiosClient.get(url, params);
   },
   getSettingList: (params) => {
@@ -60,6 +60,10 @@ export const api = {
   },
   getScoreSchoolYear: (params) => {
     const url = "scoreSchoolYear";
+    return axiosClient.get(url, params);
+  },
+  getScoreSubject: (params) => {
+    const url = "scoreSubject";
     return axiosClient.get(url, params);
   },
   getCoEff: (params) => {
@@ -100,6 +104,10 @@ export const api = {
     const url = "scoreSubject";
     return axiosClient.post(url, payload);
   },
+  postReportSubject: (payload) => {
+    const url = "reportedSubject";
+    return axiosClient.post(url, payload);
+  },
 
   //PUT***************************
   putSubjectList: (id, payload) => {
@@ -111,7 +119,7 @@ export const api = {
     return axiosClient.put(url, payload);
   },
   putSettingList: (id, payload) => {
-    const url = "settings/" + String(id);
+    const url = "setting/" + String(id);
     return axiosClient.put(url, payload);
   },
   putScoreSchoolYear: (id, payload) => {

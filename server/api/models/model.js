@@ -278,7 +278,7 @@ const reportedSubjectSchema = new mongoose.Schema({
     type: Number,
   },
   rate: {
-    type: Number,
+    type: String,
   },
   term: {
     type: mongoose.Schema.Types.ObjectId,

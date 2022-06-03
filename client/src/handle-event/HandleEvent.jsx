@@ -148,9 +148,10 @@ export const helper = {
         let isAgeValid;
         let today = new Date();
         let thisYear = today.getFullYear();
-        let [inputDay, inputMonth, inputYear] = data.dateOfBirth.split("/");
+        let [inputYear, inputMonth, inputDay] = data.dateOfBirth.split("-");
         let age = Number(thisYear) - Number(inputYear);
         isAgeValid = age >= 15 && age <= 20;
+        console.log("age>>>", data.dateOfBirth);
         if (!isAgeValid) {
           message = "Tuổi không đúng quy định";
           return message;

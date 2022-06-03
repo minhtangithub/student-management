@@ -13,7 +13,7 @@ import { Card } from "../../components/Card";
 export const Add = () => {
   return (
     <>
-      <div className="add">
+      <div className="add-page">
         <img className="img-main" src={imgPage} alt="" />
         <div className="main-1"></div>
         <div className="main-2">
