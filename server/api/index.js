@@ -42,8 +42,8 @@ app.use("/api/term", termRoute);
 app.use("/api/schoolYear", schoolYearRoute);
 app.use("/api/scoreSubject", scoreSubjectRoute);
 app.use("/api/scoreSchoolYear", scoreSchoolYearRoute);
-app.use("/api/reportedSubjects", reportedSubjectRoute);
-app.use("/app/reportedTerms", reportedTermRoute);
+app.use("/api/reportedSubject", reportedSubjectRoute);
+app.use("/api/reportedTerm", reportedTermRoute);
 
 mongoose
   .connect(process.env.MONGO_URL, {
