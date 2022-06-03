@@ -108,6 +108,10 @@ export const api = {
     const url = "reportedSubject";
     return axiosClient.post(url, payload);
   },
+  postReportTerm: (payload) => {
+    const url = "reportedTerm";
+    return axiosClient.post(url, payload);
+  },
 
   //PUT***************************
   putSubjectList: (id, payload) => {
@@ -146,6 +150,16 @@ export const api = {
   },
   deleteScoreSchoolYear: (id) => {
     const url = "scoreSchoolYear/" + String(id);
+    return axiosClient.delete(url);
+  },
+  deleteReportSubject: (id) => {
+    console.log("delete from api");
+    const url = "reportedSubject/" + String(id);
+    return axiosClient.delete(url);
+  },
+  deleteReportTerm: (id) => {
+    console.log("delete from api");
+    const url = "reportedTerm/" + String(id);
     return axiosClient.delete(url);
   },
 };

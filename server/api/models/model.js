@@ -132,6 +132,10 @@ const scoreSubjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Subject",
   },
+  term: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Term",
+  },
   scoreDetails: [
     {
       scoreName: {
@@ -184,6 +188,10 @@ const scoreSchoolYearSchema = new mongoose.Schema({
   cClass: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "CClass",
+  },
+  term: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Term",
   },
   scoreTerms: [
     {
@@ -311,7 +319,7 @@ const reportedTermSchema = new mongoose.Schema({
     type: Number,
   },
   rate: {
-    type: Number,
+    type: String,
   },
 });
 

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../../../components/Button";
 import { useParams } from "react-router-dom";
 import { api } from "../../../api/api";
+import { scoreSubject } from "../../../config/getAPI";
 
 export const CreateReportSubject = () => {
   const { subject, term, schoolYear } = useParams();
@@ -20,11 +21,12 @@ export const CreateReportSubject = () => {
 
   useEffect(() => {
     const getData = async () => {
-      // const apiArr = await api.getReportSubjects();
       const subjectArr = await api.getSubjectList();
       const termArr = await api.getTermList();
       const schoolYearArr = await api.getSchoolYearList();
-      const scoreArr = await api.getScoreSubject();
+      // const scoreArr = await api.getScoreSubject();
+      const scoreArr = scoreSubject;
+
       const classArray = await api.getCCLASS();
       const reportSubject = await api.getReportSubjects();
 
@@ -34,7 +36,15 @@ export const CreateReportSubject = () => {
         (item) => item.nameSchYear === schoolYear
       )._id;
 
-      //Ma trận cấp ba giữa học kì, môn, ds lớp -> mỗi ô sẽ tạo thành 1 report
+      console.log(termArr, subjectArr, classArray, scoreArr);
+
+      // console.log(reportSubject);
+      // reportSubject.forEach((item) => {
+      //   console.log("delete");
+      //   api.deleteReportSubject(item._id);
+      // });
+
+      // Ma trận cấp ba giữa học kì, môn, ds lớp -> mỗi ô sẽ tạo thành 1 report
       termArr.forEach((thisTerm) => {
         subjectArr.forEach((thisSubject) => {
           classArray.forEach((thisClass) => {
@@ -49,6 +59,15 @@ export const CreateReportSubject = () => {
                 score.subject === thisSubject._id
             );
 
+            // console.log(
+            //   "thisCLass...",
+            //   thisClass._id,
+            //   thisTerm._id,
+            //   thisSubject._id,
+            //   // thisSchoolYear
+            //   scoreArr
+            // );
+
             let isThereReport = reportSubject.find(
               (report) =>
                 report.cClass === thisClass._id &&
@@ -56,7 +75,7 @@ export const CreateReportSubject = () => {
                 report.subject === thisSubject._id
             );
 
-            //Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
+            // Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
             if (isThereScore && !isThereReport) {
               let total = thisClass.students.length;
               let passed = 0,
@@ -96,94 +115,14 @@ export const CreateReportSubject = () => {
           item.subject === subjectID
       );
 
+      console.log(newReportSubject, UIarr);
+
       setScoreSubjectState(scoreArr);
       setClassArrState(classArray);
       setSchoolYearState(schoolYearArr);
       setSubjectState(subjectArr);
       setTermState(termArr);
       setReportSubjectState(UIarr);
-
-      // if (scoreArr.find((item) => !item.avgScore)) {
-      //   //tính điểm trung bình năm nếu có cái chưa tính
-      //   scoreArr.forEach((item) => {
-      //     let min15 = item.scoreDetails[0]
-      //       ? item.scoreDetails[0].termAvgScore
-      //       : 0;
-      //     let per1 = item.scoreDetails[1]
-      //       ? item.scoreDetails[1].termAvgScore
-      //       : 0;
-      //     item.avgScore = Number((min15 + per1) / 2).toFixed(2);
-      //     api.putScoreSchoolYear(item);
-      //   });
-      //   setScoreSchoolYearState(scoreArr);
-      // }
-
-      // if (UIApiArr.length == 0) {
-      // }
-
-      //nếu báo cáo thiếu thì thêm vào
-
-      ////Nhóm theo lớp
-      // const classIDsInScore = scoreArr.map((item) => item.cClass);
-      // const classIDsSet = new Set(classIDsInScore);
-      // const classIDsArr = Array.from(classIDsSet);
-      // const classIDsArrWithNoEmpty = classIDsArr.filter(
-      //   (item) => item !== undefined
-      // );
-
-      // const report = classIDsArrWithNoEmpty.map((classItem) => {
-      //   let total = classArray.find((item) => classItem === item._id).students
-      //       .length,
-      //     passed = 0,
-      //     rate;
-      //   scoreArr.forEach((item) => {
-      //     console.log(item.cClass, classItem);
-      //     if (item.cClass && item.cClass === classItem) {
-      //       if (item.avgScore >= 5) {
-      //         passed++;
-      //       }
-      //     }
-      //   });
-      //   let rateNumber = ((passed * 100) / total).toFixed(2);
-      //   rate = rateNumber + "%";
-      //   console.log(total, passed, rate);
-      //   return {
-      //     subject: subjectID,
-      //     cClass: classItem,
-      //     term: termID,
-      //     schoolYear: schoolYearID,
-      //     totalStudents: total,
-      //     passed: passed,
-      //     rate: rate,
-      //   };
-      // });
-
-      // console.log("report>>>", report);
-
-      // report.forEach((reportItem) => {
-      //   let isThereInReport = apiArr.find(
-      //     (item) =>
-      //       item.cClass === reportItem.cClass &&
-      //       item.subject === reportItem.subject &&
-      //       item.term === reportItem.term &&
-      //       item.schoolYear === reportItem.schoolYear
-      //   );
-      // let
-      // if (
-      //   !
-      // ) {
-      //   api.postReportSubject(reportItem);
-      // }
-      // });
-
-      // const UIApiArr = report.filter(
-      //   (item) =>
-      //     item.subject == subjectID &&
-      //     item.term == termID &&
-      //     item.schoolYear == schoolYearID
-      // );
-
-      // console.log("report>>>", UIApiArr);
     };
     getData();
   }, []);

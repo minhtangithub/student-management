@@ -14,6 +14,6 @@ router.get("/:id", reportedTerm.getReportedTerm);
 router.put("/:id", reportedTerm.updateReportedTerm);
 
 //DELETE A REPORTED_TERM
-router.delete("/:id", reportedTerm.updateReportedTerm);
+router.delete("/:id", reportedTerm.deleteReportedTerm);
 
 module.exports = router;

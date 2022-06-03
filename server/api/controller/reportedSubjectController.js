@@ -45,6 +45,8 @@ const reportedSubjectController = {
 
   //DELETE REPORTED_SUBJECT
   deleteReportedSubject: async (req, res) => {
+    console.log("delete");
+
     try {
       await ReportedSubject.findByIdAndDelete(req.params.id);
       res.status(200).json("Deleted successfully!");

@@ -466,8 +466,9 @@ export const reportTermArr = [
 
 export const ScoreSchoolYear = [
   {
-    cClass: "629890503524eacf2ef6d91a",
-    student: "62973a06db2cf7f0efda5db6",
+    student: "6299e13a39e9202bd9e809ca",
+    cClass: "6299d2e9197adb1f05703dbc",
+    term: "6299d1a3197adb1f05703d97",
     scoreTerms: [
       {
         termAvgScore: 8,
@@ -479,8 +480,9 @@ export const ScoreSchoolYear = [
     schoolYearAvgScore: 8.5,
   },
   {
-    cClass: "629890503524eacf2ef6d91a",
-    student: "62973a06db2cf7f0efda5db6",
+    student: "6299e13a39e9202bd9e809ca",
+    cClass: "6299d2e9197adb1f05703dbc",
+    term: "6299d1a3197adb1f05703d97",
     scoreTerms: [
       {
         termAvgScore: 8,
@@ -492,8 +494,9 @@ export const ScoreSchoolYear = [
     schoolYearAvgScore: 8.5,
   },
   {
-    cClass: "6298a8b6f7ab8c4b70e5ac91",
-    student: "62973a06db2cf7f0efda5db6",
+    student: "6299e13a39e9202bd9e809ca",
+    cClass: "6299d2e9197adb1f05703dbc",
+    term: "6299d1a3197adb1f05703d97",
     scoreTerms: [
       {
         termAvgScore: 8,
@@ -503,5 +506,27 @@ export const ScoreSchoolYear = [
       },
     ],
     schoolYearAvgScore: 8.5,
+  },
+];
+
+// export const reportSubject = [{}];
+
+export const scoreSubject = [
+  {
+    student: "6299e13a39e9202bd9e809ca",
+    cClass: "6299d2e9197adb1f05703dbc",
+    term: "6299d1a3197adb1f05703d97",
+    subject: "6299d7b5a91a8e8daa951bf7",
+    scoreDetails: [
+      {
+        scoreName: "Điểm 15p",
+        score: 8,
+      },
+      {
+        scoreName: "Điểm 15p",
+        score: 8,
+      },
+    ],
+    avgScore: 8,
   },
 ];
