@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 export const api = {
   //GET
-  getAStudentInfoArr: (ID, params) => {
+  getAStudentInfo: (ID, params) => {
     const url = "student/" + String(ID);
     return axiosClient.get(url, params);
   },
@@ -54,8 +54,16 @@ export const api = {
     const url = "class";
     return axiosClient.get(url, params);
   },
+  getA_CCLASS: (id, params) => {
+    const url = "class/" + String(id);
+    return axiosClient.get(url, params);
+  },
   getScoreSchoolYear: (params) => {
     const url = "scoreSchoolYear";
+    return axiosClient.get(url, params);
+  },
+  getCoEff: (params) => {
+    const url = "coEff";
     return axiosClient.get(url, params);
   },
 
@@ -108,6 +116,14 @@ export const api = {
   },
   putScoreSchoolYear: (id, payload) => {
     const url = "scoreSchoolYear/" + String(id);
+    return axiosClient.put(url, payload);
+  },
+  putStudentInfo: (id, payload) => {
+    const url = "student/" + String(id);
+    return axiosClient.put(url, payload);
+  },
+  putCCLASS: (id, payload) => {
+    const url = "class/" + String(id);
     return axiosClient.put(url, payload);
   },
 

@@ -2,32 +2,72 @@ import React from "react";
 import "./Score.scss";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import {
-  subjectArr,
-  classArr,
-  termArr,
-  schoolYearArr,
-} from "../../config/getAPI";
+// import {
+//   subjectArr,
+//   classArr,
+//   termArr,
+//   schoolYearArr,
+// } from "../../config/getAPI";
+import { useState, useEffect } from "react";
+import { api } from "../../api/api";
 import { useHistory } from "react-router-dom";
 
 export const Score = () => {
   let history = useHistory();
-
+  const [classArrState, setClassArrState] = useState([]);
+  const [subjectArrState, setSubjectArrState] = useState([]);
+  const [termArrState, setTermArrState] = useState([]);
+  const [schoolYearArrState, setSchoolYearArrState] = useState([]);
   //tạo options cho select
-  const classNameArr = classArr.map((item) => {
-    return { value: item.ID, text: item.nameClass };
-  });
+  // const classNameArr = classArr.map((item) => {
+  //   return { value: item.ID, text: item.nameClass };
+  // });
 
-  const subjectNameArr = subjectArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const subjectNameArr = subjectArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
 
-  const termNameArr = termArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
-  const schoolYearNameArr = schoolYearArr.map((item) => {
-    return { value: item.ID, text: item.Name };
-  });
+  // const termNameArr = termArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+  // const schoolYearNameArr = schoolYearArr.map((item) => {
+  //   return { value: item.ID, text: item.Name };
+  // });
+
+  useEffect(() => {
+    const getData = async () => {
+      const subjectArr = await api.getSubjectList();
+      const termArr = await api.getTermList();
+      const classArr = await api.getClassListArr();
+      const schoolYearArr = await api.getSchoolYearList();
+      const UIsubjectArr = subjectArr.map((item) => {
+        return {
+          text: item.nameSubject,
+        };
+      });
+      const UItermArr = termArr.map((item) => {
+        return {
+          text: item.nameTerm,
+        };
+      });
+      const UISchoolYearArr = schoolYearArr.map((item) => {
+        return {
+          text: item.nameSchYear,
+        };
+      });
+      const UIClassArr = classArr.map((item) => {
+        return {
+          text: item.nameClass,
+        };
+      });
+      // console.log(subjectArr, UIsubjectArr);
+      setSubjectArrState(UIsubjectArr);
+      setTermArrState(UItermArr);
+      setSchoolYearArrState(UISchoolYearArr);
+      setClassArrState(UIClassArr);
+    };
+    getData();
+  }, []);
 
   // const getValues = () => {
   //   const className =
@@ -65,14 +105,14 @@ export const Score = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Tên lớp"
             selectName="ClassName"
-            options={classNameArr}
+            options={classArrState}
           />
           <Input
             type="select"
             // placeholder="Nhập tên lớp..."
             labelText="Tên môn"
             selectName="SubjectName"
-            options={subjectNameArr}
+            options={subjectArrState}
           />
         </div>
         <div className="row">
@@ -81,14 +121,14 @@ export const Score = () => {
             // placeholder="Nhập tên lớp..."
             labelText="Học kì"
             selectName="Term"
-            options={termNameArr}
+            options={termArrState}
           />
           <Input
             type="select"
             // placeholder="Nhập tên lớp..."
             labelText="Năm học"
             selectName="SchoolYear"
-            options={schoolYearNameArr}
+            options={schoolYearArrState}
           />
         </div>
       </div>

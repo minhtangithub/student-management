@@ -4,10 +4,11 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { Confirm } from "../../components/Confirm";
 import { Notification } from "../../components/Notification";
-import { classListArr } from "../../config/getAPI";
-import { useState } from "react";
+// import { studentList } from "../../config/getAPI";
+import { useState, useEffect } from "react";
 import { helper } from "../../handle-event/HandleEvent";
 import { useParams } from "react-router-dom";
+import { api } from "../../api/api";
 
 //get từ DS lớp, giữ lại id của HS
 export const CreateScore = () => {
@@ -16,12 +17,50 @@ export const CreateScore = () => {
   const [status, setstatus] = useState("input");
   const [message, setMessage] = useState("");
   const [finalResult, setFinalResult] = useState([]);
+  const [studentList, setStudentList] = useState([]);
+  let classID, subjectID, schoolYearID;
+  let coEff15MinID, coEff1PerID;
+  useEffect(() => {
+    const getData = async () => {
+      const classArr = await api.getCCLASS();
+      const subjectArr = await api.getSubjectList();
+      const schoolYearArr = await api.getSchoolYearList();
+      const coEffArr = await api.getCoEff();
+      const allStudents = await api.getStudentInfoArr();
+      schoolYearID = schoolYearArr.find(
+        (item) => item.nameSchYear === schoolYear
+      )._id;
+      const selectedClassList = classArr.find(
+        (item) =>
+          item.nameClass === className && item.schoolYear === schoolYearID
+      );
+      subjectID = subjectArr.find((item) => item.nameSubject === subject)._id;
+      console.log(schoolYearID, selectedClassList);
+      // setClassList(selectedClassList);
+      classID = selectedClassList._id;
+      coEff15MinID = coEffArr[0]._id;
+      coEff1PerID = coEffArr[1]._id;
+
+      const newStudentList = allStudents
+        .filter((item) => selectedClassList.students.includes(item._id))
+        .map((item) => {
+          return {
+            nameStudent: item.fullName,
+            studentID: item._id,
+            classID: classID,
+          };
+        });
+      console.log(newStudentList);
+      setStudentList(newStudentList);
+    };
+    getData();
+  }, []);
 
   const handleClickAddBtn = () => {
     const finalResultTemp = [];
     const inputs15Min = document.querySelectorAll(".min-15 input");
     const inputs1Per = document.querySelectorAll(".per-1 input");
-    classListArr.forEach((item, i) => {
+    studentList.forEach((item, i) => {
       const newItem = {
         ...item,
         score15Min: inputs15Min[i].value,
@@ -72,6 +111,7 @@ export const CreateScore = () => {
     document.querySelector(".confirm.add").style.display = "flex";
   };
   const handleConfirmAcceptBtn = () => {
+    console.log(finalResult);
     //Lưu xuống CSDL
     const payloadToApi = finalResult.map((item) => {
       // studentid, Name, className, classID, score15Min, score1Per, avgScore
@@ -86,8 +126,27 @@ export const CreateScore = () => {
       //   ]
       //   avgScore: avgScore
       // };
+      return {
+        student: item.studentID,
+        cClass: classID,
+        subject: subjectID,
+        scoreDetails: [
+          {
+            scoreName: "Điểm 15 phút",
+            score: item.score15Min,
+            coEff: coEff15MinID,
+          },
+          {
+            scoreName: "Điểm 1 tiết",
+            score: item.score1Per,
+            coEff: coEff1PerID,
+          },
+        ],
+        avgScore: item.avgScore,
+      };
     });
 
+    payloadToApi.forEach((item) => api.postScoreSubject(item));
     document.querySelector(".confirm.add .notification").style.display = "flex";
   };
   const handleConfirmCancelBtn = () => {
@@ -132,13 +191,13 @@ export const CreateScore = () => {
                 Điểm TB
               </div>
             </div>
-            {classListArr.map((item, i) => (
+            {studentList.map((item, i) => (
               <div className="row content">
                 <div className="item col-10-percent center al-center">
                   {i + 1}
                 </div>
                 <div className="item col-30-percent center al-left pl-50">
-                  {item.Name}
+                  {item.nameStudent}
                 </div>
                 <div className="item col-20-percent center al-center min-15">
                   <Input type="small" placeholder="Nhập điểm 15'..." />
@@ -185,13 +244,13 @@ export const CreateScore = () => {
                 Điểm TB
               </div>
             </div>
-            {classListArr.map((item, i) => (
+            {studentList.map((item, i) => (
               <div className="row content">
                 <div className="item col-10-percent center al-center">
                   {i + 1}
                 </div>
                 <div className="item col-30-percent center al-left pl-50">
-                  {item.Name}
+                  {item.nameStudent}
                 </div>
                 <div className="item col-20-percent center al-center min-15">
                   {finalResult[i].score15Min}
