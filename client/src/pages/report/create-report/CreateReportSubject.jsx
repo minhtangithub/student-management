@@ -20,18 +20,88 @@ export const CreateReportSubject = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const apiArr = await api.getReportSubjects();
+      // const apiArr = await api.getReportSubjects();
       const subjectArr = await api.getSubjectList();
       const termArr = await api.getTermList();
       const schoolYearArr = await api.getSchoolYearList();
       const scoreArr = await api.getScoreSubject();
       const classArray = await api.getCCLASS();
+      const reportSubject = await api.getReportSubjects();
 
       subjectID = subjectArr.find((item) => item.nameSubject === subject)._id;
       termID = termArr.find((item) => item.nameTerm === term)._id;
       schoolYearID = schoolYearArr.find(
         (item) => item.nameSchYear === schoolYear
       )._id;
+
+      //Ma trận cấp ba giữa học kì, môn, ds lớp -> mỗi ô sẽ tạo thành 1 report
+      termArr.forEach((thisTerm) => {
+        subjectArr.forEach((thisSubject) => {
+          classArray.forEach((thisClass) => {
+            let thisSchoolYear = schoolYearArr.find(
+              (item) => item._id === thisClass.schoolYear
+            );
+
+            let isThereScore = scoreArr.find(
+              (score) =>
+                score.cClass === thisClass._id &&
+                score.term === thisTerm._id &&
+                score.subject === thisSubject._id
+            );
+
+            let isThereReport = reportSubject.find(
+              (report) =>
+                report.cClass === thisClass._id &&
+                report.term === thisTerm._id &&
+                report.subject === thisSubject._id
+            );
+
+            //Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
+            if (isThereScore && !isThereReport) {
+              let total = thisClass.students.length;
+              let passed = 0,
+                rate;
+              scoreArr.forEach((score) => {
+                if (
+                  score.cClass === thisClass._id &&
+                  score.term === thisTerm._id &&
+                  score.subject === thisSubject._id &&
+                  score.avgScore >= 5
+                ) {
+                  passed++;
+                }
+              });
+              let rateNumber = ((passed * 100) / total).toFixed(2);
+              rate = rateNumber + "%";
+
+              api.postReportSubject({
+                subject: thisSubject._id,
+                cClass: thisClass._id,
+                term: thisTerm._id,
+                schoolYear: thisSchoolYear._id,
+                totalStudents: total,
+                passed: passed,
+                rate: rate,
+              });
+            }
+          });
+        });
+      });
+
+      const newReportSubject = await api.getReportSubjects();
+      const UIarr = newReportSubject.filter(
+        (item) =>
+          item.term === termID &&
+          item.schoolYear === schoolYearID &&
+          item.subject === subjectID
+      );
+
+      setScoreSubjectState(scoreArr);
+      setClassArrState(classArray);
+      setSchoolYearState(schoolYearArr);
+      setSubjectState(subjectArr);
+      setTermState(termArr);
+      setReportSubjectState(UIarr);
 
       // if (scoreArr.find((item) => !item.avgScore)) {
       //   //tính điểm trung bình năm nếu có cái chưa tính
@@ -52,70 +122,68 @@ export const CreateReportSubject = () => {
       // }
 
       //nếu báo cáo thiếu thì thêm vào
-      const classIDsInScore = scoreArr.map((item) => item.cClass);
-      const classIDsSet = new Set(classIDsInScore);
-      const classIDsArr = Array.from(classIDsSet);
-      const classIDsArrWithNoEmpty = classIDsArr.filter(
-        (item) => item !== undefined
-      );
-      const report = classIDsArrWithNoEmpty.map((classItem) => {
-        let total = 0,
-          passed = 0,
-          rate;
-        scoreArr.forEach((item) => {
-          console.log(item.cClass, classItem);
-          if (item.cClass && item.cClass === classItem) {
-            total++;
-            if (item.avgScore >= 5) {
-              passed++;
-            }
-          }
-        });
-        let rateNumber = ((passed * 100) / total).toFixed(2);
-        rate = rateNumber + "%";
-        console.log(total, passed, rate);
-        return {
-          subject: subjectID,
-          cClass: classItem,
-          term: termID,
-          schoolYear: schoolYearID,
-          totalStudents: total,
-          passed: passed,
-          rate: rate,
-        };
-      });
 
-      console.log("report>>>", report);
+      ////Nhóm theo lớp
+      // const classIDsInScore = scoreArr.map((item) => item.cClass);
+      // const classIDsSet = new Set(classIDsInScore);
+      // const classIDsArr = Array.from(classIDsSet);
+      // const classIDsArrWithNoEmpty = classIDsArr.filter(
+      //   (item) => item !== undefined
+      // );
 
-      report.forEach((reportItem) => {
-        if (
-          !apiArr.find(
-            (item) =>
-              item.cClass === reportItem.cClass &&
-              item.subject === reportItem.subject &&
-              item.term === reportItem.term &&
-              item.schoolYear === reportItem.schoolYear
-          )
-        ) {
-          api.postReportSubject(reportItem);
-        }
-      });
+      // const report = classIDsArrWithNoEmpty.map((classItem) => {
+      //   let total = classArray.find((item) => classItem === item._id).students
+      //       .length,
+      //     passed = 0,
+      //     rate;
+      //   scoreArr.forEach((item) => {
+      //     console.log(item.cClass, classItem);
+      //     if (item.cClass && item.cClass === classItem) {
+      //       if (item.avgScore >= 5) {
+      //         passed++;
+      //       }
+      //     }
+      //   });
+      //   let rateNumber = ((passed * 100) / total).toFixed(2);
+      //   rate = rateNumber + "%";
+      //   console.log(total, passed, rate);
+      //   return {
+      //     subject: subjectID,
+      //     cClass: classItem,
+      //     term: termID,
+      //     schoolYear: schoolYearID,
+      //     totalStudents: total,
+      //     passed: passed,
+      //     rate: rate,
+      //   };
+      // });
 
-      const UIApiArr = report.filter(
-        (item) =>
-          item.subject == subjectID &&
-          item.term == termID &&
-          item.schoolYear == schoolYearID
-      );
+      // console.log("report>>>", report);
 
-      console.log("report>>>", UIApiArr);
+      // report.forEach((reportItem) => {
+      //   let isThereInReport = apiArr.find(
+      //     (item) =>
+      //       item.cClass === reportItem.cClass &&
+      //       item.subject === reportItem.subject &&
+      //       item.term === reportItem.term &&
+      //       item.schoolYear === reportItem.schoolYear
+      //   );
+      // let
+      // if (
+      //   !
+      // ) {
+      //   api.postReportSubject(reportItem);
+      // }
+      // });
 
-      setScoreSubjectState(scoreArr);
-      setClassArrState(classArray);
-      setSchoolYearState(schoolYearArr);
-      setSubjectState(subjectArr);
-      setTermState(termArr);
-      setReportSubjectState(UIApiArr);
+      // const UIApiArr = report.filter(
+      //   (item) =>
+      //     item.subject == subjectID &&
+      //     item.term == termID &&
+      //     item.schoolYear == schoolYearID
+      // );
+
+      // console.log("report>>>", UIApiArr);
     };
     getData();
   }, []);
