@@ -8,66 +8,44 @@
   &__container {
     width: 390px;
     height: 580px;
-    background-color: #fff;
-    border-radius: 35px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    // background-color: #fff;
+    position: relative;
+    // border-radius: 35px;
+    // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     @include flex(center, center);
     justify-content: flex-start;
     flex-direction: column;
-    .top {
-      width: 100%;
-      height: 60px;
-      margin-bottom: 20px;
-      position: relative;
-      button {
-        cursor: pointer;
-        outline: none;
-        border: none;
-        background: none;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      }
-      .closeBtn {
-        width: 40px;
-        // margin-top: 20px;
-      }
-    }
     .main {
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 50%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      // padding-bottom: 67px;
-      img {
-        margin-top: 20px;
-        width: 150px;
-      }
       p {
         color: #3f4649;
         // margin-top: 80px;
         margin-top: 50px;
-        font-size: 28px;
-        font-weight: 600;
+        font-size: 27px;
+        font-weight: 400;
       }
-      .failed-message {
-        color: #ff5454;
+      h4 {
         font-size: 14px;
         font-weight: 400;
-        margin-top: 40px;
+        margin-top: 30px;
         margin-left: 0;
         margin-right: 0;
         //
       }
-    }
-    .bottom {
-      width: 100%;
-      height: 200px;
-      @include flex(flex-start, center);
+      .failed-message {
+        color: #ff5454;
+      }
+      .success-message {
+        color: #27ed62;
+      }
       .confirmBtn {
-        //
-        // margin-top: 80px;
+        margin-top: 40px;
         width: 260px;
         height: 60px;
         border-radius: 50px;
@@ -75,25 +53,38 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-        // box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 50px;
         span {
           color: #fff;
           font-size: 20px;
           font-weight: 700;
         }
-        img {
-          width: 30px;
-          margin: 0;
-          margin-left: 10px;
-        }
-      }
-      .confirmBtn.successBtn {
-        background-color: #2ff8e8;
       }
       .confirmBtn.failBtn {
-        background-color: #ff5454;
+        background: linear-gradient(
+          80.25deg,
+          #ff4f64 1.31%,
+          #ff5868 24.49%,
+          #ff7274 61.57%,
+          #ff7777 68.52%
+        );
       }
+      .confirmBtn.successBtn {
+        // margin-top: 80px;
+        background: linear-gradient(
+          80.25deg,
+          #53f984 1.31%,
+          #70ffa3 33.88%,
+          #63fb8e 111.52%
+        );
+      }
+    }
+
+    img {
+      width: 100%;
+      position: center;
+      object-fit: cover;
     }
   }
 }
