@@ -28,27 +28,17 @@ export const Notification = ({
       case "success": {
         return (
           <>
-            <div className="top">
-              <button onClick={handleSuccessCloseBtn}>
-                {/* <i>
-                <GrFormClose />
-              </i> */}
-                <img className="closeBtn" src={CloseBtn} alt="" />
-              </button>
-            </div>
             <div className="main">
-              <img src={SuccessImg} alt="" />
               <p>Thao tác thành công!</p>
-            </div>
-            <div className="bottom">
+              <h4 className="success-message">Dữ liệu đã được cập nhật</h4>
               <button
                 className="confirmBtn successBtn"
                 onClick={handleSuccessCloseBtn}
               >
                 <span>Tiếp tục</span>
-                <img className="btnIcon" src={continueIcon} alt="" />
               </button>
             </div>
+            <img src={SuccessImg} alt="" />
           </>
         );
         break;
@@ -57,28 +47,17 @@ export const Notification = ({
       case "failed": {
         return (
           <>
-            <div className="top">
-              <button onClick={handleFailedCloseBtn}>
-                {/* <i>
-                <GrFormClose />
-              </i> */}
-                <img className="closeBtn" src={CloseBtn} alt="" />
-              </button>
-            </div>
             <div className="main">
-              <img src={FailImg} alt="" />
               <p>Thao tác thất bại!</p>
               <h4 className="failed-message">{message}</h4>
-            </div>
-            <div className="bottom">
               <button
                 className="confirmBtn failBtn"
                 onClick={handleFailedCloseBtn}
               >
                 <span>Thử lại</span>
-                <img className="btnIcon" src={repeatIcon} alt="" />
               </button>
             </div>
+            <img src={FailImg} alt="" />
           </>
         );
         break;
