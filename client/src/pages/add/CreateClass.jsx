@@ -270,7 +270,7 @@ export const CreateClass = () => {
         schoolYear: schoolYearID,
         students: newStudentIDs,
       });
-
+      document.querySelector(".confirm.add").style.display = "none";
       //hiển thị thông báo
       document.querySelector(".notification").style.display = "flex";
     },
