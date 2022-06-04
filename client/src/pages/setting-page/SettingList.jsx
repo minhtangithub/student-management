@@ -25,6 +25,8 @@ export const SettingList = () => {
   const handleEvent = {
     handleConfirmAcceptBtn: {
       editSetting: () => {
+        // helper.turnOffConfirm("edit");
+        document.querySelector(".confirm").style.display = "none";
         //kiểm tra ràng buộc dữ liệu
         let checkEmptyMessage = helper.validateData("empty", result[0]);
         if (checkEmptyMessage !== "ok") {
