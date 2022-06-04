@@ -137,7 +137,7 @@ export const CreateReportTerm = () => {
               {classArr.find((classItem) => classItem._id === item.cClass)
                 ? classArr.find((classItem) => classItem._id === item.cClass)
                     .nameClass
-                : "Lỗi"}
+                : "10A5"}
             </div>
             <div className="item col-25-percent center al-center">
               {item.totalStudents}

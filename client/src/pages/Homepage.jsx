@@ -9,8 +9,30 @@ import ArrowRight from "../assets/arrow-right.png";
 import TextBg from "../assets/heading-bg.png";
 import "./Homepage.scss";
 import { Link } from "react-router-dom";
+import { api } from "../api/api";
+import { useEffect, useState } from "react";
 
 export const Homepage = () => {
+  const [numClass, setNumClass] = useState(0);
+  const [numGrade, setNumGrade] = useState(0);
+  const [numStudent, setNumStudent] = useState(0);
+  const [numSubject, setNumSubject] = useState(0);
+  useEffect(() => {
+    const getData = async () => {
+      const classArr = await api.getClassListArr();
+      const gradeArr = await api.getGradeList();
+      const studentArr = await api.getStudentInfoArr();
+      const subjectArr = await api.getSubjectList();
+
+      setNumClass(classArr.length);
+      setNumGrade(gradeArr.length);
+      setNumStudent(studentArr.length);
+      setNumSubject(subjectArr.length);
+    };
+
+    getData();
+  }, []);
+
   return (
     <div className="homepage">
       <div className="content">
@@ -20,28 +42,28 @@ export const Homepage = () => {
             <div className="num-of-class">
               <h4>Tổng số lớp học</h4>
               <div className="num-and-icon">
-                <h1>15</h1>
+                <h1>{numClass}</h1>
                 <img src={NumClass} alt="" />
               </div>
             </div>
             <div className="num-of-subject">
               <h4>Tổng số môn học</h4>
               <div className="num-and-icon">
-                <h1>10</h1>
+                <h1>{numSubject}</h1>
                 <img src={NumSubject} alt="" />
               </div>
             </div>
             <div className="num-of-grade">
               <h4>Tổng số khối lớp</h4>
               <div className="num-and-icon">
-                <h1>3</h1>
+                <h1>{numGrade}</h1>
                 <img src={NumGrade} alt="" />
               </div>
             </div>
             <div className="num-of-student">
               <h4>Tổng số học sinh</h4>
               <div className="num-and-icon">
-                <h1>693</h1>
+                <h1>{numStudent}</h1>
                 <img src={NumStudent} alt="" />
               </div>
             </div>

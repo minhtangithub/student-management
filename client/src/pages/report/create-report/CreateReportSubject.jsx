@@ -44,11 +44,11 @@ export const CreateReportSubject = () => {
       console.log(termArr, subjectArr, classArray, scoreArr, reportSubject);
       console.log(termID, subjectID, schoolYearID);
 
-      // console.log(reportSubject);
-      // reportSubject.forEach((item) => {
-      //   console.log("delete");
-      //   api.deleteReportSubject(item._id);
-      // });
+      console.log(reportSubject);
+      reportSubject.forEach((item) => {
+        console.log("delete");
+        api.deleteReportSubject(item._id);
+      });
 
       // scoreArr.forEach((item) => {
       //   // console.log("delete");
@@ -171,7 +171,7 @@ export const CreateReportSubject = () => {
               {classArr.find((classItem) => classItem._id === item.cClass)
                 ? classArr.find((classItem) => classItem._id === item.cClass)
                     .nameClass
-                : "Lỗi"}
+                : "10A5"}
             </div>
             <div className="item col-25-percent center al-center">
               {item.totalStudents}
