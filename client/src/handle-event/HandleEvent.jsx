@@ -50,24 +50,23 @@ export const helper = {
   turnOnNotification: (type) => {
     switch (type) {
       case "edit": {
-        document.querySelector(".confirm.edit .notification").style.display =
-          "flex";
+        document.querySelector(".confirm.edit").style.display = "none";
+        document.querySelector(".notification").style.display = "flex";
         break;
       }
       case "add": {
-        document.querySelector(".confirm.add .notification").style.display =
-          "flex";
+        document.querySelector(".confirm.add").style.display = "none";
+        document.querySelector(".notification").style.display = "flex";
         break;
       }
       case "delete": {
-        document.querySelector(".confirm.delete .notification").style.display =
-          "flex";
+        document.querySelector(".confirm.delete").style.display = "none";
+        document.querySelector(".notification").style.display = "flex";
         break;
       }
       case "delete-all": {
-        document.querySelector(
-          ".confirm.delete-all .notification"
-        ).style.display = "flex";
+        document.querySelector(".confirm.delete-all").style.display = "none";
+        document.querySelector(".notification").style.display = "flex";
         break;
       }
       // T

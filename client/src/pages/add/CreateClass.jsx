@@ -250,8 +250,7 @@ export const CreateClass = () => {
       });
 
       //hiển thị thông báo
-      document.querySelector(".confirm.add .notification").style.display =
-        "flex";
+      document.querySelector(".notification").style.display = "flex";
     },
     handleClickDeleteBtn: (e) => {
       if (e.target.classList.contains("delete-img")) {
@@ -269,8 +268,6 @@ export const CreateClass = () => {
   return (
     <>
       <div className="create-class">
-        <Notification status="failed" message={message} />
-
         <div className="search-page">
           {/* <Detail result={result} /> */}
           <Confirm
@@ -279,6 +276,8 @@ export const CreateClass = () => {
             handleConfirmCancelBtn={handleEvent.handleCancel}
             handleConfirmAcceptBtn={handleEvent.handleConfirm}
           />
+
+          <Notification status="failed" message={message} />
           {/* <Confirm
           confirmType="delete"
           result={result}
@@ -337,7 +336,8 @@ export const CreateClass = () => {
           <hr></hr>
           <h4>Tìm tên học sinh</h4>
           <div className="guide">
-            Tìm theo tên của học sinh mà bạn muốn thêm vào lớp
+            Tìm theo tên của học sinh mà bạn muốn thêm vào lớp, có thể tra cứu
+            dựa trên tên, năm sinh, email, giới tính, địa chỉ.
           </div>
           <div className="grid">
             <div className="row">

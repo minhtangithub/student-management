@@ -26,6 +26,8 @@ export const AddStudent = () => {
 
   //Xử lý nút lưu của màn hình xác nhận
   const handleConfirmAcceptBtn = () => {
+    // helper.turnOffConfirm("edit");
+    document.querySelector(".confirm").style.display = "none";
     //kiểm tra ràng buộc
     let checkEmptyMessage = helper.validateData("empty", result[0]);
     let checkAgeMessage = helper.validateData("age", {
@@ -57,8 +59,7 @@ export const AddStudent = () => {
       setStudentArrState(studentArrStateCopy);
 
       //hiện thông báo
-      document.querySelector(".confirm.add .notification").style.display =
-        "flex";
+      document.querySelector(".notification").style.display = "flex";
 
       //Lưu xuống CSDL
       api.postNewStudentInfo(result[0]);
