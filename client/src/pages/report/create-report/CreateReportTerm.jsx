@@ -92,7 +92,7 @@ export const CreateReportTerm = () => {
             schoolYear: thisSchoolYear._id,
             totalStudents: total,
             passed: passed,
-            rate: rate,
+            rate: rate ? rate : "100%",
           });
         }
       });
