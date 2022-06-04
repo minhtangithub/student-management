@@ -42,6 +42,8 @@ export const CreateClass = () => {
   const [newClassArrState, setNewClassArrState] = useState([]);
   const [result, setResult] = useState([]);
   const [allCCLASS, setAllCCLASS] = useState([]);
+  const [classArr, setClassArr] = useState([]);
+
   const [message, setMessage] = useState("");
 
   // const newClassInfo = {
@@ -54,6 +56,8 @@ export const CreateClass = () => {
     const getData = async () => {
       const gradeArr = await api.getGradeList();
       const classArr = await api.getClassListArr();
+      const CLASSArr = await api.getCCLASS();
+
       const schoolYearArr = await api.getSchoolYearList();
       const UIgradeArr = gradeArr.map((item) => {
         return {
@@ -76,6 +80,15 @@ export const CreateClass = () => {
       const studentArr = await api.getStudentInfoArr();
       // console.log(studentArr);
       const allCCLASSArr = await api.getCCLASS();
+
+      let studentLength = studentArr.length;
+      const fiveLatestStudents = [
+        studentArr[studentLength - 1] ? studentArr[studentLength - 1] : null,
+        studentArr[studentLength - 2] ? studentArr[studentLength - 2] : null,
+        studentArr[studentLength - 3] ? studentArr[studentLength - 3] : null,
+        studentArr[studentLength - 4] ? studentArr[studentLength - 4] : null,
+        studentArr[studentLength - 5] ? studentArr[studentLength - 5] : null,
+      ];
       // console.log(subjectArr, UIsubjectArr);
       setGradeArrState(UIgradeArr);
       // allGrade = [...gradeArr];
@@ -84,8 +97,9 @@ export const CreateClass = () => {
       setSchoolYearArrState(UISchoolYearArr);
       // allSchoolYear = [...schoolYearArr];
       setStudentArrState(studentArr);
+      setStudentArrTempState(fiveLatestStudents);
       setAllCCLASS(allCCLASSArr);
-
+      setClassArr(CLASSArr);
       // console.log(allClass, allGrade, allSchoolYear);
     };
     getData();
@@ -227,15 +241,23 @@ export const CreateClass = () => {
     },
     handleConfirm: () => {
       // console.log(allClass, allGrade, allSchoolYear);
+      let schoolYearID = schoolYearArrState.filter(
+        (item) => item.nameSchYear == schoolYear
+      )[0]._id;
+      //Xoá lớp cũ
+      const existItems = classArr.filter(
+        (item) =>
+          item.nameClass === className && item.schoolYear === schoolYearID
+      );
+      existItems.forEach((item) => {
+        api.deleteCLASS(item._id);
+      });
 
       //Lưu xuống CSDL
       const newStudentIDs = newClassArrState.map((item) => item._id);
       // console.log(gradeArrState, schoolYearArrState);
       let gradeID = gradeArrState.filter((item) => item.gradeName == grade)[0]
         ._id;
-      let schoolYearID = schoolYearArrState.filter(
-        (item) => item.nameSchYear == schoolYear
-      )[0]._id;
       console.log({
         nameClass: className,
         grade: gradeID,

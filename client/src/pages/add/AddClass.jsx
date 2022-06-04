@@ -8,10 +8,12 @@ import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { api } from "../../api/api";
 import { useState, useEffect } from "react";
+import { Confirm } from "../../components/Confirm";
 
 export const AddClass = () => {
   let history = useHistory();
   let allClass;
+  const [CCLASSState, setCCLASSArrState] = useState([]);
   const [classArrState, setClassArrState] = useState([]);
   const [gradeArrState, setGradeArrState] = useState([]);
   const [schoolYearArrState, setSchoolYearArrState] = useState([]);
@@ -31,20 +33,24 @@ export const AddClass = () => {
   useEffect(() => {
     const getData = async () => {
       const gradeArr = await api.getGradeList();
+      const CLASS = await api.getCCLASS();
       const classArr = await api.getClassListArr();
       const schoolYearArr = await api.getSchoolYearList();
       const UIgradeArr = gradeArr.map((item) => {
         return {
+          ...item,
           text: item.gradeName,
         };
       });
       const UIClassArr = classArr.map((item) => {
         return {
+          ...item,
           text: item.nameClass,
         };
       });
       const UISchoolYearArr = schoolYearArr.map((item) => {
         return {
+          ...item,
           text: item.nameSchYear,
         };
       });
@@ -53,6 +59,7 @@ export const AddClass = () => {
       // setClassArrState(UItermArr);
       setClassArrState(UIClassArr);
       allClass = UIClassArr;
+      setCCLASSArrState(CLASS);
       setSchoolYearArrState(UISchoolYearArr);
     };
     getData();
@@ -97,7 +104,31 @@ export const AddClass = () => {
     const [grade, className, schoolYear] = getSelectedOptions();
     console.log(className, grade);
     if (className.includes(grade)) {
-      history.push(`add-class/${className}/${grade}/${schoolYear}`);
+      // let subjectID = subjectArrState.find(
+      //   (item) => item.nameSubject === subject
+      // )._id;
+      // let termID = "6299d1a3197adb1f05703d97";
+      let schoolYearID = schoolYearArrState.find(
+        (item) => item.nameSchYear === schoolYear
+      )._id;
+      // console.log(classArrState);
+      // let classID = CCLASSState.find(
+      //   (item) =>
+      //     item.nameClass === className && item.schoolYear === schoolYearID
+      // )._id;
+
+      let isExisted =
+        CCLASSState.filter(
+          (item) =>
+            item.nameClass === className && item.schoolYear === schoolYearID
+          //&& item.term === termID
+        ).length > 0;
+      console.log(isExisted);
+      if (isExisted) {
+        document.querySelector(".confirm.override").style.display = "flex";
+      } else {
+        history.push(`add-class/${className}/${grade}/${schoolYear}`);
+      }
     } else {
       setMessage("Lớp phải thuộc khối");
       document.querySelector(
@@ -105,9 +136,22 @@ export const AddClass = () => {
       ).parentElement.style.display = "flex";
     }
   };
+  const handleConfirmCancelBtn = () => {
+    document.querySelector(".confirm.override").style.display = "none";
+  };
+  const handleConfirmAcceptBtn = () => {
+    const [grade, className, schoolYear] = getSelectedOptions();
+    history.push(`add-class/${className}/${grade}/${schoolYear}`);
+  };
 
   return (
     <div className="add-class">
+      <Confirm
+        confirmType="override"
+        result={[]}
+        handleConfirmAcceptBtn={handleConfirmAcceptBtn}
+        handleConfirmCancelBtn={handleConfirmCancelBtn}
+      />
       <Notification status="failed" message={message} />
       <h3>Lập danh sách lớp</h3>
       <div className="guide">
