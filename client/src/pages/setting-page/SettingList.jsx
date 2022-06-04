@@ -7,7 +7,7 @@ import { Confirm } from "../../components/Confirm";
 import { Notification } from "../../components/Notification";
 import { handler, helper } from "../../handle-event/HandleEvent";
 import { api } from "../../api/api";
-import axios from "axios";
+// import axios from "axios";
 export const SettingList = () => {
   const [settingArrState, setSettingArrState] = useState([]);
   const [result, setResult] = useState([]);

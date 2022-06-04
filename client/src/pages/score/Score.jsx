@@ -21,10 +21,10 @@ export const Score = () => {
   const [termArrState, setTermArrState] = useState([]);
   const [schoolYearArrState, setSchoolYearArrState] = useState([]);
   const [scoreArrState, setScoreArrState] = useState([]);
-  const [termIDState, setTermIDState] = useState("");
-  const [subjectIDState, setSubjectIDState] = useState("");
-  const [schoolYearIDState, setSchoolYearIDState] = useState("");
-  const [classIDState, setClassIDState] = useState("");
+  // const [termIDState, setTermIDState] = useState("");
+  // const [subjectIDState, setSubjectIDState] = useState("");
+  // const [schoolYearIDState, setSchoolYearIDState] = useState("");
+  // const [classIDState, setClassIDState] = useState("");
   //tạo options cho select
   // const classNameArr = classArr.map((item) => {
   //   return { value: item.ID, text: item.nameClass };
@@ -125,7 +125,7 @@ export const Score = () => {
     // setClassIDState(classID);
   };
   const handleConfirmCancelBtn = () => {
-    document.querySelector(".confirm.add").style.display = "none";
+    document.querySelector(".confirm.override").style.display = "none";
   };
   const handleConfirmAcceptBtn = () => {
     const [className, subject, term, schoolYear] = getSelectedOptions();

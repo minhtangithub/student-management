@@ -148,6 +148,10 @@ export const api = {
     const url = "classList/" + String(id);
     return axiosClient.delete(url);
   },
+  deleteCLASS: (id) => {
+    const url = "class/" + String(id);
+    return axiosClient.delete(url);
+  },
   deleteScoreSchoolYear: (id) => {
     const url = "scoreSchoolYear/" + String(id);
     return axiosClient.delete(url);
