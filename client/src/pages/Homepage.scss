@@ -228,12 +228,12 @@
     // background: red;
 
     .hero-img {
-      width: 98%;
+      width: 130%;
       object-fit: cover;
       object-position: center;
       position: absolute;
-      top: -10px;
-      left: -30px;
+      top: -115px;
+      left: -150px;
       z-index: 2;
       animation: shake 1.8s linear infinite alternate;
     }
