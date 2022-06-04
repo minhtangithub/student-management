@@ -152,6 +152,11 @@ export const api = {
     const url = "scoreSchoolYear/" + String(id);
     return axiosClient.delete(url);
   },
+  deleteScoreSubject: (id) => {
+    // console.log("delete from api");
+    const url = "scoreSubject/" + String(id);
+    return axiosClient.delete(url);
+  },
   deleteReportSubject: (id) => {
     console.log("delete from api");
     const url = "reportedSubject/" + String(id);

@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../../../components/Button";
 import { useParams } from "react-router-dom";
 import { api } from "../../../api/api";
-import { scoreSubject } from "../../../config/getAPI";
+// import { scoreSubject } from "../../../config/getAPI";
 
 export const CreateReportSubject = () => {
   const { subject, term, schoolYear } = useParams();
@@ -17,31 +17,42 @@ export const CreateReportSubject = () => {
   const [schoolYearState, setSchoolYearState] = useState([]);
   const [scoreSubjectState, setScoreSubjectState] = useState([]);
   const [classArr, setClassArrState] = useState([]);
-  let subjectID, termID, schoolYearID;
+  const [termIDState, setTermIDState] = useState([]);
+  const [subjectIDState, setSubjectIDState] = useState([]);
+  const [schoolYearIDState, setSchoolYearIDState] = useState([]);
+  // let subjectID, termID, schoolYearID;
 
   useEffect(() => {
     const getData = async () => {
       const subjectArr = await api.getSubjectList();
       const termArr = await api.getTermList();
       const schoolYearArr = await api.getSchoolYearList();
-      // const scoreArr = await api.getScoreSubject();
-      const scoreArr = scoreSubject;
+      const scoreArr = await api.getScoreSubject();
+      // const scoreArr = scoreSubject;
 
       const classArray = await api.getCCLASS();
       const reportSubject = await api.getReportSubjects();
 
-      subjectID = subjectArr.find((item) => item.nameSubject === subject)._id;
-      termID = termArr.find((item) => item.nameTerm === term)._id;
-      schoolYearID = schoolYearArr.find(
+      let subjectID = subjectArr.find(
+        (item) => item.nameSubject === subject
+      )._id;
+      let termID = termArr.find((item) => item.nameTerm === term)._id;
+      let schoolYearID = schoolYearArr.find(
         (item) => item.nameSchYear === schoolYear
       )._id;
 
-      console.log(termArr, subjectArr, classArray, scoreArr);
+      console.log(termArr, subjectArr, classArray, scoreArr, reportSubject);
+      console.log(termID, subjectID, schoolYearID);
 
       // console.log(reportSubject);
       // reportSubject.forEach((item) => {
       //   console.log("delete");
       //   api.deleteReportSubject(item._id);
+      // });
+
+      // scoreArr.forEach((item) => {
+      //   // console.log("delete");
+      //   api.deleteScoreSubject(item._id);
       // });
 
       // Ma trận cấp ba giữa học kì, môn, ds lớp -> mỗi ô sẽ tạo thành 1 report
@@ -57,6 +68,9 @@ export const CreateReportSubject = () => {
                 score.cClass === thisClass._id &&
                 score.term === thisTerm._id &&
                 score.subject === thisSubject._id
+              // score.cClass &&
+              // score.subject &&
+              // score.term
             );
 
             // console.log(
@@ -75,6 +89,11 @@ export const CreateReportSubject = () => {
                 report.subject === thisSubject._id
             );
 
+            console.log(
+              "istherereport, isthereScore",
+              isThereReport,
+              isThereScore
+            );
             // Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
             if (isThereScore && !isThereReport) {
               let total = thisClass.students.length;
@@ -123,6 +142,9 @@ export const CreateReportSubject = () => {
       setSubjectState(subjectArr);
       setTermState(termArr);
       setReportSubjectState(UIarr);
+      setSubjectIDState(subjectID);
+      setTermIDState(termID);
+      setSchoolYearIDState(schoolYearID);
     };
     getData();
   }, []);
@@ -147,10 +169,10 @@ export const CreateReportSubject = () => {
         {reportSubjectState.map((item) => (
           <div className="row content">
             <div className="item col-25-percent center al-center">
-              {
-                classArr.find((classItem) => classItem._id === item.cClass)
-                  .nameClass
-              }
+              {classArr.find((classItem) => classItem._id === item.cClass)
+                ? classArr.find((classItem) => classItem._id === item.cClass)
+                    .nameClass
+                : "Lỗi"}
             </div>
             <div className="item col-25-percent center al-center">
               {item.totalStudents}

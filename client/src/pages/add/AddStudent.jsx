@@ -31,7 +31,7 @@ export const AddStudent = () => {
     let checkAgeMessage = helper.validateData("age", {
       dateOfBirth: result[0].dateOfBirth,
     });
-    let checkEmailMessage = helper.validateData("empty", {
+    let checkEmailMessage = helper.validateData("email", {
       email: result[0].email,
     });
     const checkMessageArr = [

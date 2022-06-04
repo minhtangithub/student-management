@@ -13,12 +13,14 @@ import { api } from "../../api/api";
 //get từ DS lớp, giữ lại id của HS
 export const CreateScore = () => {
   const { className, subject, term, schoolYear } = useParams();
-
   const [status, setstatus] = useState("input");
   const [message, setMessage] = useState("");
   const [finalResult, setFinalResult] = useState([]);
   const [studentList, setStudentList] = useState([]);
-  let classID, subjectID, schoolYearID;
+  const [classIDState, setClassIDState] = useState([]);
+  const [subjectIDState, setSubjectIDState] = useState([]);
+  const [schoolYearIDState, setSchoolYearIDState] = useState([]);
+  // let classID, subjectID, schoolYearID;
   let coEff15MinID, coEff1PerID;
   useEffect(() => {
     const getData = async () => {
@@ -27,17 +29,19 @@ export const CreateScore = () => {
       const schoolYearArr = await api.getSchoolYearList();
       const coEffArr = await api.getCoEff();
       const allStudents = await api.getStudentInfoArr();
-      schoolYearID = schoolYearArr.find(
+      let schoolYearID = schoolYearArr.find(
         (item) => item.nameSchYear === schoolYear
       )._id;
       const selectedClassList = classArr.find(
         (item) =>
           item.nameClass === className && item.schoolYear === schoolYearID
       );
-      subjectID = subjectArr.find((item) => item.nameSubject === subject)._id;
-      console.log(schoolYearID, selectedClassList);
+      let subjectID = subjectArr.find(
+        (item) => item.nameSubject === subject
+      )._id;
+      let classID = selectedClassList._id;
+      console.log(schoolYearID, subjectID, classID);
       // setClassList(selectedClassList);
-      classID = selectedClassList._id;
       coEff15MinID = coEffArr[0]._id;
       coEff1PerID = coEffArr[1]._id;
 
@@ -50,8 +54,11 @@ export const CreateScore = () => {
             classID: classID,
           };
         });
-      console.log(newStudentList);
+      // console.log(newStudentList);
       setStudentList(newStudentList);
+      setClassIDState(classID);
+      setSubjectIDState(subjectID);
+      setSchoolYearIDState(schoolYearID);
     };
     getData();
   }, []);
@@ -116,8 +123,8 @@ export const CreateScore = () => {
     const payloadToApi = finalResult.map((item) => {
       return {
         student: item.studentID,
-        cClass: classID,
-        subject: subjectID,
+        cClass: classIDState,
+        subject: subjectIDState,
         scoreDetails: [
           {
             scoreName: "Điểm 15 phút",

@@ -159,7 +159,7 @@ export const helper = {
         break;
       }
       case "email": {
-        let isEmailValid = data.email.contains("@");
+        let isEmailValid = data.email.includes("@");
         if (!isEmailValid) {
           message = "Nhập sai email";
           return message;
