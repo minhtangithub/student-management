@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import "./Confirm.scss";
 export const Confirm = ({
   confirmType = "edit",
-  result,
+  result = [],
   handleConfirmCancelBtn,
   handleConfirmAcceptBtn,
   status = "success",
@@ -31,6 +31,12 @@ export const Confirm = ({
     document.querySelector(".confirm.delete-all .notification").style.display =
       "none";
     document.querySelector(".confirm.delete-all").style.display = "none";
+  };
+
+  const handleCloseBtnWithOverride = () => {
+    document.querySelector(".confirm.override .notification").style.display =
+      "none";
+    document.querySelector(".confirm.override").style.display = "none";
   };
   switch (confirmType) {
     case "add":
@@ -209,6 +215,51 @@ export const Confirm = ({
                 btnType="save"
                 onClick={handleConfirmAcceptBtn}
                 innerText="Xóa"
+              ></Button>
+            </div>
+          </div>
+        </div>
+      );
+    case "override":
+      return (
+        <div className="confirm override" style={{ display: "none" }}>
+          <div className="confirm__container">
+            <Notification
+              handleSuccessCloseBtn={handleCloseBtnWithOverride}
+              status={status}
+            />
+            <h2>Đối tượng đã tồn tại, bạn có muốn ghi đè?</h2>
+            <div className="confirm__container__content">
+              {/* {result.map((item, i) => {
+                return (
+                  <>
+                    {Object.entries(item).map(([key, value]) => {
+                      if (key !== "Checked" && key !== "Edit")
+                        return (
+                          <p>
+                            {key}: {value}
+                          </p>
+                        );
+                    })}
+                    {i !== result.length - 1 ? (
+                      <div className="seperate"></div>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                );
+              })} */}
+            </div>
+            <div className="btns al-center al-center">
+              <Button
+                btnType="cancel"
+                onClick={handleConfirmCancelBtn}
+                innerText="Hủy"
+              ></Button>
+              <Button
+                btnType="save"
+                onClick={handleConfirmAcceptBtn}
+                innerText="Ghi đè"
               ></Button>
             </div>
           </div>

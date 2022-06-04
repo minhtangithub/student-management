@@ -17,11 +17,14 @@ export const CreateScore = () => {
   const [message, setMessage] = useState("");
   const [finalResult, setFinalResult] = useState([]);
   const [studentList, setStudentList] = useState([]);
+  const [scoreSubjectState, setScoreSubjectState] = useState([]);
   const [classIDState, setClassIDState] = useState([]);
   const [subjectIDState, setSubjectIDState] = useState([]);
   const [schoolYearIDState, setSchoolYearIDState] = useState([]);
+  const [minScore, setMinScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(10);
   // let classID, subjectID, schoolYearID;
-  let coEff15MinID, coEff1PerID;
+  let coEff15MinID, coEff1PerID, termID;
   useEffect(() => {
     const getData = async () => {
       const classArr = await api.getCCLASS();
@@ -29,9 +32,14 @@ export const CreateScore = () => {
       const schoolYearArr = await api.getSchoolYearList();
       const coEffArr = await api.getCoEff();
       const allStudents = await api.getStudentInfoArr();
+      const termArr = await api.getTermList();
+      const scoreArr = await api.getScoreSubject();
+
       let schoolYearID = schoolYearArr.find(
         (item) => item.nameSchYear === schoolYear
       )._id;
+
+      termID = termArr.find((item) => item.nameTerm === term)._id;
       const selectedClassList = classArr.find(
         (item) =>
           item.nameClass === className && item.schoolYear === schoolYearID
@@ -49,6 +57,7 @@ export const CreateScore = () => {
         .filter((item) => selectedClassList.students.includes(item._id))
         .map((item) => {
           return {
+            ...item,
             nameStudent: item.fullName,
             studentID: item._id,
             classID: classID,
@@ -59,6 +68,7 @@ export const CreateScore = () => {
       setClassIDState(classID);
       setSubjectIDState(subjectID);
       setSchoolYearIDState(schoolYearID);
+      setScoreSubjectState(scoreArr);
     };
     getData();
   }, []);
@@ -83,6 +93,7 @@ export const CreateScore = () => {
     //kiểm tra ràng buộc dữ liệu
     let checkEmptyMessage = "ok";
     let checkNumberMessage = "ok";
+    let checkScoreMessage = "ok";
     finalResultTemp.forEach((item) => {
       if (helper.validateData("empty", item) !== "ok")
         checkEmptyMessage = helper.validateData("empty", item);
@@ -96,8 +107,38 @@ export const CreateScore = () => {
           score15Min: item.score15Min,
           score1Per: item.score1Per,
         });
+      if (
+        helper.validateData(
+          "score",
+          {
+            score15Min: item.score15Min,
+            score1Per: item.score1Per,
+          },
+          null,
+          null,
+          null,
+          minScore,
+          maxScore
+        ) !== "ok"
+      )
+        checkScoreMessage = helper.validateData(
+          "score",
+          {
+            score15Min: item.score15Min,
+            score1Per: item.score1Per,
+          },
+          null,
+          null,
+          null,
+          minScore,
+          maxScore
+        );
     });
-    const checkMessageArr = [checkEmptyMessage, checkNumberMessage];
+    const checkMessageArr = [
+      checkEmptyMessage,
+      checkNumberMessage,
+      checkScoreMessage,
+    ];
     let isValid = checkMessageArr.filter((item) => item !== "ok").length == 0;
     if (!isValid) {
       //lấy thông báo thất bại đầu tiên
@@ -119,12 +160,21 @@ export const CreateScore = () => {
   };
   const handleConfirmAcceptBtn = () => {
     console.log(finalResult);
+    //Xoá lớp cũ
+    const existItems = scoreSubjectState.filter(
+      (item) => item.cClass === classIDState && item.subject === subjectIDState
+    );
+    existItems.forEach((item) => {
+      api.deleteScoreSubject(item._id);
+    });
+
     //Lưu xuống CSDL
     const payloadToApi = finalResult.map((item) => {
       return {
         student: item.studentID,
         cClass: classIDState,
         subject: subjectIDState,
+        term: termID,
         scoreDetails: [
           {
             scoreName: "Điểm 15 phút",

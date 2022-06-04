@@ -1,9 +1,7 @@
 import React from "react";
 // import { classArr } from "../config/getAPI";
-// import { api } from "../api/api";
-// import { useState, useEffect } from "react";
-
-// const [classArr, setclassArr] = useState([])
+import { api } from "../api/api";
+import { useState, useEffect } from "react";
 
 export const handler = {
   handleClickEditBtn: (e, dataState, setDataState) => {
@@ -131,7 +129,16 @@ export const helper = {
 
   //checkType là loại cần check, data là dữ liệu cần kiểm tra được gom về 1 object
   //VD: validateData("empty", {name: ..., ....})
-  validateData: (checkType, data, classArr) => {
+
+  validateData: (
+    checkType,
+    data,
+    classArr,
+    minAge,
+    maxAge,
+    minScore,
+    maxScore
+  ) => {
     let message;
     switch (checkType) {
       case "empty": {
@@ -150,7 +157,7 @@ export const helper = {
         let thisYear = today.getFullYear();
         let [inputYear, inputMonth, inputDay] = data.dateOfBirth.split("-");
         let age = Number(thisYear) - Number(inputYear);
-        isAgeValid = age >= 15 && age <= 20;
+        isAgeValid = age >= minAge && age <= maxAge;
         console.log("age>>>", data.dateOfBirth);
         if (!isAgeValid) {
           message = "Tuổi không đúng quy định";
@@ -168,7 +175,7 @@ export const helper = {
       }
       case "number": {
         let isNumber = true;
-        console.log(data);
+        // console.log(data);
         Object.values(data).forEach((item) => {
           if (isNaN(Number(item))) {
             isNumber = false;
@@ -191,6 +198,25 @@ export const helper = {
           message = "Lớp không hợp lệ";
           return message;
         }
+      }
+
+      case "score": {
+        let isScoreValid = true;
+        console.log(data, minScore, maxScore);
+        Object.values(data).forEach((item) => {
+          if (
+            Number(item) < Number(minScore) ||
+            Number(item) > Number(maxScore)
+          ) {
+            isScoreValid = false;
+          }
+        });
+        console.log(isScoreValid);
+        if (!isScoreValid) {
+          message = "Điểm phải từ 0 đến 10";
+          return message;
+        }
+        break;
       }
     }
     return "ok";

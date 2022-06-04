@@ -56,82 +56,81 @@ export const CreateReportSubject = () => {
       // });
 
       // Ma trận cấp ba giữa học kì, môn, ds lớp -> mỗi ô sẽ tạo thành 1 report
-      termArr.forEach((thisTerm) => {
-        subjectArr.forEach((thisSubject) => {
-          classArray.forEach((thisClass) => {
-            let thisSchoolYear = schoolYearArr.find(
-              (item) => item._id === thisClass.schoolYear
-            );
+      // termArr.forEach((thisTerm) => {
+      subjectArr.forEach((thisSubject) => {
+        classArray.forEach((thisClass) => {
+          let thisSchoolYear = schoolYearArr.find(
+            (item) => item._id === thisClass.schoolYear
+          );
 
-            let isThereScore = scoreArr.find(
-              (score) =>
+          let isThereScore = scoreArr.find(
+            (score) =>
+              score.cClass === thisClass._id &&
+              // score.term === thisTerm._id &&
+              score.subject === thisSubject._id
+            // score.cClass &&
+            // score.subject &&
+            // score.term
+          );
+
+          // console.log(
+          //   "thisCLass...",
+          //   thisClass._id,
+          //   thisTerm._id,
+          //   thisSubject._id,
+          //   // thisSchoolYear
+          //   scoreArr
+          // );
+
+          let isThereReport = reportSubject.find(
+            (report) =>
+              report.cClass === thisClass._id &&
+              // report.term === thisTerm._id &&
+              report.subject === thisSubject._id
+          );
+
+          console.log(
+            "istherereport, isthereScore",
+            isThereReport,
+            isThereScore
+          );
+          // Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
+          if (isThereScore && !isThereReport) {
+            let total = thisClass.students.length;
+            let passed = 0,
+              rate;
+            scoreArr.forEach((score) => {
+              if (
                 score.cClass === thisClass._id &&
-                score.term === thisTerm._id &&
-                score.subject === thisSubject._id
-              // score.cClass &&
-              // score.subject &&
-              // score.term
-            );
+                // score.term === thisTerm._id &&
+                score.subject === thisSubject._id &&
+                score.avgScore >= 5
+              ) {
+                passed++;
+              }
+            });
+            let rateNumber = ((passed * 100) / total).toFixed(2);
+            rate = rateNumber + "%";
 
-            // console.log(
-            //   "thisCLass...",
-            //   thisClass._id,
-            //   thisTerm._id,
-            //   thisSubject._id,
-            //   // thisSchoolYear
-            //   scoreArr
-            // );
-
-            let isThereReport = reportSubject.find(
-              (report) =>
-                report.cClass === thisClass._id &&
-                report.term === thisTerm._id &&
-                report.subject === thisSubject._id
-            );
-
-            console.log(
-              "istherereport, isthereScore",
-              isThereReport,
-              isThereScore
-            );
-            // Nếu có điểm nhưng chưa có trong báo cáo thì thêm vào báo cáo
-            if (isThereScore && !isThereReport) {
-              let total = thisClass.students.length;
-              let passed = 0,
-                rate;
-              scoreArr.forEach((score) => {
-                if (
-                  score.cClass === thisClass._id &&
-                  score.term === thisTerm._id &&
-                  score.subject === thisSubject._id &&
-                  score.avgScore >= 5
-                ) {
-                  passed++;
-                }
-              });
-              let rateNumber = ((passed * 100) / total).toFixed(2);
-              rate = rateNumber + "%";
-
-              api.postReportSubject({
-                subject: thisSubject._id,
-                cClass: thisClass._id,
-                term: thisTerm._id,
-                schoolYear: thisSchoolYear._id,
-                totalStudents: total,
-                passed: passed,
-                rate: rate,
-              });
-            }
-          });
+            api.postReportSubject({
+              subject: thisSubject._id,
+              cClass: thisClass._id,
+              term: "6299d1a3197adb1f05703d97",
+              schoolYear: thisSchoolYear._id,
+              totalStudents: total,
+              passed: passed,
+              rate: rate,
+            });
+          }
         });
       });
+      // });
 
       const newReportSubject = await api.getReportSubjects();
       const UIarr = newReportSubject.filter(
         (item) =>
-          item.term === termID &&
-          item.schoolYear === schoolYearID &&
-          item.subject === subjectID
+          // item.term === termID &&
+          item.schoolYear === schoolYearID && item.subject === subjectID
       );
 
       console.log(newReportSubject, UIarr);

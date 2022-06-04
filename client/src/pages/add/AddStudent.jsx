@@ -15,10 +15,18 @@ export const AddStudent = () => {
   const [resultUI, setResultUI] = useState([]);
   const [studentArrState, setStudentArrState] = useState([]);
   const [message, setMessage] = useState("");
+  const [minAge, setMinAge] = useState(0);
+  const [maxAge, setMaxAge] = useState(0);
 
   useEffect(() => {
     const getStudentArr = async () => {
       const dataArr = await api.getStudentInfoArr();
+      const settingList = await api.getSettingList();
+
+      let min = settingList.find((item) => item.idSet === "ST002").valueSet;
+      let max = settingList.find((item) => item.idSet === "ST003").valueSet;
+      setMinAge(Number(min));
+      setMaxAge(Number(max));
       setStudentArrState(dataArr);
     };
     getStudentArr();
@@ -28,9 +36,15 @@ export const AddStudent = () => {
   const handleConfirmAcceptBtn = () => {
     //kiểm tra ràng buộc
     let checkEmptyMessage = helper.validateData("empty", result[0]);
-    let checkAgeMessage = helper.validateData("age", {
-      dateOfBirth: result[0].dateOfBirth,
-    });
+    let checkAgeMessage = helper.validateData(
+      "age",
+      {
+        dateOfBirth: result[0].dateOfBirth,
+      },
+      null,
+      minAge,
+      maxAge
+    );
     let checkEmailMessage = helper.validateData("email", {
       email: result[0].email,
     });
