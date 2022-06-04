@@ -12,6 +12,7 @@ export const Notification = ({
   status,
   handleSuccessCloseBtn = () => {
     console.log("tắt thông báo thành công bị lỗi");
+    // document.querySelector(".notification").style.display = "none";
   },
   message = "",
 }) => {
@@ -19,6 +20,7 @@ export const Notification = ({
     document.querySelector(
       ".notification--failed"
     ).parentElement.style.display = "none";
+    // document.querySelector(".notification--failed").style.display = "none";
     // document.querySelectorAll(".comfirm").forEach((item) => {
     //   item.style.display = "none";
     // });

@@ -192,7 +192,7 @@ export const CreateScore = () => {
     });
 
     payloadToApi.forEach((item) => api.postScoreSubject(item));
-    document.querySelector(".confirm.add .notification").style.display = "flex";
+    document.querySelector(".notification").style.display = "flex";
   };
   const handleConfirmCancelBtn = () => {
     document.querySelector(".confirm.add").style.display = "none";
